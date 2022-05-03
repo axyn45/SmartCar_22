@@ -127,7 +127,7 @@ void CameraCar (void)
             FindEdge();
 
             // 计算赛道偏差值，系数越大打角越早，数值跟舵机的范围有关，此处为±160左右，默认为7，
-            ServoDuty = Servo_Center_Mid - (OFFSET1 + OFFSET2 + OFFSET2) * 1 / 5;
+            ServoDuty = Servo_Center_Mid - (OFFSET1 + OFFSET2 + OFFSET2) * 1 / 3;
 
             // 圆环处理，如果面积为负数，数值越大说明越偏左边；
             if((OFFSET2 < -300)||(OFFSET2 > 300))
@@ -142,7 +142,7 @@ void CameraCar (void)
 
 //            MotorCtrl(MotorDuty1, MotorDuty2);        // 四轮电机驱动
 //             MotorCtrl(1800, 1800); // 电机PWM固定功率输出
-             MotorCtrl4w(1500, 1800, 1800, 1800);
+            MotorCtrl4w(1200, 1200, 1200, 1200);
 //             TFT_Show_Camera_Info();
         }
         if (Game_Over)
