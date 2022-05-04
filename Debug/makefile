@@ -87,23 +87,23 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 SECONDARY_SIZE += \
-CarOpenCycle.siz \
+SmartCar_22.siz \
 
 
 # All Target
-all: CarOpenCycle.elf secondary-outputs
+all: SmartCar_22.elf secondary-outputs
 
 # Tool invocations
-CarOpenCycle.elf: $(OBJS)
+SmartCar_22.elf: $(OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: TASKING Linker'
-	cctc -lrt -lfp_fpu -lcs_fpu  -Wl-Oc -Wl-OL -Wl-Ot -Wl-Ox -Wl-Oy -Wl--map-file="CarOpenCycle.map" -Wl-mc -Wl-mf -Wl-mi -Wl-mk -Wl-ml -Wl-mm -Wl-md -Wl-mr -Wl-mu --no-warnings= -Wl--error-limit=42 --strict --anachronisms --force-c++ -Ctc37x   -o"CarOpenCycle.elf" -Wl-o"CarOpenCycle.hex:IHEX" --lsl-core=vtc  --lsl-file=../Lcf_Tasking_Tricore_Tc.lsl $(OBJS)
+	cctc -lrt -lfp_fpu -lcs_fpu  -Wl-Oc -Wl-OL -Wl-Ot -Wl-Ox -Wl-Oy -Wl--map-file="SmartCar_22.map" -Wl-mc -Wl-mf -Wl-mi -Wl-mk -Wl-ml -Wl-mm -Wl-md -Wl-mr -Wl-mu --no-warnings= -Wl--error-limit=42 --strict --anachronisms --force-c++ -Ctc37x   -o"SmartCar_22.elf" -Wl-o"SmartCar_22.hex:IHEX" --lsl-core=vtc  --lsl-file=../Lcf_Tasking_Tricore_Tc.lsl $(OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
-CarOpenCycle.siz: CarOpenCycle.elf
+SmartCar_22.siz: SmartCar_22.elf
 	@echo 'Invoking: Print Size'
-	elfsize  "CarOpenCycle.elf"
+	elfsize  "SmartCar_22.elf"
 	@echo 'Finished building: $@'
 	@echo ' '
 
