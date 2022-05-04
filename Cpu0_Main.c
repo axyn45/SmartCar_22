@@ -187,7 +187,7 @@ int core0_main (void)
     while (1)	//涓诲惊鐜�
     {
         CameraCar();
-//        LED_Ctrl(LED0, RVS);     // LED闂儊 鎸囩ず绋嬪簭杩愯鐘舵��
-//        delayms(20);
+       LED_Ctrl(LED0, RVS);     // LED闂儊 鎸囩ず绋嬪簭杩愯鐘舵��
+       delayms(20);
     }
 }
