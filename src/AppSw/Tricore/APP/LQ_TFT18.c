@@ -1505,14 +1505,17 @@ void TFTSPI_BinRoad(unsigned char wide_start, unsigned char high_start, unsigned
     /* ÏÔÊ¾Í¼Ïñ */
     for(i = 0; i < temp; i++)
     {
-        if(Pixle[i])
+        if(Pixle[i]==1)
         {
             /* ÏÔÊ¾ */
             TFTSPI_Write_Word (0xffff);
         }
-        else
+        else if(Pixle[i]==2)
         {
             /* ÏÔÊ¾ */
+            TFTSPI_Write_Word (0xf800);
+        }
+        else{
             TFTSPI_Write_Word (0);
         }
 

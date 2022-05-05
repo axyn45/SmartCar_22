@@ -132,9 +132,9 @@ int core0_main (void)
 
 	TFTSPI_Init(0);               // TFT1.8鍒濆鍖�0:妯睆  1锛氱珫灞�
 	TFTSPI_CLS(u16BLACK);         // 娓呭睆
-	TFTSPI_Show_Logo(0,37);       // 鏄剧ず榫欓偙LOGO
-	TFTSPI_P16x16Str(0,0,(unsigned char*)"鍖椾含榫欓偙鏅鸿兘绉戞妧",u16RED,u16BLUE);// 瀛楃涓叉樉绀�
-	delayms(1000);
+//	TFTSPI_Show_Logo(0,37);       // 鏄剧ず榫欓偙LOGO
+//	TFTSPI_P16x16Str(0,0,(unsigned char*)"鍖椾含榫欓偙鏅鸿兘绉戞妧",u16RED,u16BLUE);// 瀛楃涓叉樉绀�
+//	delayms(1000);
 	// 鎸夐敭鍒濆鍖�
 	GPIO_KEY_Init();
 	// LED鐏墍鐢≒10.6鍜孭10.5鍒濆鍖�

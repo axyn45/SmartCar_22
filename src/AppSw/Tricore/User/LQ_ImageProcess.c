@@ -91,8 +91,9 @@ void CameraCar(void)
 {
     // 摄像头初始化
     CAMERA_Init(50);
-    TFTSPI_P8X16Str(2, 3, "LQ 9V034 Car", u16RED, u16GREEN);
+    TFTSPI_P8X16Str(2, 3, "LQ 9V034 Car777", u16RED, u16GREEN);
     TFTSPI_P8X16Str(1, 5, "K2 Show Video", u16RED, u16GREEN);
+
     delayms(500);
 
     // 切记CPU0,CPU1...不可以同时开启屏幕显示，否则冲突不显示
@@ -114,6 +115,7 @@ void CameraCar(void)
     MotorInit();
     while (1)
     {
+
         LED_Ctrl(LED1, RVS); // LED闪烁 指示程序运行状态
         if (Camera_Flag == 2)
         {
@@ -122,9 +124,11 @@ void CameraCar(void)
             Get_Bin_Image(0);   // 转换为01格式数据，0、1原图；2、3边沿提取
             Bin_Image_Filter(); // 滤波，三面被围的数据将被修改为同一数值
 
-            TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
+//            TFTSPI_P8X16Str(1, 5, Bin_Image[0][0], u16RED, u16GREEN);
             Seek_Road(); // 通过黑白区域面积差计算赛道偏差值
-            FindEdge();
+//            FindEdge();
+            TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
+            // Paint();
 
             // 计算赛道偏差值，系数越大打角越早，数值跟舵机的范围有关，此处为±160左右，默认为7，
             ServoDuty = Servo_Center_Mid - (OFFSET1 + OFFSET2 + OFFSET2) * 1 / 4;

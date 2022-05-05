@@ -599,6 +599,7 @@ void Seek_Road (void)
     sint16 temp = 0; //¡Ÿ ± ˝÷µ
     //for(nr=1; nr<MAX_ROW-1; nr++)
     temp = 0;
+    int edge_flag=0;
     for (nr = 8; nr < 24; nr++)
     {
         for (nc = MAX_COL / 2; nc < MAX_COL; nc = nc + 1)
@@ -607,17 +608,29 @@ void Seek_Road (void)
             {
                 ++temp;
             }
+            else if(edge_flag==0){
+                Bin_Image[nr][nc]=2;
+                edge_flag=1;
+            }
+
         }
-        for (nc = 0; nc < MAX_COL / 2; nc = nc + 1)
+        edge_flag=0;
+        for (nc = MAX_COL/2-1; nc >=0; nc = nc - 1)
         {
             if (Bin_Image[nr][nc])
             {
                 --temp;
             }
+            else if(edge_flag==0){
+                Bin_Image[nr][nc]=2;
+                edge_flag=1;
+            }
+
         }
     }
     OFFSET0 = temp;
     temp = 0;
+    edge_flag=0;
     for (nr = 24; nr < 40; nr++)
     {
         for (nc = MAX_COL / 2; nc < MAX_COL; nc = nc + 1)
@@ -626,17 +639,27 @@ void Seek_Road (void)
             {
                 ++temp;
             }
+            else if(edge_flag==0){
+                Bin_Image[nr][nc]=2;
+                edge_flag=1;
+            }
         }
-        for (nc = 0; nc < MAX_COL / 2; nc = nc + 1)
+        edge_flag=0;
+        for (nc = MAX_COL / 2-1; nc >=0; nc = nc - 1)
         {
             if (Bin_Image[nr][nc])
             {
                 --temp;
             }
+            else if(edge_flag==0){
+                Bin_Image[nr][nc]=2;
+                edge_flag=1;
+            }
         }
     }
     OFFSET1 = temp;
     temp = 0;
+    edge_flag=0;
     for (nr = 40; nr < 56; nr++)
     {
         for (nc = MAX_COL / 2; nc < MAX_COL; nc = nc + 1)
@@ -645,12 +668,21 @@ void Seek_Road (void)
             {
                 ++temp;
             }
+            else if(edge_flag==0){
+                Bin_Image[nr][nc]=2;
+                edge_flag=1;
+            }
         }
-        for (nc = 0; nc < MAX_COL / 2; nc = nc + 1)
+        edge_flag=0;
+        for (nc = MAX_COL / 2-1; nc >=0; nc = nc - 1)
         {
             if (Bin_Image[nr][nc])
             {
                 --temp;
+            }
+            else if(edge_flag==0){
+                Bin_Image[nr][nc]=2;
+                edge_flag=1;
             }
         }
     }
