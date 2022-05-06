@@ -127,6 +127,7 @@ void CameraCar(void)
 //            TFTSPI_P8X16Str(1, 5, Bin_Image[0][0], u16RED, u16GREEN);
             Seek_Road(); // 通过黑白区域面积差计算赛道偏差值
 //            FindEdge();
+            Seek_Road_Edge();
             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
             // Paint();
 

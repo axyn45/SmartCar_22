@@ -1514,6 +1514,15 @@ void TFTSPI_BinRoad(unsigned char wide_start, unsigned char high_start, unsigned
         {
             /* œ‘ æ */
             TFTSPI_Write_Word (0xf800);
+            TFTSPI_Write_Word (0xf800);
+            i++;
+        }
+        else if(Pixle[i]==2)
+        {
+            /* œ‘ æ */
+            TFTSPI_Write_Word (0xf81f);
+            TFTSPI_Write_Word (0xf81f);
+            i++;
         }
         else{
             TFTSPI_Write_Word (0);

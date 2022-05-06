@@ -599,7 +599,7 @@ void Seek_Road (void)
     sint16 temp = 0; //临时数值
     //for(nr=1; nr<MAX_ROW-1; nr++)
     temp = 0;
-    int edge_flag=0;
+//    int edge_flag=0;
     for (nr = 8; nr < 24; nr++)
     {
         for (nc = MAX_COL / 2; nc < MAX_COL; nc = nc + 1)
@@ -608,29 +608,29 @@ void Seek_Road (void)
             {
                 ++temp;
             }
-            else if(edge_flag==0){
-                Bin_Image[nr][nc]=2;
-                edge_flag=1;
-            }
+//            else if(edge_flag==0){
+//                Bin_Image[nr][nc]=2;
+//                edge_flag=1;
+//            }
 
         }
-        edge_flag=0;
+//        edge_flag=0;
         for (nc = MAX_COL/2-1; nc >=0; nc = nc - 1)
         {
             if (Bin_Image[nr][nc])
             {
                 --temp;
             }
-            else if(edge_flag==0){
-                Bin_Image[nr][nc]=2;
-                edge_flag=1;
-            }
+//            else if(edge_flag==0){
+//                Bin_Image[nr][nc]=2;
+//                edge_flag=1;
+//            }
 
         }
     }
     OFFSET0 = temp;
     temp = 0;
-    edge_flag=0;
+//    edge_flag=0;
     for (nr = 24; nr < 40; nr++)
     {
         for (nc = MAX_COL / 2; nc < MAX_COL; nc = nc + 1)
@@ -639,27 +639,27 @@ void Seek_Road (void)
             {
                 ++temp;
             }
-            else if(edge_flag==0){
-                Bin_Image[nr][nc]=2;
-                edge_flag=1;
-            }
+//            else if(edge_flag==0){
+//                Bin_Image[nr][nc]=2;
+//                edge_flag=1;
+//            }
         }
-        edge_flag=0;
+//        edge_flag=0;
         for (nc = MAX_COL / 2-1; nc >=0; nc = nc - 1)
         {
             if (Bin_Image[nr][nc])
             {
                 --temp;
             }
-            else if(edge_flag==0){
-                Bin_Image[nr][nc]=2;
-                edge_flag=1;
-            }
+//            else if(edge_flag==0){
+//                Bin_Image[nr][nc]=2;
+//                edge_flag=1;
+//            }
         }
     }
     OFFSET1 = temp;
     temp = 0;
-    edge_flag=0;
+//    edge_flag=0;
     for (nr = 40; nr < 56; nr++)
     {
         for (nc = MAX_COL / 2; nc < MAX_COL; nc = nc + 1)
@@ -668,24 +668,120 @@ void Seek_Road (void)
             {
                 ++temp;
             }
-            else if(edge_flag==0){
-                Bin_Image[nr][nc]=2;
-                edge_flag=1;
-            }
+//            else if(edge_flag==0){
+//                Bin_Image[nr][nc]=2;
+//                edge_flag=1;
+//            }
         }
-        edge_flag=0;
+//        edge_flag=0;
         for (nc = MAX_COL / 2-1; nc >=0; nc = nc - 1)
         {
             if (Bin_Image[nr][nc])
             {
                 --temp;
             }
-            else if(edge_flag==0){
-                Bin_Image[nr][nc]=2;
-                edge_flag=1;
-            }
+//            else if(edge_flag==0){
+//                Bin_Image[nr][nc]=2;
+//                edge_flag=1;
+//            }
         }
     }
     OFFSET2 = temp;
     return;
+}
+
+
+//void Seek_Road_Edge(void)
+//{
+//    sint16 nr; //行
+//    sint16 nc; //列
+//    int mid=MAX_COL/2;
+//    int flag_r=1;
+//    int flag_l=1;
+//    for(nr=8;nr<56;nr++)
+//    {
+//        flag_r=1;
+//        flag_l=1;
+//        for (nc = MAX_COL / 2; nc < MAX_COL; nc = nc + 1)//右扫线
+//        {
+//            if (Bin_Image[nr][nc-1]==1&&Bin_Image[nr][nc]==1&&Bin_Image[nr][nc+1]==0&&Bin_Image[nr][nc+2]==0&&flag_r==1)
+//            {
+//                //画点
+//                Bin_Image[nr][nc]=2;
+//               // TFTSPI_Draw_Dot(nc,nr,u16YELLOW);//弄成黄色
+//                flag_r=0;
+//            }
+//        }
+//        for (nc = MAX_COL / 2; nc > 0 ; nc = nc - 1)//左扫线
+//        {
+//            if (Bin_Image[nr][nc+1]==1&&Bin_Image[nr][nc]==1&&Bin_Image[nr][nc-1]==0&&Bin_Image[nr][nc-2]==0&&flag_l==1)
+//            {
+//                //画点
+//                Bin_Image[nr][nc]=2;
+//             //   TFTSPI_Draw_Dot(nc,nr,u16YELLOW);//弄成黄色
+//                flag_l=0;
+//            }
+//        }
+//       // delayms(100);
+//      //  delay(1000);
+//       // sleep(200);
+//
+//    }
+//
+//
+//
+//}
+void Seek_Road_Edge(void)
+{
+    sint16 nr; //行
+    sint16 nc; //列
+    int mid=MAX_COL/2;
+    int left=0,right=MAX_COL;
+    int flag_r=1;
+    int flag_l=1;
+
+    for(nr=59;nr>=0;nr--)
+    {
+        flag_r=0;
+        flag_l=0;
+
+        for (nc = mid; nc < MAX_COL&&!flag_r; nc = nc + 1)//右扫线
+        {
+            if (Bin_Image[nr][nc-1]==1&&Bin_Image[nr][nc]==1&&Bin_Image[nr][nc+1]==0&&Bin_Image[nr][nc+2]==0&&flag_r==0)
+            {
+                //画点
+                Bin_Image[nr][nc]=2;
+               // TFTSPI_Draw_Dot(nc,nr,u16YELLOW);//弄成黄色
+                flag_r=1;
+                right=nc;
+            }
+        }
+        for (nc = mid; nc > 0&&!flag_l ; nc = nc - 1)//左扫线
+        {
+            if (Bin_Image[nr][nc+1]==1&&Bin_Image[nr][nc]==1&&Bin_Image[nr][nc-1]==0&&Bin_Image[nr][nc-2]==0&&flag_l==0)
+            {
+                //画点
+                Bin_Image[nr][nc]=2;
+             //   TFTSPI_Draw_Dot(nc,nr,u16YELLOW);//弄成黄色
+                flag_l=1;
+                left=nc;
+            }
+        }
+        mid=(left+right)/2;
+        Bin_Image[nr][mid]=3;
+//        if(nr==59){
+//            TFTSPI_P8X16Str(1, 5, mid, u16RED, u16GREEN);
+//        }
+//        if(nr==29){
+//            TFTSPI_P8X16Str(2, 3, mid, u16RED, u16GREEN);
+//        }
+//        if(nr==0){
+//            TFTSPI_P8X16Str(3, 1, mid, u16RED, u16GREEN);
+//        }
+//        delayms(50);
+//        TFTSPI_CLS(u16BLUE); // 清屏
+    }
+
+
+
 }
