@@ -45,6 +45,8 @@ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
  *  修改时间：2020年11月18日
  *  备    注：
  *************************************************************************/
+bool isleft();
+bool isright();
 void TFT_Show_Camera_Info (void)
 {
     char txt[16] = "X:";
@@ -129,17 +131,22 @@ void CameraCar (void)
               // 通过黑白区域面积差计算赛道偏差值
 
             // FindEdge();
-      
+
             // 计算赛道偏差值，系数越大打角越早，数值跟舵机的范围有关，此处为±160左右，默认为7，
             ServoDuty = Servo_Center_Mid - (OFFSET1 + OFFSET2 + OFFSET2) * 1 / 3;
             if(isright())//是右转弯
             {
-                
+               ServoDuty=1900;
             }
             if(isleft())//是左转弯
             {
-                
+                ServoDuty=1900;
             }
+
+//            if(iscircle())
+//            {
+//
+//            }
             // 圆环处理，如果面积为负数，数值越大说明越偏左边；
             if((OFFSET2 < -300)||(OFFSET2 > 300))
                 ServoDuty = Servo_Center_Mid - OFFSET2 / 7;
@@ -174,7 +181,7 @@ bool isright()//判断是否为右直角转弯 是右转弯就return true
      {
        return true;
      }
-    return false; 
+    return false;
 }
 bool isleft()//判断是否为走直角转弯 是左转弯就return true
 {
@@ -182,7 +189,7 @@ bool isleft()//判断是否为走直角转弯 是左转弯就return true
      int flag=0;
      for(i=0;i<60;i++)
      {
-         if(left_edge[i]==93)
+         if(left_edge[i]==0)
          {
              flag++;
          }
@@ -191,9 +198,58 @@ bool isleft()//判断是否为走直角转弯 是左转弯就return true
      {
        return true;
      }
-    return false; 
+    return false;
 }
+
 bool is_circel()//判断是否是圆环
 {
-    
+    int i;
+    int flag=0;
+    for(i=15;i<40;i++)
+    {
+        if(left_edge[i]==0)
+        {
+            flag++;
+        }
+    }
+    if(flag>20)
+    {
+      return true;
+    }
+   return false;
+}
+int getsize(int x[])
+{   int i;
+    int flag=0;
+    for(i=0;x[i]!='\0';i++)
+    {
+        flag++;
+    }
+
+    return flag;
+}
+
+
+void deal(int x[])//采用克莱默法 计算方程
+{
+    int i;
+    int n=getsize(x);//x数组大小
+    float a0,a1,temp,temp0,temp1;
+    float sy=0,sx=0,sxx=0,syy=0,sxy=0,sxxy=0,sxxx=0,sxxxx=0;//定义相关变量
+    for(i=0;i<n;i++)
+    {
+        sx+=i;//计算xi的和
+        sy+=x[i];//计算yi的和
+        sxx+=i*i;//计算xi的平方的和
+        sxxx+=pow(i,3);//计算xi的立方的和
+        sxxxx+=pow(i,4);//计算xi的4次方的和
+        sxy+=i*x[i];//计算xi乘yi的的和
+        sxxy+=i*i*x[i];//计算xi平方乘yi的和
+    }
+    temp=n*sxx-sx*sx;//方程的系数行列式
+    temp0=sy*sxx-sx*sxy;
+    temp1=n*sxy-sy*sx;
+    a0=temp0/temp;
+    a1=temp1/temp;
+    printf("f(x)=%3.3fx+%3.3f\n",a1,a0);
 }
