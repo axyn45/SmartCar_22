@@ -14,10 +14,6 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-################################################################################
-# Automatically-generated file. Do not edit!
-################################################################################
-
 Ifx_Ssw_Infra.o :	../Libraries/Infra/Ssw/TC37A/Tricore/Ifx_Ssw_Infra.c
 ../Libraries/Infra/Ssw/TC37A/Tricore/Ifx_Ssw_Infra.c :
 Ifx_Ssw_Infra.o :	../src/AppSw/Ifx_Cfg.h

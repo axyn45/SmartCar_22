@@ -14,10 +14,6 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-################################################################################
-# Automatically-generated file. Do not edit!
-################################################################################
-
 test.o :	../src/AppSw/Tricore/User/test.c
 ../src/AppSw/Tricore/User/test.c :
 test.o :	../src/AppSw/Tricore/User/ANO_DT.h

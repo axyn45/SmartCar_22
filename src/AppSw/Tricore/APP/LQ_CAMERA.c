@@ -65,6 +65,9 @@ unsigned char Image_Use[LCDH][LCDW];
 
 /** 二值化后用于OLED显示的数据 */
 unsigned char Bin_Image[LCDH][LCDW];
+unsigned char Road_Mid[LCDH];
+unsigned char Road_Left[LCDH];
+unsigned char Road_Right[LCDH];
 
 sint16 OFFSET0 = 0;      //最远处，赛道中心值综合偏移量
 sint16 OFFSET1 = 0;      //第二格
@@ -691,46 +694,6 @@ void Seek_Road (void)
 }
 
 
-//void Seek_Road_Edge(void)
-//{
-//    sint16 nr; //行
-//    sint16 nc; //列
-//    int mid=MAX_COL/2;
-//    int flag_r=1;
-//    int flag_l=1;
-//    for(nr=8;nr<56;nr++)
-//    {
-//        flag_r=1;
-//        flag_l=1;
-//        for (nc = MAX_COL / 2; nc < MAX_COL; nc = nc + 1)//右扫线
-//        {
-//            if (Bin_Image[nr][nc-1]==1&&Bin_Image[nr][nc]==1&&Bin_Image[nr][nc+1]==0&&Bin_Image[nr][nc+2]==0&&flag_r==1)
-//            {
-//                //画点
-//                Bin_Image[nr][nc]=2;
-//               // TFTSPI_Draw_Dot(nc,nr,u16YELLOW);//弄成黄色
-//                flag_r=0;
-//            }
-//        }
-//        for (nc = MAX_COL / 2; nc > 0 ; nc = nc - 1)//左扫线
-//        {
-//            if (Bin_Image[nr][nc+1]==1&&Bin_Image[nr][nc]==1&&Bin_Image[nr][nc-1]==0&&Bin_Image[nr][nc-2]==0&&flag_l==1)
-//            {
-//                //画点
-//                Bin_Image[nr][nc]=2;
-//             //   TFTSPI_Draw_Dot(nc,nr,u16YELLOW);//弄成黄色
-//                flag_l=0;
-//            }
-//        }
-//       // delayms(100);
-//      //  delay(1000);
-//       // sleep(200);
-//
-//    }
-//
-//
-//
-//}
 void Seek_Road_Edge(void)
 {
     sint16 nr; //行
@@ -767,21 +730,23 @@ void Seek_Road_Edge(void)
                 left=nc;
             }
         }
+        Road_Left[nr]=left;
+        Road_Right[nr]=right;
         mid=(left+right)/2;
-        Bin_Image[nr][mid]=3;
-//        if(nr==59){
-//            TFTSPI_P8X16Str(1, 5, mid, u16RED, u16GREEN);
-//        }
-//        if(nr==29){
-//            TFTSPI_P8X16Str(2, 3, mid, u16RED, u16GREEN);
-//        }
-//        if(nr==0){
-//            TFTSPI_P8X16Str(3, 1, mid, u16RED, u16GREEN);
-//        }
-//        delayms(50);
-//        TFTSPI_CLS(u16BLUE); // 清屏
+        Road_Mid[nr]=mid;
+        Bin_Image[nr][Road_Mid[nr]]=3;
     }
 
+    OFFSET0=0;OFFSET1=0;OFFSET2=0;
+    for(nr=55;nr>=40;nr--){
+        OFFSET2+=Road_Mid[nr]-MAX_COL/2;
+    }
+    for(nr=39;nr>=24;nr--){
+        OFFSET1+=Road_Mid[nr]-MAX_COL/2;
+    }
+    for(nr=23;nr>=8;nr--){
+        OFFSET0+=Road_Mid[nr]-MAX_COL/2;
+    }
 
 
 }

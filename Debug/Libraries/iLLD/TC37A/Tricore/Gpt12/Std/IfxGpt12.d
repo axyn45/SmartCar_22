@@ -14,10 +14,6 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-################################################################################
-# Automatically-generated file. Do not edit!
-################################################################################
-
 IfxGpt12.o :	../Libraries/iLLD/TC37A/Tricore/Gpt12/Std/IfxGpt12.c
 ../Libraries/iLLD/TC37A/Tricore/Gpt12/Std/IfxGpt12.c :
 IfxGpt12.o :	../src/AppSw/Ifx_Cfg.h

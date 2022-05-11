@@ -52,6 +52,9 @@ extern unsigned char Image_Use[LCDH][LCDW];
 
 /** 二值化后用于OLED显示的数据 */
 extern unsigned char Bin_Image[LCDH][LCDW];
+extern unsigned char Road_Mid[LCDH];
+extern unsigned char Road_Left[LCDH];
+extern unsigned char Road_Right[LCDH];
 
 
 /*!

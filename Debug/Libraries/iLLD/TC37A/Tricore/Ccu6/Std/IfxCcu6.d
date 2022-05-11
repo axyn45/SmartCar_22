@@ -14,10 +14,6 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-################################################################################
-# Automatically-generated file. Do not edit!
-################################################################################
-
 IfxCcu6.o :	../Libraries/iLLD/TC37A/Tricore/Ccu6/Std/IfxCcu6.c
 ../Libraries/iLLD/TC37A/Tricore/Ccu6/Std/IfxCcu6.c :
 IfxCcu6.o :	../src/AppSw/Ifx_Cfg.h

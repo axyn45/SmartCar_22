@@ -14,10 +14,6 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-################################################################################
-# Automatically-generated file. Do not edit!
-################################################################################
-
 IfxGpt12_IncrEnc.o :	../Libraries/iLLD/TC37A/Tricore/Gpt12/IncrEnc/IfxGpt12_IncrEnc.c
 ../Libraries/iLLD/TC37A/Tricore/Gpt12/IncrEnc/IfxGpt12_IncrEnc.c :
 IfxGpt12_IncrEnc.o :	../Libraries/Service/CpuGeneric/StdIf/IfxStdIf_Pos.h

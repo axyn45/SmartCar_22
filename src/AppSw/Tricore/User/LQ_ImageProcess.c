@@ -22,6 +22,7 @@ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <LQ_CAMERA.h>
+
 #include <LQ_DMA.h>
 #include <LQ_GPIO_LED.h>
 #include <LQ_TFT18.h>
@@ -95,7 +96,7 @@ void CameraCar (void)
     CAMERA_Init(50);
     MotorInit();
     TFTSPI_P8X16Str(2, 3, "LQ 9V034 Car", u16RED, u16GREEN);
-    TFTSPI_P8X16Str(1, 5, "K2 Show Video", u16RED, u16GREEN);
+    TFTSPI_P8X16Str(1, 5, "K2 Show Video77", u16RED, u16GREEN);
     delayms(500);
     short duty = 1500;//900时的速度很慢
 
@@ -125,7 +126,7 @@ void CameraCar (void)
             Get_Use_Image();     // 取出赛道及显示所需图像数据
             Get_Bin_Image(0);    // 转换为01格式数据，0、1原图；2、3边沿提取
             Bin_Image_Filter();  // 滤波，三面被围的数据将被修改为同一数值
-            Seek_Road();
+            // Seek_Road();
             Seek_Road_Edge();
             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *) Bin_Image);
               // 通过黑白区域面积差计算赛道偏差值
@@ -172,7 +173,7 @@ bool isright()//判断是否为右直角转弯 是右转弯就return true
      int flag=0;
      for(i=0;i<60;i++)
      {
-         if(right_edge[i]==93)
+         if(Road_Right[i]==93)
          {
              flag++;
          }
@@ -189,7 +190,7 @@ bool isleft()//判断是否为走直角转弯 是左转弯就return true
      int flag=0;
      for(i=0;i<60;i++)
      {
-         if(left_edge[i]==0)
+         if(Road_Left[i]==0)
          {
              flag++;
          }
@@ -207,7 +208,7 @@ bool is_circel()//判断是否是圆环
     int flag=0;
     for(i=15;i<40;i++)
     {
-        if(left_edge[i]==0)
+        if(Road_Left[i]==0)
         {
             flag++;
         }
