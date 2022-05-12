@@ -24,6 +24,12 @@ LQ_ImageProcess.o :	../src/AppSw/Tricore/App/LQ_CAMERA.h
 ../src/AppSw/Tricore/App/LQ_CAMERA.h :
 LQ_ImageProcess.o :	../src/AppSw/Tricore/App/LQ_GPIO_LED.h
 ../src/AppSw/Tricore/App/LQ_GPIO_LED.h :
+LQ_ImageProcess.o :	../src/AppSw/Tricore/App/LQ_GPIO_KEY.h
+../src/AppSw/Tricore/App/LQ_GPIO_KEY.h :
+LQ_ImageProcess.o :	../src/AppSw/Tricore/Driver/LQ_GTM.h
+../src/AppSw/Tricore/Driver/LQ_GTM.h :
+LQ_ImageProcess.o :	../Libraries/Service/CpuGeneric/_Utilities/Ifx_Assert.h
+../Libraries/Service/CpuGeneric/_Utilities/Ifx_Assert.h :
 LQ_ImageProcess.o :	../src/AppSw/Tricore/App/LQ_TFT18.h
 ../src/AppSw/Tricore/App/LQ_TFT18.h :
 LQ_ImageProcess.o :	../src/AppSw/Tricore/Driver/LQ_ADC.h

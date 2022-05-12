@@ -55,6 +55,8 @@ extern unsigned char Bin_Image[LCDH][LCDW];
 extern unsigned char Road_Mid[LCDH];
 extern unsigned char Road_Left[LCDH];
 extern unsigned char Road_Right[LCDH];
+extern unsigned char Road_Left_Top[2];
+extern unsigned char Road_Right_Top[2];
 
 
 /*!

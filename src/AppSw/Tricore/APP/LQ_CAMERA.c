@@ -68,6 +68,8 @@ unsigned char Bin_Image[LCDH][LCDW];
 unsigned char Road_Mid[LCDH];
 unsigned char Road_Left[LCDH];
 unsigned char Road_Right[LCDH];
+unsigned char Road_Left_Top[2]={0,0};
+unsigned char Road_Right_Top[2]={0,0};
 
 sint16 OFFSET0 = 0;      //最远处，赛道中心值综合偏移量
 sint16 OFFSET1 = 0;      //第二格
@@ -728,6 +730,11 @@ void Seek_Road_Edge(void)
              //   TFTSPI_Draw_Dot(nc,nr,u16YELLOW);//弄成黄色
                 flag_l=1;
                 left=nc;
+                if(Road_Left[nr-1]!=MAX_COL-1&&left==MAX_COL-1){
+                    Road_Left_Top[0]=nr;Road_Left_Top[1]=left;
+                    Road_Left[nr+1]=-1;
+                }
+                break;
             }
         }
         Road_Left[nr]=left;
@@ -736,16 +743,40 @@ void Seek_Road_Edge(void)
         Road_Mid[nr]=mid;
         Bin_Image[nr][Road_Mid[nr]]=3;
     }
-
+    
     OFFSET0=0;OFFSET1=0;OFFSET2=0;
     for(nr=55;nr>=40;nr--){
-        OFFSET2+=Road_Mid[nr]-MAX_COL/2;
+        if(Road_Left[nr]>=MAX_COL/2){
+            OFFSET2+=Road_Right[nr]-Road_Left[nr];
+        }
+        else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
+            OFFSET2+=(Road_Right[nr]-MAX_COL/2)-(MAX_COL/2-Road_Left[nr]);
+        }
+        else{
+            OFFSET2+=Road_Left[nr]-Road_Right[nr];
+        }
     }
     for(nr=39;nr>=24;nr--){
-        OFFSET1+=Road_Mid[nr]-MAX_COL/2;
+        if(Road_Left[nr]>=MAX_COL/2){
+            OFFSET1+=Road_Right[nr]-Road_Left[nr];
+        }
+        else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
+            OFFSET1+=(Road_Right[nr]-MAX_COL/2)-(MAX_COL/2-Road_Left[nr]);
+        }
+        else{
+            OFFSET1+=Road_Left[nr]-Road_Right[nr];
+        }
     }
     for(nr=23;nr>=8;nr--){
-        OFFSET0+=Road_Mid[nr]-MAX_COL/2;
+        if(Road_Left[nr]>=MAX_COL/2){
+            OFFSET0+=Road_Right[nr]-Road_Left[nr];
+        }
+        else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
+            OFFSET0+=(Road_Right[nr]-MAX_COL/2)-(MAX_COL/2-Road_Left[nr]);
+        }
+        else{
+            OFFSET0+=Road_Left[nr]-Road_Right[nr];
+        }
     }
 
 

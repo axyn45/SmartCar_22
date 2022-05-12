@@ -14,6 +14,14 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
 LQ_Atom_Motor.o :	../src/AppSw/Tricore/APP/LQ_Atom_Motor.c
 ../src/AppSw/Tricore/APP/LQ_Atom_Motor.c :
 LQ_Atom_Motor.o :	../src/AppSw/Tricore/App/LQ_Atom_Motor.h
