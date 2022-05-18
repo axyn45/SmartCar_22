@@ -40,6 +40,7 @@ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 #include "LQ_MT9V034.h"
 #include "LQ_ImageProcess.h"
 #include <stdbool.h>
+
 /*************************************************************************
  *  函数名称：void TFT_Show_Camera_Info(void)
  *  功能说明：显示各种所需信息
@@ -97,8 +98,8 @@ void CameraCar(void)
     // 摄像头初始化
     CAMERA_Init(50);
     MotorInit();
-    TFTSPI_P8X16Str(2, 3, "LQ 9V034 Car", u16RED, u16GREEN);
-    TFTSPI_P8X16Str(1, 5, "K2 Show Video77", u16RED, u16GREEN);
+    TFTSPI_P8X16Str(2, 0, "LQ 9V034 Car", u16RED, u16GREEN);
+    TFTSPI_P8X16Str(1, 2, "K2 Show Video77", u16RED, u16GREEN);
     delayms(500);
     short duty = 1500; // 900时的速度很慢
 
@@ -121,6 +122,8 @@ void CameraCar(void)
     NowTime = STM_GetNowUs(STM0); // 获取STM0 当前时间
     sint16 tduty=1300;
     sint16 sduty_offset=0;
+
+    char tstr[10];
     while (1)
     {
         LED_Ctrl(LED1, RVS); // LED闪烁 指示程序运行状态
@@ -130,27 +133,36 @@ void CameraCar(void)
             Get_Use_Image();    // 取出赛道及显示所需图像数据
             Get_Bin_Image(0);   // 转换为01格式数据，0、1原图；2、3边沿提取
             Bin_Image_Filter(); // 滤波，三面被围的数据将被修改为同一数值
-            Seek_Road();
-            //            Seek_Road_Edge();
+//            Seek_Road();
+            Seek_Road_Edge();
             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
+            sprintf(tstr,"OFFSET0: %d",OFFSET0);
+            TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
+            sprintf(tstr,"OFFSET1: %d",OFFSET1);
+            TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
+            sprintf(tstr,"OFFSET2: %d",OFFSET2);
+            TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
             // 通过黑白区域面积差计算赛道偏差值
 
             // FindEdge();
 
             // 计算赛道偏差值，系数越大打角越早，数值跟舵机的范围有关，此处为±160左右，默认为7，
-            sduty_offset=(OFFSET1 + OFFSET2 + OFFSET2) * 1 / 3;
-            if((sduty_offset>=250||sduty_offset<=-250)&&(sduty_offset<300||sduty_offset>-300)){
-                sduty_offset=0.95*sduty_offset;
-            }
-            else if((sduty_offset>=300||sduty_offset<=-300)&&(sduty_offset<350||sduty_offset>-350)){
-                sduty_offset=0.90*sduty_offset;
-            }
-            else if((sduty_offset>=350||sduty_offset<=-350)&&(sduty_offset<400||sduty_offset>-400)){
-                sduty_offset=0.83*sduty_offset;
-            }
-            else if((sduty_offset>=400||sduty_offset<=-400)){
-                sduty_offset=0.78*sduty_offset;
-            }
+            sduty_offset=(OFFSET0*8 + OFFSET1*12 + OFFSET2*6) * 1 / 3;
+//            if((OFFSET0>0&&OFFSET1<0)&&(OFFSET0<0&&OFFSET1>0)){
+//                sduty_offset+=OFFSET0*1.2;
+//            }
+//            if((sduty_offset>=250||sduty_offset<=-250)&&(sduty_offset<300||sduty_offset>-300)){
+//                sduty_offset=0.95*sduty_offset;
+//            }
+//            else if((sduty_offset>=300||sduty_offset<=-300)&&(sduty_offset<350||sduty_offset>-350)){
+//                sduty_offset=0.90*sduty_offset;
+//            }
+//            else if((sduty_offset>=350||sduty_offset<=-350)&&(sduty_offset<400||sduty_offset>-400)){
+//                sduty_offset=0.83*sduty_offset;
+//            }
+//            else if((sduty_offset>=400||sduty_offset<=-400)){
+//                sduty_offset=0.78*sduty_offset;
+//            }
             ServoDuty = Servo_Center_Mid - sduty_offset;
             //            if(isright())//是右转弯
             //            {

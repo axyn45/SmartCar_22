@@ -160,7 +160,7 @@ int core0_main (void)
 //    Test_ADC_TFT();        //PASS,娴嬭瘯ADC閲囨牱鏃堕棿 TFT涓婃樉绀� ADC閲囨牱10K娆℃椂闂�
 //    Test_ADC_7mic();       //PASS,娴嬭瘯ADC\UART0銆丼TM寤舵椂鍜岄棯鐏紝閫氳繃UART0鎵撳嵃 AN0--AN7鍏�8涓�氶亾ADC杞崲鏁版嵁
 //    Test_GPIO_Extern_Int();//PASS,娴嬭瘯澶栭儴绗�1缁勪腑鏂璓15.8锛孭10.6鍜孭10.5闂伅
-  TestMotor();	         //PASS,娴嬭瘯鐢垫満鍑芥暟锛岄�氳繃鎸夐敭淇敼杈撳嚭PWM锛屽湪TFT1.8灞忓箷鏄剧ず锛岄�氳繃瀹忓畾涔夐�夋嫨瀵瑰簲鐨勯┍鍔ㄦā鍧�
+//  TestMotor();	         //PASS,娴嬭瘯鐢垫満鍑芥暟锛岄�氳繃鎸夐敭淇敼杈撳嚭PWM锛屽湪TFT1.8灞忓箷鏄剧ず锛岄�氳繃瀹忓畾涔夐�夋嫨瀵瑰簲鐨勯┍鍔ㄦā鍧�
    // TestServo();	         //PASS,娴嬭瘯鑸垫満鍑芥暟锛岄�氳繃鎸夐敭淇敼杈撳嚭PWM锛屽湪TFT1.8灞忓箷鏄剧ず
   // TestEncoder();         //PASS,娴嬭瘯缂栫爜鍣紝灞忓箷鏄剧ず缂栫爜鍣ㄨ鍊硷紝瀵瑰簲姣嶇増涓婄紪鐮佸櫒2鍜岀紪鐮佸櫒4閫氶亾
 //    Test_GPIO_LED();       //PASS,娴嬭瘯GPIO锛孭10.6鍜孭10.5闂伅

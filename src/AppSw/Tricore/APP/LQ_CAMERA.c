@@ -56,6 +56,7 @@ ________________________________________________________________
 #include <string.h>
 #include <stdlib.h>
 #include <include.h>
+// #include <math.h>
 
 /** 图像原始数据存放 */
 unsigned char Image_Data[IMAGEH][IMAGEW];
@@ -585,115 +586,8 @@ void Bin_Image_Filter (void)
     }
 }
 
-/***************************************************************************
- *                                                                          *
- *  函数名称：Seek_Road(void)                                           *
- *  功能说明：寻找白色区域偏差值                                            *
- *  参数说明：无                                                            *
- *  函数返回：值的大小                                                      *
- *  修改时间：2017-07-16                                                    *
- *  备    注：以中间为0，左侧减一，右侧加一，数值代表1的面积                *
- *            计算区域从第一行开始到倒数第二行结束。                        *
- *            如果面积为负数，数值越大说明越偏左边；                        *
- *            如果面积为正数，数值越大说明越偏右边。                        *
- ***************************************************************************/
-void Seek_Road (void)
-{
-    sint16 nr; //行
-    sint16 nc; //列
-    sint16 temp = 0; //临时数值
-    //for(nr=1; nr<MAX_ROW-1; nr++)
-    temp = 0;
-//    int edge_flag=0;
-    for (nr = 8; nr < 24; nr++)
-    {
-        for (nc = MAX_COL / 2; nc < MAX_COL; nc = nc + 1)
-        {
-            if (Bin_Image[nr][nc])
-            {
-                ++temp;
-            }
-//            else if(edge_flag==0){
-//                Bin_Image[nr][nc]=2;
-//                edge_flag=1;
-//            }
 
-        }
-//        edge_flag=0;
-        for (nc = MAX_COL/2-1; nc >=0; nc = nc - 1)
-        {
-            if (Bin_Image[nr][nc])
-            {
-                --temp;
-            }
-//            else if(edge_flag==0){
-//                Bin_Image[nr][nc]=2;
-//                edge_flag=1;
-//            }
 
-        }
-    }
-    OFFSET0 = temp;
-    temp = 0;
-//    edge_flag=0;
-    for (nr = 24; nr < 40; nr++)
-    {
-        for (nc = MAX_COL / 2; nc < MAX_COL; nc = nc + 1)
-        {
-            if (Bin_Image[nr][nc])
-            {
-                ++temp;
-            }
-//            else if(edge_flag==0){
-//                Bin_Image[nr][nc]=2;
-//                edge_flag=1;
-//            }
-        }
-//        edge_flag=0;
-        for (nc = MAX_COL / 2-1; nc >=0; nc = nc - 1)
-        {
-            if (Bin_Image[nr][nc])
-            {
-                --temp;
-            }
-//            else if(edge_flag==0){
-//                Bin_Image[nr][nc]=2;
-//                edge_flag=1;
-//            }
-        }
-    }
-    OFFSET1 = temp;
-    temp = 0;
-//    edge_flag=0;
-    for (nr = 40; nr < 56; nr++)
-    {
-        for (nc = MAX_COL / 2; nc < MAX_COL; nc = nc + 1)
-        {
-            if (Bin_Image[nr][nc])
-            {
-                ++temp;
-            }
-//            else if(edge_flag==0){
-//                Bin_Image[nr][nc]=2;
-//                edge_flag=1;
-//            }
-        }
-//        edge_flag=0;
-        for (nc = MAX_COL / 2-1; nc >=0; nc = nc - 1)
-        {
-            if (Bin_Image[nr][nc])
-            {
-                --temp;
-            }
-//            else if(edge_flag==0){
-//                Bin_Image[nr][nc]=2;
-//                edge_flag=1;
-//            }
-        }
-    }
-    OFFSET2 = temp;
-    return;
-}
 
 
 void Seek_Road_Edge(void)
@@ -714,9 +608,7 @@ void Seek_Road_Edge(void)
         {
             if (Bin_Image[nr][nc-1]==1&&Bin_Image[nr][nc]==1&&Bin_Image[nr][nc+1]==0&&Bin_Image[nr][nc+2]==0&&flag_r==0)
             {
-                //画点
                 Bin_Image[nr][nc]=2;
-               // TFTSPI_Draw_Dot(nc,nr,u16YELLOW);//弄成黄色
                 flag_r=1;
                 right=nc;
             }
@@ -725,9 +617,7 @@ void Seek_Road_Edge(void)
         {
             if (Bin_Image[nr][nc+1]==1&&Bin_Image[nr][nc]==1&&Bin_Image[nr][nc-1]==0&&Bin_Image[nr][nc-2]==0&&flag_l==0)
             {
-                //画点
                 Bin_Image[nr][nc]=2;
-             //   TFTSPI_Draw_Dot(nc,nr,u16YELLOW);//弄成黄色
                 flag_l=1;
                 left=nc;
                 if(Road_Left[nr-1]!=MAX_COL-1&&left==MAX_COL-1){
@@ -744,40 +634,157 @@ void Seek_Road_Edge(void)
         Bin_Image[nr][Road_Mid[nr]]=3;
     }
     
-    OFFSET0=0;OFFSET1=0;OFFSET2=0;
+    //OFFSET0=0;OFFSET1=0;OFFSET2=0;
+    sint16 q,n1,n2;
+    sint16 d=1000*2/(MAX_COL-2);
+    sint16 temp=0;
     for(nr=55;nr>=40;nr--){
         if(Road_Left[nr]>=MAX_COL/2){
-            OFFSET2+=Road_Right[nr]-Road_Left[nr];
+            n1=Road_Right[nr]-MAX_COL/2+20;
+            n2=Road_Left[nr]-MAX_COL/2+20;
+            temp+=(d/2*(n1*n1-n2*n2+n1-n2));
         }
         else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
-            OFFSET2+=(Road_Right[nr]-MAX_COL/2)-(MAX_COL/2-Road_Left[nr]);
+            n1=Road_Right[nr]-MAX_COL/2+20;
+            n2=MAX_COL/2-1-Road_Left[nr]+20;
+            if(n2<0) n2=0;
+            temp+=(d/2*(n1*n1-n2*n2+n1-n2));
         }
         else{
-            OFFSET2+=Road_Left[nr]-Road_Right[nr];
+            n1=MAX_COL/2-1-Road_Right[nr]+20;
+            n2=MAX_COL/2-1-Road_Left[nr]+20;
+            if(n1<0) n1=0;
+            temp+=(d/2*(n1*n1-n2*n2+n1-n2));
         }
     }
+    OFFSET2=temp*0.001;
+    // OFFSET2=Road_Right[47];
+    temp=0;
     for(nr=39;nr>=24;nr--){
         if(Road_Left[nr]>=MAX_COL/2){
-            OFFSET1+=Road_Right[nr]-Road_Left[nr];
+            n1=Road_Right[nr]-MAX_COL/2+20;
+            n2=Road_Left[nr]-MAX_COL/2+20;
+            temp+=(d/2*(n1*n1-n2*n2+n1-n2));
         }
         else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
-            OFFSET1+=(Road_Right[nr]-MAX_COL/2)-(MAX_COL/2-Road_Left[nr]);
+            n1=Road_Right[nr]-MAX_COL/2+20;
+            n2=MAX_COL/2-1-Road_Left[nr]+20;
+            if(n2<0) n2=0;
+            temp+=(d/2*(n1*n1-n2*n2+n1-n2));
         }
         else{
-            OFFSET1+=Road_Left[nr]-Road_Right[nr];
+            n1=MAX_COL/2-1-Road_Right[nr]+20;
+            n2=MAX_COL/2-1-Road_Left[nr]+20;
+            if(n1<0) n1=0;
+            temp+=(d/2*(n1*n1-n2*n2+n1-n2));
         }
     }
+    OFFSET1=temp*0.001;
+    // OFFSET1=Road_Left[47];
+    temp=0;
     for(nr=23;nr>=8;nr--){
         if(Road_Left[nr]>=MAX_COL/2){
-            OFFSET0+=Road_Right[nr]-Road_Left[nr];
+            n1=Road_Right[nr]-MAX_COL/2+20;
+            n2=Road_Left[nr]-MAX_COL/2+20;
+            temp+=(d/2*(n1*n1-n2*n2+n1-n2));
         }
         else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
-            OFFSET0+=(Road_Right[nr]-MAX_COL/2)-(MAX_COL/2-Road_Left[nr]);
+            n1=Road_Right[nr]-MAX_COL/2+20;
+            n2=MAX_COL/2-1-Road_Left[nr]+20;
+            if(n2<0) n2=0;
+            temp+=(d/2*(n1*n1-n2*n2+n1-n2));
         }
         else{
-            OFFSET0+=Road_Left[nr]-Road_Right[nr];
+            n1=MAX_COL/2-1-Road_Right[nr]+20;
+            n2=MAX_COL/2-1-Road_Left[nr]+20;
+            if(n1<0) n1=0;
+            temp+=(d/2*(n1*n1-n2*n2+n1-n2));
         }
     }
-
+    OFFSET0=temp*0.001;
+    // OFFSET0=Road_Mid[47];
+    // OFFSET0*=0.2;OFFSET1*=0.14;OFFSET2*=0.1;
+    return;
 
 }
+
+/***************************************************************************
+ *                                                                          *
+ *  函数名称：Seek_Road(void)                                           *
+ *  功能说明：寻找白色区域偏差值                                            *
+ *  参数说明：无                                                            *
+ *  函数返回：值的大小                                                      *
+ *  修改时间：2017-07-16                                                    *
+ *  备    注：以中间为0，左侧减一，右侧加一，数值代表1的面积                *
+ *            计算区域从第一行开始到倒数第二行结束。                        *
+ *            如果面积为负数，数值越大说明越偏左边；                        *
+ *            如果面积为正数，数值越大说明越偏右边。                        *
+ ***************************************************************************/
+void Seek_Road (void)
+{
+    sint16 nr; //行
+    sint16 nc; //列
+    sint16 temp = 0; //临时数值
+    temp = 0;
+    for (nr = 8; nr < 24; nr++)
+    {
+        for (nc = MAX_COL / 2; nc < MAX_COL; nc = nc + 1)
+        {
+            if (Bin_Image[nr][nc])
+            {
+                temp+=(100*2.0*(nc-MAX_COL/2)/(MAX_COL/2-1));
+            }
+        }
+        for (nc = MAX_COL/2-1; nc >=0; nc = nc - 1)
+        {
+            if (Bin_Image[nr][nc])
+            {
+                temp-=(100*2.0*(MAX_COL/2-1-nc)/(MAX_COL/2-1));
+            }
+
+        }
+    }
+    OFFSET0 = temp/100;
+    temp = 0;
+    for (nr = 24; nr < 40; nr++)
+    {
+        for (nc = MAX_COL / 2; nc < MAX_COL; nc = nc + 1)
+        {
+            if (Bin_Image[nr][nc])
+            {
+                temp+=(100*1.4*(nc-MAX_COL/2)/(MAX_COL/2-1));
+            }
+        }
+        for (nc = MAX_COL / 2-1; nc >=0; nc = nc - 1)
+        {
+            if (Bin_Image[nr][nc])
+            {
+                temp-=(100*1.4*(MAX_COL/2-1-nc)/(MAX_COL/2-1));
+            }
+        }
+    }
+    OFFSET1 = temp/100;
+    temp = 0;
+    for (nr = 40; nr < 56; nr++)
+    {
+        for (nc = MAX_COL / 2; nc < MAX_COL; nc = nc + 1)
+        {
+            if (Bin_Image[nr][nc])
+            {
+                temp+=(100*1.0*(nc-MAX_COL/2)/(MAX_COL/2-1));
+            }
+        }
+        for (nc = MAX_COL / 2-1; nc >=0; nc = nc - 1)
+        {
+            if (Bin_Image[nr][nc])
+            {
+                temp-=(100*1.0*(MAX_COL/2-1-nc)/(MAX_COL/2-1));
+            }
+        }
+    }
+    OFFSET2 = temp/100;
+    return;
+}
+
+
+
