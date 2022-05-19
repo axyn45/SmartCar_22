@@ -147,7 +147,7 @@ void CameraCar(void)
             // FindEdge();
 
             // 计算赛道偏差值，系数越大打角越早，数值跟舵机的范围有关，此处为±160左右，默认为7，
-            sduty_offset=(OFFSET0*8 + OFFSET1*12 + OFFSET2*6) * 1 / 3;
+            sduty_offset=(OFFSET0 + OFFSET1 + OFFSET2) * 1 / 3;
 //            if((OFFSET0>0&&OFFSET1<0)&&(OFFSET0<0&&OFFSET1>0)){
 //                sduty_offset+=OFFSET0*1.2;
 //            }
