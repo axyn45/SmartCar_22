@@ -40,7 +40,7 @@ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 #include "LQ_MT9V034.h"
 #include "LQ_ImageProcess.h"
 #include <stdbool.h>
-
+#include <math.h>
 /*************************************************************************
  *  函数名称：void TFT_Show_Camera_Info(void)
  *  功能说明：显示各种所需信息
@@ -49,38 +49,50 @@ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
  *  修改时间：2020年11月18日
  *  备    注：
  *************************************************************************/
-bool isleft();
-bool isright();
-void TFT_Show_Camera_Info(void)
+
+void roundabout();
+int ruhuan_flag=0;//进入环岛的标记
+int yuanhuan_flag1=0;//圆环第一阶段的标志 看到一个出口和入口
+int yuanhuan_flag2=0;//圆环第二阶段的标志 只看到入口
+int yuanhuan_flag3=0;//圆环第三阶段的标志 看不到入口只有直线和弯道 开始补线
+int yuanhuan_flag4=0;//圆环第四阶段的标志 看到出口
+int yuanhuan_flag5=0;//圆环第五阶段的标志 走完了 完成
+int Bin_image[60][94];//图像的二维数组
+int huandao_flag = 0;  //环岛的标志 出环岛之后才变成0
+int continueleftrukou1;//左边界连续 判断出第一个入口
+int continueleftrukou2;//判断出口
+void buxian();
+
+void TFT_Show_Camera_Info (void)
 {
     char txt[16] = "X:";
 
-    sint16 mps = 0, dmm = 0; // 速度：m/s,毫米数值
+    sint16 mps = 0, dmm = 0;    // 速度：m/s,毫米数值
     sint16 pulse100 = 0;
     uint16 bat = 0;
 
-    dmm = (sint16)(RAllPulse * 100 / 579); // 龙邱512带方向编码器1米5790个脉冲，数值太大，除以100
-    pulse100 = (sint16)(RAllPulse / 100);
-    sprintf(txt, "AP:%05d00", pulse100);         //
-    TFTSPI_P8X16Str(3, 4, txt, u16RED, u16BLUE); // 显示赛道偏差参数
+    dmm = (sint16) (RAllPulse * 100 / 579);         // 龙邱512带方向编码器1米5790个脉冲，数值太大，除以100
+    pulse100 = (sint16) (RAllPulse / 100);
+    sprintf(txt, "AP:%05d00", pulse100);           //
+    TFTSPI_P8X16Str(3, 4, txt, u16RED, u16BLUE);   // 显示赛道偏差参数
 
-    NowTime = (STM_GetNowUs(STM0) - NowTime) / 1000; // 获取STM0 当前时间，得到毫秒
-    mps = (sint16)(dmm / (NowTime / 1000));          // 计算速度mm/s
+    NowTime = (STM_GetNowUs(STM0) - NowTime) / 1000;  // 获取STM0 当前时间，得到毫秒
+    mps = (sint16) (dmm / (NowTime / 1000));          // 计算速度mm/s
     // TFTSPI_Road(18, 0, LCDH, LCDW, (unsigned char *)Image_Use); // TFT1.8动态显示摄像头灰度图像
-    TFTSPI_BinRoad(18, 0, LCDH, LCDW, (unsigned char *)Bin_Image); // TFT1.8动态显示摄像头二进制图像
+    TFTSPI_BinRoad(18, 0, LCDH, LCDW, (unsigned char *) Bin_Image);  // TFT1.8动态显示摄像头二进制图像
     sprintf(txt, "%04d,%04d,%04d", OFFSET0, OFFSET1, OFFSET2);
-    TFTSPI_P8X16Str(0, 5, txt, u16RED, u16BLUE);                                               // 显示赛道偏差参数
-    BatVolt = ADC_Read(ADC7);                                                                  // 刷新电池电压
-    bat = BatVolt * 11 / 25;                                                                   // x/4095*3.3*100*5.7
-    sprintf(txt, "B:%d.%02dV %d.%02dm/s", bat / 100, bat % 100, mps / 1000, (mps / 10) % 100); // *3.3/4095*3
-    TFTSPI_P8X16Str(0, 6, txt, u16WHITE, u16BLUE);                                             // 字符串显示
+    TFTSPI_P8X16Str(0, 5, txt, u16RED, u16BLUE);       // 显示赛道偏差参数
+    BatVolt = ADC_Read(ADC7);  // 刷新电池电压
+    bat = BatVolt * 11 / 25;  // x/4095*3.3*100*5.7
+    sprintf(txt, "B:%d.%02dV %d.%02dm/s", bat / 100, bat % 100, mps / 1000, (mps / 10) % 100);  // *3.3/4095*3
+    TFTSPI_P8X16Str(0, 6, txt, u16WHITE, u16BLUE);   // 字符串显示
     // 电机和舵机参数显示
     sprintf(txt, "Sv:%04d Rno:%d", ServoDuty, CircleNumber);
-    TFTSPI_P8X16Str(1, 7, txt, u16RED, u16BLUE); // 显示舵机，电机1，编码器1数值
+    TFTSPI_P8X16Str(1, 7, txt, u16RED, u16BLUE);     // 显示舵机，电机1，编码器1数值
     sprintf(txt, "M1:%04d, M2:%04d ", MotorDuty1, MotorDuty2);
-    TFTSPI_P8X16Str(0, 8, txt, u16RED, u16BLUE); // 电机1-2数值
+    TFTSPI_P8X16Str(0, 8, txt, u16RED, u16BLUE);     // 电机1-2数值
     sprintf(txt, "E1:%04d, E2:%04d ", ECPULSE1, ECPULSE2);
-    TFTSPI_P8X16Str(0, 9, txt, u16RED, u16BLUE); // 编码器1-2数值
+    TFTSPI_P8X16Str(0, 9, txt, u16RED, u16BLUE);     // 编码器1-2数值
 }
 /*************************************************************************
  *  函数名称：void CameraCar(void)
@@ -93,6 +105,7 @@ void TFT_Show_Camera_Info(void)
  *  修改时间：2020年10月28日
  *  备    注：驱动2个电机
  *************************************************************************/
+
 void CameraCar(void)
 {
     // 摄像头初始化
@@ -133,8 +146,9 @@ void CameraCar(void)
             Get_Use_Image();    // 取出赛道及显示所需图像数据
             Get_Bin_Image(0);   // 转换为01格式数据，0、1原图；2、3边沿提取
             Bin_Image_Filter(); // 滤波，三面被围的数据将被修改为同一数值
-//            Seek_Road();
+
             Seek_Road_Edge();
+            buxian();
             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
             sprintf(tstr,"OFFSET0: %d",OFFSET0);
             TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
@@ -144,7 +158,6 @@ void CameraCar(void)
             TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
             // 通过黑白区域面积差计算赛道偏差值
 
-            // FindEdge();
 
             // 计算赛道偏差值，系数越大打角越早，数值跟舵机的范围有关，此处为±160左右，默认为7，
             sduty_offset=(OFFSET0*8 + OFFSET1*12 + OFFSET2*6) * 1 / 3;
@@ -164,43 +177,13 @@ void CameraCar(void)
 //                sduty_offset=0.78*sduty_offset;
 //            }
             ServoDuty = Servo_Center_Mid - sduty_offset;
-            //            if(isright())//是右转弯
-            //            {
-            //               ServoDuty=1900;
-            //            }
-            //            if(isleft())//是左转弯
-            //            {
-            //                ServoDuty=1900;
-            //            }
-
-            //            if(iscircle())
-            //            {
-            //
-            //            }
-            // 圆环处理，如果面积为负数，数值越大说明越偏左边；
-            //            if((OFFSET2 < -300)||(OFFSET2 > 300))
-            //                ServoDuty = Servo_Center_Mid - OFFSET2 / 7;
 
             ServoCtrl(ServoDuty); // 舵机PWM输出，转向
 
-            // SPEED正负标识方向，负数为正向
-            // MotorDuty1 = MtTargetDuty + ECPULSE1 * 4 - (OFFSET1 + OFFSET2 + OFFSET2) / 10;        // 电机PWM
-            // MotorDuty2 = MtTargetDuty - ECPULSE2 * 4 + (OFFSET1 + OFFSET2 + OFFSET2) / 10;        // 双电机差分，需要去掉abs
+//             SPEED正负标识方向，负数为正向
+             MotorDuty1 = MtTargetDuty + ECPULSE1 * 4 - (OFFSET1 + OFFSET2 + OFFSET2) / 10;        // 电机PWM
+             MotorDuty2 = MtTargetDuty - ECPULSE2 * 4 + (OFFSET1 + OFFSET2 + OFFSET2) / 10;        // 双电机差分，需要去掉abs
 
-            if (KEY_Read(KEY0) == 0) //按下KEY0键，占空比减小
-            {
-                if (tduty > -ATOM_PWM_MAX)
-                    tduty -= 100;
-            }
-            if (KEY_Read(KEY2) == 0) //按下KEY2键，占空比加大
-            {
-                if (tduty < ATOM_PWM_MAX) //满占空比为12500
-                    tduty += 100;
-            }
-            if (KEY_Read(KEY1) == 0) //按下KEY1键，占空比中值
-            {
-                tduty = 1300;
-            }
             MotorCtrl(tduty, tduty); // 四轮电机驱动
                                    // TFT_Show_Camera_Info();
         }
@@ -210,90 +193,213 @@ void CameraCar(void)
         }
     }
 }
-bool isright() //判断是否为右直角转弯 是右转弯就return true
+int Bisa_variance(int a[])
 {
     int i;
-    int flag = 0;
-    for (i = 0; i < 60; i++)
+    int avg=0;
+    int result=0;
+    for(i=0;i<60;i++)
     {
-        if (Road_Right[i] == 93)
+      avg=avg+a[i];
+    }
+    avg=avg/60;
+    for(i=0;i<60;i++)
+    {
+        result=(a[i]-avg)*(a[i]-avg);
+    }
+    result=sqrt(result/60);
+    return result;
+}
+//
+int My_Abs(int a, int b)
+{
+
+            if ((a - b) > 0)
+                return ((int)(a - b));
+            else return ((int)(b - a));
+}
+//左右线连续开始
+void continuepanduan()
+{
+    int i = 0;
+    continueleftrukou1 = 1;
+    continueleftrukou2 = 1;
+     //如果所有行中出现大于5的跳变，认为不连续
+     //如果第15行边线仍不在1-185范围内，认为不连续
+        for (i = 20; i <= 60; i++)
+        {
+            if (My_Abs(Road_Left[i], Road_Left[i + 1]) > 5)
+            {
+                continueleftrukou1 = 0;//出口标志
+                break;
+            }
+            if (Road_Left[30]==0)
+            {
+                continueleftrukou1 = 0;
+                break;
+            }
+        }
+        for(i=0;i<30;i++)
+        {
+            if (My_Abs(Road_Left[i], Road_Left[i + 1]) > 5)
+            {
+                continueleftrukou2 = 0;//入口找到了
+                break;
+            }
+            if(Road_Left[15]==0)
+            {
+                continueleftrukou2 = 0;//入口找到了
+                break;
+            }
+        }
+
+}
+bool left_edge_circle()//判断是圆环的条件第一阶段
+{
+    bool result=false;
+    int i;
+    int flag=0;
+    for(i=20;i<45;i++)
+    {
+        if(Road_Left[i]==0)
+        {
+          flag++;
+        }
+    }
+    if(flag>16)
+    {
+        result=true;
+    }
+    return result;
+}
+bool left_circle_third()//第三阶段图像的判断
+{
+    int i;
+    int flag=0;
+    int continue_left=0;//判断第三阶段的一个标志
+   for(i=10;i<60;i++)
+   {
+      flag++;
+   }
+   for(i=0;i<20;i++)
+   {
+      if(My_Abs(Road_Left[i], Road_Left[i + 1]) > 5)
+      {
+          continue_left=1;
+      }
+   }
+   if(flag>45&&continue_left==1)
+   {
+     return true;
+   }
+   return false;
+}
+bool left_circle_forth()//第四阶段的判断 左右边界都看不到
+{
+    int i;
+    int flag=0;
+    for(i=0;i<60;i++)
+    {
+        if(Road_Left[i]==0&&Road_Right[i]!=0)
         {
             flag++;
         }
     }
-    if (flag > 50)
+    if(flag>45)
     {
         return true;
     }
     return false;
 }
-bool isleft() //判断是否为走直角转弯 是左转弯就return true
+void buxian()//补线 入环
 {
-    int i;
-    int flag = 0;
-    for (i = 0; i < 60; i++)
-    {
-        if (Road_Left[i] == 0)
-        {
-            flag++;
-        }
+  int x1,x2,y1,y2;//两个点坐标
+  int i;
+  for(int i=0;i<30;i++)
+  {
+      if(My_Abs(Road_Left[i], Road_Left[i + 1]) > 5)
+      {
+          x1=i;
+          y1=Road_Left[i];
+          break;
+      }
+  }
+  x2=50;
+  y2=Road_Left[50];
+  for(i=x1;i<x2;i++)
+  {
+      Bin_image[i][Road_Left[i]]=0;
+  }
+  int k=(y1-y2)/(x1-x2);
+
+  for(int i=x1;i<x2;i++)
+  {
+      Bin_image[i][k*i]=2;
     }
-    if (flag > 50)
-    {
-        return true;
-    }
-    return false;
 }
 
-bool is_circel() //判断是否是圆环
+void chuhuan()//出环
 {
-    int i;
-    int flag = 0;
-    for (i = 15; i < 40; i++)
-    {
-        if (Road_Left[i] == 0)
-        {
-            flag++;
-        }
-    }
-    if (flag > 20)
-    {
-        return true;
-    }
-    return false;
-}
-int getsize(int x[])
-{
-    int i;
-    int flag = 0;
-    for (i = 0; x[i] != '\0'; i++)
-    {
-        flag++;
-    }
+  int x1,x2,y1,y2;//两个点坐标
+  int i;
+  for(int i=0;i<40;i++)
+  {
+      if(My_Abs(Road_Left[i], Road_Left[i + 1]) > 5)
+      {
+          x1=i;
+          y1=Road_Left[i];
+          break;
+      }
+  }
+    x2=35;
+  y2=Road_Left[35];
+  for(i=x1;i<x2;i++)
+  {
+      Bin_image[i][Road_Left[i]]=0;
+  }
+  int k=(y1-y2)/(x1-x2);
 
-    return flag;
+  for(int i=x1;i<x2;i++)
+  {
+      Bin_image[i][k*i]=2;
+    }
 }
 
-void deal(int x[]) //采用克莱默法 计算方程
+void roundabout()
 {
-    int i;
-    int n = getsize(x); // x数组大小
-    float a0, a1, temp, temp0, temp1;
-    float sy = 0, sx = 0, sxx = 0, syy = 0, sxy = 0, sxxy = 0, sxxx = 0, sxxxx = 0; //定义相关变量
-    for (i = 0; i < n; i++)
+    continuepanduan();//判断左边界是否连续
+    if((continueleftrukou1==0&&continueleftrukou2==0)||left_edge_circle())
     {
-        sx += i;              //计算xi的和
-        sy += x[i];           //计算yi的和
-        sxx += i * i;         //计算xi的平方的和
-        sxxx += pow(i, 3);    //计算xi的立方的和
-        sxxxx += pow(i, 4);   //计算xi的4次方的和
-        sxy += i * x[i];      //计算xi乘yi的的和
-        sxxy += i * i * x[i]; //计算xi平方乘yi的和
+        yuanhuan_flag1=1;
+        continueleftrukou1=1;
+        continueleftrukou2=1;
+    }//第一阶段
+    continuepanduan();//看第二阶段
+    if(yuanhuan_flag1&&continueleftrukou1==0&&continueleftrukou2==1)
+    {
+        yuanhuan_flag2=1;
+    }//第二阶段
+    if((yuanhuan_flag1&&yuanhuan_flag2)||left_circle_third())
+    {
+        yuanhuan_flag3=1;
+        buxian();
+        ServoDuty=1900;
+        ServoCtrl(ServoDuty);
     }
-    temp = n * sxx - sx * sx; //方程的系数行列式
-    temp0 = sy * sxx - sx * sxy;
-    temp1 = n * sxy - sy * sx;
-    a0 = temp0 / temp;
-    a1 = temp1 / temp;
-    printf("f(x)=%3.3fx+%3.3f\n", a1, a0);
+    if((yuanhuan_flag1&&yuanhuan_flag2&&yuanhuan_flag3)||left_circle_forth())
+    {
+        yuanhuan_flag4=1;//出环
+        chuhuan();
+        ServoDuty=1900;
+        ServoCtrl(ServoDuty);
+    }
+    if(yuanhuan_flag1&&yuanhuan_flag2&&yuanhuan_flag3&&yuanhuan_flag4)
+    {
+       //正常走线
+       yuanhuan_flag5=1;//完成
+       yuanhuan_flag1=0;
+       yuanhuan_flag2=0;
+       yuanhuan_flag4=0;
+    }
 }
+
