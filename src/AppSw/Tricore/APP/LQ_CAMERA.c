@@ -643,99 +643,99 @@ void Seek_Road_Edge(void)
     }
     
     //OFFSET0=0;OFFSET1=0;OFFSET2=0;
-    sint16 q,n1,n2;
-    sint16 d=1000*(2/(MAX_COL-2));//公差，即1被平分为MAX_COL份
-    sint16 d1=d,d2=-d,s1,s2;
-    sint16 ioffset=1.5*1000;
-    sint16 temp=0;
-    for(nr=55;nr>=40;nr--){
-        n1=Road_Right[nr]-MAX_COL/2;
-        n2=Road_Left[nr]-MAX_COL/2+1;
-        if(n1<0) {n1++;d1=-d1;}
-        if(n2>0) {n2--;d2=-d2;}
-        s1=n1*d_plus_ioffset(d1,ioffset)+(n1*(n1-1))/2*d1;
-        s2=n2*d_plus_ioffset(d1,ioffset)+(n2*(n2-1))/2*d2;
-        temp=s1+s2;
-        // if(Road_Left[nr]>=MAX_COL/2){
-        //     n1=Road_Right[nr]-MAX_COL/2+20;
-        //     n2=Road_Left[nr]-MAX_COL/2+20;
-        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-        // }
-        // else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
-        //     n1=Road_Right[nr]-MAX_COL/2+20;
-        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-        //     if(n2<0) n2=0;
-        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-        // }
-        // else{
-        //     n1=MAX_COL/2-1-Road_Right[nr]+20;
-        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-        //     if(n1<0) n1=0;
-        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-        // }
-    }
-    OFFSET2=temp*0.001;
-    // OFFSET2=Road_Right[47];
-    temp=0;
-    for(nr=39;nr>=24;nr--){
-        n1=Road_Right[nr]-MAX_COL/2;
-        n2=Road_Left[nr]-MAX_COL/2+1;
-        if(n1<0) {n1++;d1=-d1;}
-        if(n2>0) {n2--;d2=-d2;}
-        s1=n1*d_plus_ioffset(d1,ioffset)+(n1*(n1-1))/2*d1;
-        s2=n2*d_plus_ioffset(d1,ioffset)+(n2*(n2-1))/2*d2;
-        temp=s1+s2;
-        // if(Road_Left[nr]>=MAX_COL/2){
-        //     n1=Road_Right[nr]-MAX_COL/2+20;
-        //     n2=Road_Left[nr]-MAX_COL/2+20;
-        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-        // }
-        // else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
-        //     n1=Road_Right[nr]-MAX_COL/2+20;
-        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-        //     if(n2<0) n2=0;
-        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-        // }
-        // else{
-        //     n1=MAX_COL/2-1-Road_Right[nr]+20;
-        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-        //     if(n1<0) n1=0;
-        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-        // }
-    }
-    OFFSET1=temp*0.001;
-    // OFFSET1=Road_Left[47];
-    temp=0;
-    for(nr=23;nr>=8;nr--){
-        n1=Road_Right[nr]-MAX_COL/2;
-        n2=Road_Left[nr]-MAX_COL/2+1;
-        if(n1<0) {n1++;d1=-d1;}
-        if(n2>0) {n2--;d2=-d2;}
-        s1=n1*d_plus_ioffset(d1,ioffset)+(n1*(n1-1))/2*d1;
-        s2=n2*d_plus_ioffset(d1,ioffset)+(n2*(n2-1))/2*d2;
-        temp=s1+s2;
-        // if(Road_Left[nr]>=MAX_COL/2){
-        //     n1=Road_Right[nr]-MAX_COL/2+20;
-        //     n2=Road_Left[nr]-MAX_COL/2+20;
-        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-        // }
-        // else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
-        //     n1=Road_Right[nr]-MAX_COL/2+20;
-        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-        //     if(n2<0) n2=0;
-        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-        // }
-        // else{
-        //     n1=MAX_COL/2-1-Road_Right[nr]+20;
-        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-        //     if(n1<0) n1=0;
-        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-        // }
-    }
-    OFFSET0=temp*0.001;
-    // OFFSET0=Road_Mid[47];
-    // OFFSET0*=0.2;OFFSET1*=0.14;OFFSET2*=0.1;
-    return;
+//    sint16 q,n1,n2;
+//    sint16 d=1000*(2/(MAX_COL-2));//公差，即1被平分为MAX_COL份
+//    sint16 d1=d,d2=-d,s1,s2;
+//    sint16 ioffset=1.5*1000;
+//    sint16 temp=0;
+//    for(nr=55;nr>=40;nr--){
+//        n1=Road_Right[nr]-MAX_COL/2;
+//        n2=Road_Left[nr]-MAX_COL/2+1;
+//        if(n1<0) {n1++;d1=-d1;}
+//        if(n2>0) {n2--;d2=-d2;}
+//        s1=n1*d_plus_ioffset(d1,ioffset)+(n1*(n1-1))/2*d1;
+//        s2=n2*d_plus_ioffset(d1,ioffset)+(n2*(n2-1))/2*d2;
+//        temp=s1+s2;
+//        // if(Road_Left[nr]>=MAX_COL/2){
+//        //     n1=Road_Right[nr]-MAX_COL/2+20;
+//        //     n2=Road_Left[nr]-MAX_COL/2+20;
+//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+//        // }
+//        // else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
+//        //     n1=Road_Right[nr]-MAX_COL/2+20;
+//        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
+//        //     if(n2<0) n2=0;
+//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+//        // }
+//        // else{
+//        //     n1=MAX_COL/2-1-Road_Right[nr]+20;
+//        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
+//        //     if(n1<0) n1=0;
+//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+//        // }
+//    }
+//    OFFSET2=temp*0.001;
+//    // OFFSET2=Road_Right[47];
+//    temp=0;
+//    for(nr=39;nr>=24;nr--){
+//        n1=Road_Right[nr]-MAX_COL/2;
+//        n2=Road_Left[nr]-MAX_COL/2+1;
+//        if(n1<0) {n1++;d1=-d1;}
+//        if(n2>0) {n2--;d2=-d2;}
+//        s1=n1*d_plus_ioffset(d1,ioffset)+(n1*(n1-1))/2*d1;
+//        s2=n2*d_plus_ioffset(d1,ioffset)+(n2*(n2-1))/2*d2;
+//        temp=s1+s2;
+//        // if(Road_Left[nr]>=MAX_COL/2){
+//        //     n1=Road_Right[nr]-MAX_COL/2+20;
+//        //     n2=Road_Left[nr]-MAX_COL/2+20;
+//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+//        // }
+//        // else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
+//        //     n1=Road_Right[nr]-MAX_COL/2+20;
+//        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
+//        //     if(n2<0) n2=0;
+//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+//        // }
+//        // else{
+//        //     n1=MAX_COL/2-1-Road_Right[nr]+20;
+//        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
+//        //     if(n1<0) n1=0;
+//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+//        // }
+//    }
+//    OFFSET1=temp*0.001;
+//    // OFFSET1=Road_Left[47];
+//    temp=0;
+//    for(nr=23;nr>=8;nr--){
+//        n1=Road_Right[nr]-MAX_COL/2;
+//        n2=Road_Left[nr]-MAX_COL/2+1;
+//        if(n1<0) {n1++;d1=-d1;}
+//        if(n2>0) {n2--;d2=-d2;}
+//        s1=n1*d_plus_ioffset(d1,ioffset)+(n1*(n1-1))/2*d1;
+//        s2=n2*d_plus_ioffset(d1,ioffset)+(n2*(n2-1))/2*d2;
+//        temp=s1+s2;
+//        // if(Road_Left[nr]>=MAX_COL/2){
+//        //     n1=Road_Right[nr]-MAX_COL/2+20;
+//        //     n2=Road_Left[nr]-MAX_COL/2+20;
+//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+//        // }
+//        // else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
+//        //     n1=Road_Right[nr]-MAX_COL/2+20;
+//        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
+//        //     if(n2<0) n2=0;
+//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+//        // }
+//        // else{
+//        //     n1=MAX_COL/2-1-Road_Right[nr]+20;
+//        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
+//        //     if(n1<0) n1=0;
+//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+//        // }
+//    }
+//    OFFSET0=temp*0.001;
+//    // OFFSET0=Road_Mid[47];
+//    // OFFSET0*=0.2;OFFSET1*=0.14;OFFSET2*=0.1;
+//    return;
 
 }
 
