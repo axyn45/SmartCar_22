@@ -148,7 +148,7 @@ void CameraCar(void)
             Bin_Image_Filter(); // 滤波，三面被围的数据将被修改为同一数值
 
             Seek_Road_Edge();
-            Seek_Road();
+            //Seek_Road();
             buxian();
             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
             sprintf(tstr,"OFFSET0: %d",OFFSET0);
@@ -326,16 +326,16 @@ void buxian()//补线 入环
       }
   }
   x2=50;
-  y2=Road_Left[50];
+  y2=89;
   for(i=x1;i<x2;i++)
   {
-      Bin_Image[i][Road_Left[i]]=0;
+      Bin_image[i][Road_Right[i]]=0;
   }
   int k=(y1-y2)/(x1-x2);
 
   for(int i=x1;i<x2;i++)
   {
-      Bin_Image[i][k*i]=2;
+      Bin_image[i][k*i]=2;
     }
 }
 
