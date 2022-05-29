@@ -64,13 +64,30 @@ unsigned char Image_Data[IMAGEH][IMAGEW];
 /** 压缩后之后用于存放屏幕显示数据  */
 unsigned char Image_Use[LCDH][LCDW];
 
+struct line_element{
+    char left;
+    char right;
+    char mid;
+};
+
 /** 二值化后用于OLED显示的数据 */
 unsigned char Bin_Image[LCDH][LCDW];
 unsigned char Road_Mid[LCDH];
 unsigned char Road_Left[LCDH];
 unsigned char Road_Right[LCDH];
+
 unsigned char Road_Left_Top[2]={0,0};
 unsigned char Road_Right_Top[2]={0,0};
+
+struct line_element line_element[LCDH]={{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},
+{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},
+{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},
+{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},
+{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},
+{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},
+{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},
+{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1}};
+
 
 sint16 OFFSET0 = 0;      //最远处，赛道中心值综合偏移量
 sint16 OFFSET1 = 0;      //第二格
@@ -600,34 +617,51 @@ sint16 d_plus_ioffset(sint16 d, sint16 ioffset)
 
 void Seek_Road_Edge(void)
 {
+    unsigned char is_left_right=0; //-1:左转  1:右转  0:直行
     sint16 nr; //行
     sint16 nc; //列
     int mid=MAX_COL/2;
     int left=0,right=MAX_COL;
     int flag_r=1;
     int flag_l=1;
+    char left_count=0,right_count=0;
 
     for(nr=59;nr>=0;nr--)
     {
         flag_r=0;
         flag_l=0;
 
+        if((is_left_right==1&&line_element[nr-1].left==MAX_COL)||(is_left_right==-1&&line_element[nr-1].rignt==0))
+            break;
+        if(nr==30){
+            if(line_element[nr].mid>MAX_COL/2){
+                is_left_right=1;
+            }
+            else{
+                is_left_right=-1;
+            }
+        }
         for (nc = mid; nc < MAX_COL&&!flag_r; nc = nc + 1)//右扫线
         {
-            if (Bin_Image[nr][nc-1]==1&&Bin_Image[nr][nc]==1&&Bin_Image[nr][nc+1]==0&&Bin_Image[nr][nc+2]==0&&flag_r==0)
+            if (nc==0||nc==MAX_COL||(Bin_Image[nr][nc-1]==1&&Bin_Image[nr][nc]==1&&Bin_Image[nr][nc+1]==0&&Bin_Image[nr][nc+2]==0&&flag_r==0))
             {
                 Bin_Image[nr][nc]=2;
                 flag_r=1;
+                if(line_element[nr-1].right!=0&&line_element[nr].right!=MAX_COL)
+                    right_count++;
                 right=nc;
+                
             }
         }
         for (nc = mid; nc > 0&&!flag_l ; nc = nc - 1)//左扫线
         {
-            if (Bin_Image[nr][nc+1]==1&&Bin_Image[nr][nc]==1&&Bin_Image[nr][nc-1]==0&&Bin_Image[nr][nc-2]==0&&flag_l==0)
+            if (nc==0||nc==MAX_COL||(Bin_Image[nr][nc+1]==1&&Bin_Image[nr][nc]==1&&Bin_Image[nr][nc-1]==0&&Bin_Image[nr][nc-2]==0&&flag_l==0))
             {
                 Bin_Image[nr][nc]=2;
                 flag_l=1;
                 left=nc;
+                if(left!=0&&left!=MAX_COL)
+                    left_count++;
                 if(Road_Left[nr-1]!=MAX_COL-1&&left==MAX_COL-1){
                     Road_Left_Top[0]=nr;Road_Left_Top[1]=left;
                     Road_Left[nr+1]=-1;
@@ -635,11 +669,30 @@ void Seek_Road_Edge(void)
                 break;
             }
         }
-        Road_Left[nr]=left;
-        Road_Right[nr]=right;
         mid=(left+right)/2;
-        Road_Mid[nr]=mid;
-        Bin_Image[nr][Road_Mid[nr]]=3;
+        line_element[nr].left=left;
+        line_element[nr].right=right;
+        // road_element[nr].mid=(left+right)/2;
+        // Bin_Image[nr][Road_Mid[nr]]=3;
+    }
+
+    if(is_left_right==1){
+        char seg=10.0*(left_count/right_count);
+        char seg_offset=seg%10;
+        char loop_size=0;
+        char sign=seg_offset>5?-1:1;
+        seg=seg/10;
+        
+        if(seg_offset==1) loop_size=10;
+        else if(seg_offset==2) loop_size=5;
+        else if(seg_offset==3) loop_size=3;
+        else if(seg_offset==4||seg_offset==5) loop_size=2;
+        char left_i=59;
+        for(int i=59;i>=right_count;i--){
+            line_element[(left_i+i)/2].mid=(line_element[left_i].left+line_element[i].right)/2;
+            left_i-=seg;
+        }
+        
     }
     
     //OFFSET0=0;OFFSET1=0;OFFSET2=0;
