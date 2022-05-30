@@ -222,12 +222,12 @@ int My_Abs(int a, int b)//求绝对值
 void continuepanduan()//判断左右是否连续
 {
     int i = 0;
-    continueleftrukou1 = 1;
+    continueleftrukou2 = 1;
      //如果所有行中出现大于5的跳变，认为不连续
      //如果第15行边线仍不在1-185范围内，认为不连续
         for(i=0;i<30;i++)
         {
-            if (My_Abs(Road_Left[i], Road_Left[i + 1]) > 5)
+            if (My_Abs(line_elements[i].left, line_elements[i + 1].left) > 5)
             {
                 continueleftrukou2 = 0;//入口找到了
                 break;
@@ -241,9 +241,9 @@ void first_stage()//圆环得第一阶段
    // int result=Bisa_variance(Road_Right);
     for(int i=60;i>0;i--)//从底部开始遍历 看左边得道路是否变宽
     {
-        if(My_Abs(Road_Left[i],Road_Left[i+1])>10)
+        if(My_Abs(line_elements[i].left, line_elements[i + 1].left)>10)
         {
-           if(My_Abs(Road_Left[i],Road_Left[i+10])>10)//防止误判
+           if(My_Abs(line_elements[i].left, line_elements[i + 10].left)>10)//防止误判
            {
                flag1_line=i;
                break;
@@ -262,12 +262,12 @@ bool lose_left_line()//左边的边界线丢掉了
     int flag=0;
     for(int i=60;i>0;i--)
     {
-        if(Road_Left[i]==0)
+        if(line_elements[i].left==-1)
         {
             flag++;
         }
     }
-    if(flag>50)
+    if(flag>30)
     {
         ok=true;
     }
@@ -305,7 +305,7 @@ void second_stage()//第二阶段判断函数
 bool no_black()//第三阶段 下方没有黑色区域
 {
     int flag=0;
-   for(int i=60;i>50;i--)
+   for(int i=60;i>40;i--)
    {
        for(int j=0;j<40;j++)
        {
@@ -330,13 +330,13 @@ struct point p1,p2,p3,p4;//用来找拐点
 void find_inflection_point()//入圆环时候的拐点 就是找左边界的最小值
 {
     p1.x=0;
-    p1.y=Road_Left[0];
+    p1.y=line_elements[0].left;
     for(int i=0;i<40;i++)
     {
-      if(Road_Left[i]<p1.y)
+      if(line_elements[i].left<p1.y)
       {
           p1.x=i;
-          p1.y=Road_Left[i];//找到最低的点
+          p1.y=line_elements[i].left;//找到最低的点
 
       }
     }
@@ -344,13 +344,13 @@ void find_inflection_point()//入圆环时候的拐点 就是找左边界的最小值
 void find_point()
 {
    p2.x=0;
-   p2.y=Road_Right[0];
+   p2.y=line_elements[0].right;
    for(int i=0;i<60;i++)
    {
-     if(Road_Right[i]>p2.y)
+     if(line_elements[i].right>p2.y)
      {
          p2.x=i;
-         p2.y=Road_Left[i];//找到最的点
+         p2.y=line_elements[i].right;//找到最的点
 
      }
    }
@@ -367,19 +367,18 @@ void buxian(struct point po1,struct point po2)//补线 入环
 
   for(int i=x1;i<x2;i++)
   {
-      Road_Right[i]=k*i;//边界函数也更改
+      line_elements[i].right=k*i;//边界函数也更改
       Bin_Image[i][k*i]=2;
    }
 }
 
 void third_stage()
 {
-    if(yuanhuan_flag2&&no_black())//丢线且经过了第二阶段 且下方没有黑色区域了
+    if(lose_left_line()&&yuanhuan_flag2&&no_black())//丢线且经过了第二阶段 且下方没有黑色区域了
     {
        yuanhuan_flag3=1;
        yuanhuan_flag2=0;
-       if(ruhuan_flag==0){
-          buxian(p1,p2);}//进行补线打角度
+       buxian(p1,p2);//进行补线打角度
     }
 
  }
@@ -394,23 +393,23 @@ void chuhuan()
 {
 
      p3.x=0;
-     p3.y=Road_Left[0];
+     p3.y=line_elements[0].left;
      for(int i=0;i<60;i++)
      {
-        if(Road_Left[i]<p3.y)
+        if(line_elements[i].left<p3.y)
          {
              p3.x=i;
-             p3.y=Road_Left[i];//找到最低的点
+             p3.y=line_elements[i].left;//找到最低的点
          }
        }
      p4.x=0;
-     p4.y=Road_Right[0];
+     p4.y=line_elements[0].right;
      for(int i=0;i<60;i++)
      {
-        if(Road_Right[i]>p4.y)
+        if(line_elements[i].right>p4.y)
          {
              p4.x=i;
-             p4.y=Road_Right[i];//找到最低的点
+             p4.y=line_elements[i].right;//找到最低的点
          }
        }
 
@@ -447,7 +446,7 @@ void roundabout()
     //调用第一阶段判断函
     first_stage();
     second_stage();//第二阶段
-//    third_stage();//第三阶段
+    third_stage();//第三阶段
     char tstr[10];
     sprintf(tstr,"flag1: %d",yuanhuan_flag1);
     TFTSPI_P8X16Str(1, 4, tstr, u16RED, yuanhuan_flag1);
@@ -455,6 +454,7 @@ void roundabout()
     TFTSPI_P8X16Str(1, 5, tstr, u16RED, yuanhuan_flag2);
     sprintf(tstr,"flag3: %d",yuanhuan_flag3);
     TFTSPI_P8X16Str(1, 6, tstr, u16RED, yuanhuan_flag3);
+    all_clear();
 //    success_in();
 //    forth_stage();
 //    fifth_stage();
