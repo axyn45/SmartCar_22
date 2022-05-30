@@ -61,7 +61,7 @@ int Bin_image[60][94];//图像的二维数组
 int huandao_flag = 0;  //环岛的标志 出环岛之后才变成0
 int continueleftrukou1;//左边界连续 判断出第一个入口
 int continueleftrukou2;//判断出口
-void buxian();
+
 
 void TFT_Show_Camera_Info (void)
 {
@@ -146,17 +146,16 @@ void CameraCar(void)
             Get_Use_Image();    // 取出赛道及显示所需图像数据
             Get_Bin_Image(0);   // 转换为01格式数据，0、1原图；2、3边沿提取
             Bin_Image_Filter(); // 滤波，三面被围的数据将被修改为同一数值
-
             Seek_Road_Edge();
-            //Seek_Road();
-            buxian();
+            roundabout();
+
             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
-            sprintf(tstr,"OFFSET0: %d",OFFSET0);
-            TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
-            sprintf(tstr,"OFFSET1: %d",OFFSET1);
-            TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
-            sprintf(tstr,"OFFSET2: %d",OFFSET2);
-            TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
+//            sprintf(tstr,"OFFSET0: %d",OFFSET0);
+//            TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
+//            sprintf(tstr,"OFFSET1: %d",OFFSET1);
+//            TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
+//            sprintf(tstr,"OFFSET2: %d",OFFSET2);
+//            TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
             // 通过黑白区域面积差计算赛道偏差值
 
 
@@ -194,7 +193,7 @@ void CameraCar(void)
         }
     }
 }
-int Bisa_variance(int a[])
+int Bisa_variance(unsigned char a[])//算偏差值
 {
     int i;
     int avg=0;
@@ -212,7 +211,7 @@ int Bisa_variance(int a[])
     return result;
 }
 //
-int My_Abs(int a, int b)
+int My_Abs(int a, int b)//求绝对值
 {
 
             if ((a - b) > 0)
@@ -220,26 +219,12 @@ int My_Abs(int a, int b)
             else return ((int)(b - a));
 }
 //左右线连续开始
-void continuepanduan()
+void continuepanduan()//判断左右是否连续
 {
     int i = 0;
     continueleftrukou1 = 1;
-    continueleftrukou2 = 1;
      //如果所有行中出现大于5的跳变，认为不连续
      //如果第15行边线仍不在1-185范围内，认为不连续
-        for (i = 20; i <= 60; i++)
-        {
-            if (My_Abs(Road_Left[i], Road_Left[i + 1]) > 5)
-            {
-                continueleftrukou1 = 0;//出口标志
-                break;
-            }
-            if (Road_Left[30]==0)
-            {
-                continueleftrukou1 = 0;
-                break;
-            }
-        }
         for(i=0;i<30;i++)
         {
             if (My_Abs(Road_Left[i], Road_Left[i + 1]) > 5)
@@ -247,160 +232,232 @@ void continuepanduan()
                 continueleftrukou2 = 0;//入口找到了
                 break;
             }
-            if(Road_Left[15]==0)
-            {
-                continueleftrukou2 = 0;//入口找到了
-                break;
-            }
         }
 
 }
-bool left_edge_circle()//判断是圆环的条件第一阶段
+int flag1_line=0;
+void first_stage()//圆环得第一阶段
 {
-    bool result=false;
-    int i;
-    int flag=0;
-    for(i=20;i<45;i++)
+   // int result=Bisa_variance(Road_Right);
+    for(int i=60;i>0;i--)//从底部开始遍历 看左边得道路是否变宽
     {
-        if(Road_Left[i]==0)
+        if(My_Abs(Road_Left[i],Road_Left[i+1])>10)
         {
-          flag++;
+           if(My_Abs(Road_Left[i],Road_Left[i+10])>10)//防止误判
+           {
+               flag1_line=i;
+               break;
+           }
         }
     }
-    if(flag>16)
+    continuepanduan();
+    if(flag1_line!=0&&continueleftrukou2==0)//并且有边界得偏差值小于10
     {
-        result=true;
+        yuanhuan_flag1=1;
     }
-    return result;
 }
-bool left_circle_third()//第三阶段图像的判断
+bool lose_left_line()//左边的边界线丢掉了
 {
-    int i;
+    bool ok=false;
     int flag=0;
-    int continue_left=0;//判断第三阶段的一个标志
-   for(i=10;i<60;i++)
-   {
-      flag++;
-   }
-   for(i=0;i<20;i++)
-   {
-      if(My_Abs(Road_Left[i], Road_Left[i + 1]) > 5)
-      {
-          continue_left=1;
-      }
-   }
-   if(flag>45&&continue_left==1)
-   {
-     return true;
-   }
-   return false;
-}
-bool left_circle_forth()//第四阶段的判断 左右边界都看不到
-{
-    int i;
-    int flag=0;
-    for(i=0;i<60;i++)
+    for(int i=60;i>0;i--)
     {
-        if(Road_Left[i]==0&&Road_Right[i]!=0)
+        if(Road_Left[i]==0)
         {
             flag++;
         }
     }
-    if(flag>45)
+    if(flag>50)
+    {
+        ok=true;
+    }
+    return ok;
+}
+bool have_black_area()//判断有没有圆环那一块的黑色区域
+{
+    //遍历Bin_Image数组判读
+    int flag=0;
+    for(int i=15;i<50;i++)
+    {
+        for(int j=0;j<45;j++)
+        {
+            if(Bin_Image[i][j]==0)
+            {
+                flag++;
+            }
+        }
+    }
+    if(flag>100)
     {
         return true;
     }
     return false;
 }
-void buxian()//补线 入环
+void second_stage()//第二阶段判断函数
+{
+  //  int result=Bisa_variance(Road_Right);
+     if(lose_left_line()&&have_black_area()&&yuanhuan_flag1==1)//丢线了并且有黑色区域
+     {
+         yuanhuan_flag2=1;
+         yuanhuan_flag1=0;
+     }
+}
+bool no_black()//第三阶段 下方没有黑色区域
+{
+    int flag=0;
+   for(int i=60;i>50;i--)
+   {
+       for(int j=0;j<40;j++)
+       {
+           if(Bin_Image[i][j]==0)
+           {
+               flag++;
+           }
+       }
+   }
+   if(flag<20)
+   {
+       return true;
+   }
+   return false;
+}
+struct point
+{
+        int x;
+        int y;
+};
+struct point p1,p2,p3,p4;//用来找拐点
+void find_inflection_point()//入圆环时候的拐点 就是找左边界的最小值
+{
+    p1.x=0;
+    p1.y=Road_Left[0];
+    for(int i=0;i<40;i++)
+    {
+      if(Road_Left[i]<p1.y)
+      {
+          p1.x=i;
+          p1.y=Road_Left[i];//找到最低的点
+
+      }
+    }
+}
+void find_point()
+{
+   p2.x=0;
+   p2.y=Road_Right[0];
+   for(int i=0;i<60;i++)
+   {
+     if(Road_Right[i]>p2.y)
+     {
+         p2.x=i;
+         p2.y=Road_Left[i];//找到最的点
+
+     }
+   }
+
+}
+void buxian(struct point po1,struct point po2)//补线 入环
 {
   int x1,x2,y1,y2;//两个点坐标
-  int i;
-  for(int i=0;i<30;i++)
-  {
-      if(My_Abs(Road_Left[i], Road_Left[i + 1]) > 5)
-      {
-          x1=i;
-          y1=Road_Left[i];
-          break;
-      }
-  }
-  x2=50;
-  y2=89;
-  for(i=x1;i<x2;i++)
-  {
-      Bin_image[i][Road_Right[i]]=0;
-  }
+  x1=po1.x;
+  y1=po1.y;
+  y2=po2.y;
+  x2=po2.x;
   int k=(y1-y2)/(x1-x2);
 
   for(int i=x1;i<x2;i++)
   {
-      Bin_image[i][k*i]=2;
-    }
+      Road_Right[i]=k*i;//边界函数也更改
+      Bin_Image[i][k*i]=2;
+   }
 }
 
-void chuhuan()//出环
+void third_stage()
 {
-  int x1,x2,y1,y2;//两个点坐标
-  int i;
-  for(int i=0;i<40;i++)
-  {
-      if(My_Abs(Road_Left[i], Road_Left[i + 1]) > 5)
-      {
-          x1=i;
-          y1=Road_Left[i];
-          break;
-      }
-  }
-    x2=35;
-  y2=Road_Left[35];
-  for(i=x1;i<x2;i++)
-  {
-      Bin_image[i][Road_Left[i]]=0;
-  }
-  int k=(y1-y2)/(x1-x2);
+    if(yuanhuan_flag2&&no_black())//丢线且经过了第二阶段 且下方没有黑色区域了
+    {
+       yuanhuan_flag3=1;
+       yuanhuan_flag2=0;
+       if(ruhuan_flag==0){
+          buxian(p1,p2);}//进行补线打角度
+    }
 
-  for(int i=x1;i<x2;i++)
-  {
-      Bin_image[i][k*i]=2;
+ }
+void success_in()//成功入环的标志  未完善
+{
+   if(yuanhuan_flag3&&lose_left_line())
+   {
+       ruhuan_flag=1;
+   }
+}
+void chuhuan()
+{
+
+     p3.x=0;
+     p3.y=Road_Left[0];
+     for(int i=0;i<60;i++)
+     {
+        if(Road_Left[i]<p3.y)
+         {
+             p3.x=i;
+             p3.y=Road_Left[i];//找到最低的点
+         }
+       }
+     p4.x=0;
+     p4.y=Road_Right[0];
+     for(int i=0;i<60;i++)
+     {
+        if(Road_Right[i]>p4.y)
+         {
+             p4.x=i;
+             p4.y=Road_Right[i];//找到最低的点
+         }
+       }
+
+}
+void forth_stage()//进行出圆环
+{
+    //int result=Bisa_variance(Road_Right);//右边边界的偏差值大
+    if(yuanhuan_flag3&&ruhuan_flag)
+    {
+        yuanhuan_flag4=1;
+        yuanhuan_flag3=0;
+        buxian(p3,p4);
     }
 }
-
+void all_clear()//所有标志清零
+{
+    yuanhuan_flag1=0;
+    yuanhuan_flag2=0;
+    yuanhuan_flag3=0;
+    yuanhuan_flag4=0;
+    yuanhuan_flag5=0;
+    ruhuan_flag=0;
+}
+void fifth_stage()
+{
+   if(lose_left_line()&&no_black()&&yuanhuan_flag4)//丢线
+    {
+        //回到了初始位置，继续前进
+       all_clear();//全部清零
+    }
+}
 void roundabout()
 {
-    continuepanduan();//判断左边界是否连续
-    if((continueleftrukou1==0&&continueleftrukou2==0)||left_edge_circle())
-    {
-        yuanhuan_flag1=1;
-        continueleftrukou1=1;
-        continueleftrukou2=1;
-    }//第一阶段
-    continuepanduan();//看第二阶段
-    if(yuanhuan_flag1&&continueleftrukou1==0&&continueleftrukou2==1)
-    {
-        yuanhuan_flag2=1;
-    }//第二阶段
-    if((yuanhuan_flag1&&yuanhuan_flag2)||left_circle_third())
-    {
-        yuanhuan_flag3=1;
-        buxian();
-        ServoDuty=1900;
-        ServoCtrl(ServoDuty);
-    }
-    if((yuanhuan_flag1&&yuanhuan_flag2&&yuanhuan_flag3)||left_circle_forth())
-    {
-        yuanhuan_flag4=1;//出环
-        chuhuan();
-        ServoDuty=1900;
-        ServoCtrl(ServoDuty);
-    }
-    if(yuanhuan_flag1&&yuanhuan_flag2&&yuanhuan_flag3&&yuanhuan_flag4)
-    {
-       //正常走线
-       yuanhuan_flag5=1;//完成
-       yuanhuan_flag1=0;
-       yuanhuan_flag2=0;
-       yuanhuan_flag4=0;
-    }
+    //调用第一阶段判断函
+    first_stage();
+    second_stage();//第二阶段
+//    third_stage();//第三阶段
+    char tstr[10];
+    sprintf(tstr,"flag1: %d",yuanhuan_flag1);
+    TFTSPI_P8X16Str(1, 4, tstr, u16RED, yuanhuan_flag1);
+    sprintf(tstr,"flag2: %d",yuanhuan_flag2);
+    TFTSPI_P8X16Str(1, 5, tstr, u16RED, yuanhuan_flag2);
+    sprintf(tstr,"flag3: %d",yuanhuan_flag3);
+    TFTSPI_P8X16Str(1, 6, tstr, u16RED, yuanhuan_flag3);
+//    success_in();
+//    forth_stage();
+//    fifth_stage();
+
 }
 
