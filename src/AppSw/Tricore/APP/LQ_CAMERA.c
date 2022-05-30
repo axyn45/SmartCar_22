@@ -64,11 +64,11 @@ unsigned char Image_Data[IMAGEH][IMAGEW];
 /** 压缩后之后用于存放屏幕显示数据  */
 unsigned char Image_Use[LCDH][LCDW];
 
-struct line_element
+struct element
 {
-    char left;
-    char right;
-    char mid;
+    sint16 left;
+    sint16 right;
+    sint16 mid;
 };
 
 /** 二值化后用于OLED显示的数据 */
@@ -80,7 +80,7 @@ unsigned char Road_Right[LCDH];
 unsigned char Road_Left_Top[2] = {0, 0};
 unsigned char Road_Right_Top[2] = {0, 0};
 
-struct line_element line_element[LCDH] = {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}};
+struct element line_elements[LCDH] = {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}};
 
 sint16 OFFSET0 = 0; //最远处，赛道中心值综合偏移量
 sint16 OFFSET1 = 0; //第二格
@@ -610,21 +610,22 @@ void Seek_Road_Edge(void)
     int flag_l = 1;
     char left_count = 0, right_count = 0;
 
-
+    int flag_left_no_edge = 0;
+    int flag_right_no_edge = 0;
 
     for (nr = 59; nr >= 0; nr--)
     {
         flag_r = 0;
         flag_l = 0;
         if(nr==25){
-            if(line_element[nr-1].mid>MAX_COL/2){
+            if(line_elements[nr-1].mid>MAX_COL/2){
                 is_left_right=1;
             }
-            else if(line_element[nr-1].mid<MAX_COL/2){
+            else if(line_elements[nr-1].mid<MAX_COL/2){
                 is_left_right=-1;
             }
         }
-        if ((is_left_right == 1 && line_element[nr - 1].left == MAX_COL) || (is_left_right == -1 && line_element[nr - 1].right == 0))
+        if ((is_left_right == 1 && line_elements[nr - 1].left == MAX_COL) || (is_left_right == -1 && line_elements[nr - 1].right == 0))
             break;
 
         for (nc = mid; nc < MAX_COL && !flag_r; nc = nc + 1) //右扫线
@@ -633,13 +634,17 @@ void Seek_Road_Edge(void)
             {
                 Bin_Image[nr][nc] = 2;
                 flag_r = 1;
-                if (line_element[nr - 1].right != 0 && line_element[nr].right != MAX_COL)
+                if (line_elements[nr - 1].right != 0 && line_elements[nr].right != MAX_COL)
                     right_count++;
                 right = nc;
                 break;
             }
+            if(nc==MAX_COL-1){
+                flag_right_no_edge=1;
+                break;
+            }
         }
-        for (nc = mid; nc > 0 && !flag_l; nc = nc - 1) //左扫线
+        for (nc = mid; nc >= 0 && !flag_l; nc = nc - 1) //左扫线
         {
             if (nc == 0 || nc == MAX_COL || (Bin_Image[nr][nc + 1] == 1 && Bin_Image[nr][nc] == 1 && Bin_Image[nr][nc - 1] == 0 && Bin_Image[nr][nc - 2] == 0 && flag_l == 0))
             {
@@ -656,12 +661,19 @@ void Seek_Road_Edge(void)
                 }
                 break;
             }
+            if(nc==0){
+                flag_left_no_edge=1;
+                break;
+            }
+        }
+        if(flag_left_no_edge&&flag_right_no_edge){
+            break;
         }
         mid = (left + right) / 2;
-        line_element[nr].left = left;
-        line_element[nr].right = right;
-        line_element[nr].mid = (left + right) / 2;
-        Bin_Image[nr][line_element[nr].mid] = 3;
+        line_elements[nr].left = left;
+        line_elements[nr].right = right;
+        line_elements[nr].mid = (left + right) / 2;
+        Bin_Image[nr][line_elements[nr].mid] = 3;
     }
 
     // if(is_left_right==1){
@@ -677,8 +689,8 @@ void Seek_Road_Edge(void)
     //     else if(seg_offset==4||seg_offset==5) loop_size=2;
     //     char left_i=59;
     //     for(int i=59;i>=60-right_count;i--){
-    //         line_element[(left_i+i)/2].mid=(line_element[left_i].left+line_element[i].right)/2;
-    //         Bin_Image[(left_i+i)/2][line_element[(left_i+i)/2].mid]=3;
+    //         line_elements[(left_i+i)/2].mid=(line_elements[left_i].left+line_elements[i].right)/2;
+    //         Bin_Image[(left_i+i)/2][line_elements[(left_i+i)/2].mid]=3;
     //         left_i-=seg;
     //     }
 
