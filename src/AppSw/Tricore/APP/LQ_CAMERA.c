@@ -64,21 +64,16 @@ unsigned char Image_Data[IMAGEH][IMAGEW];
 /** 压缩后之后用于存放屏幕显示数据  */
 unsigned char Image_Use[LCDH][LCDW];
 
-struct element
-{
-    sint16 left;
-    sint16 right;
-    sint16 mid;
-};
-
 /** 二值化后用于OLED显示的数据 */
 unsigned char Bin_Image[LCDH][LCDW];
 unsigned char Road_Mid[LCDH];
 unsigned char Road_Left[LCDH];
 unsigned char Road_Right[LCDH];
 
-unsigned char Road_Left_Top[2] = {0, 0};
-unsigned char Road_Right_Top[2] = {0, 0};
+sint16 Road_Left_Top[2] = {0, 0};
+sint16 Road_Right_Top[2] = {0, 0};
+sint16 Road_Left_Bottom[2] = {0, 0};
+sint16 Road_Right_Bottom[2] = {0, 0};
 
 struct element line_elements[LCDH] = {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}};
 
@@ -679,11 +674,27 @@ void Seek_Road_Edge(void)
         }
         if (flag_left_no_edge && flag_right_no_edge)
         {
+            Road_Left_Top[0] = nr-1;
+            Road_Left_Top[1] = line_elements[nr - 1].left;
+            Road_Right_Top[0] = nr-1;
+            Road_Right_Top[1] = line_elements[nr - 1].right;
             break;
         }
         mid = (left + right) / 2;
-        line_elements[nr].left = left;
-        line_elements[nr].right = right;
+        if(left!=0&&left!=MAX_COL-1)
+            line_elements[nr].left = left;
+        // line_elements[nr].left = left;
+        if(right!=0&&right!=MAX_COL-1)
+            line_elements[nr].right = right;
+        // line_elements[nr].right = right;
+        if(line_elements[nr-1].left==-1&&line_elements[nr].left!=-1){
+            Road_Left_Bottom[0] = nr;
+            Road_Left_Bottom[1] = line_elements[nr].left;
+        }
+        if(line_elements[nr-1].right==-1&&line_elements[nr].right!=-1){
+            Road_Right_Bottom[0] = nr;
+            Road_Right_Bottom[1] = line_elements[nr].right;
+        }
         line_elements[nr].mid = (left + right) / 2;
         Bin_Image[nr][line_elements[nr].mid] = 3;
     }

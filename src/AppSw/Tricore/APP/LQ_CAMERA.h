@@ -61,9 +61,11 @@ extern unsigned char Bin_Image[LCDH][LCDW];
 extern unsigned char Road_Mid[LCDH];
 extern unsigned char Road_Left[LCDH];
 extern unsigned char Road_Right[LCDH];
-extern unsigned char Road_Left_Top[2];
-extern unsigned char Road_Right_Top[2];
 extern struct element line_elements[LCDH];
+extern sint16 Road_Left_Top[2];
+extern sint16 Road_Right_Top[2];
+extern sint16 Road_Left_Bottom[2];
+extern sint16 Road_Right_Bottom[2];
 
 /*!
   * @brief    串口上报上位机
