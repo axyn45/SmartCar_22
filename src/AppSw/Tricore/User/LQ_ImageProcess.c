@@ -461,3 +461,154 @@ void roundabout()
 
 }
 
+
+/********************************                  三岔                            *************************************************/
+
+/*
+对于三岔的判断我主要寻找进入三岔时的两个拐点以及进三岔底部的那个点
+
+1.找到进入三岔时的两个拐点：左边界列数先变大，再变小。
+同右边界列数先变小后变大，找到那   个大小变化的那个点。
+两拐点成立后判断左右两边界的丢线数目，当小于一定阈值后置为状态一。
+
+ 2.三岔底部的点：找到进三岔的两个拐点后，计算两拐点的行数，两者两加除以2，记录下来
+ ，再以固定摄像头正中间的列数向上找黑白的跳变点(也可以以刚才两拐点的列数相减除以2)
+ ，找到底部的点后，记录所在行数，与拐点1/2所在行数相减，当两者之差小于一定阈值后，判断三岔成立。
+
+*/
+
+extern int Bin_image[60][94];
+
+//找左拐点
+int Left_Point_Row = 0;//左拐点行
+int Left_Point_Col = 0;//左拐点列
+int Left_Point_Flag = 0;//是否找到左拐点标志位
+//extern int leftline[60];//左边界
+void Find_Left_Point()
+{
+    int i;
+
+    int  Find_Start_Line = 0;
+    int  Find_End_Line = 94;
+
+    for (i = Find_Start_Line; i > Find_End_Line; i++)
+    {
+        if (line_elements[i].left != 0 && line_elements[i].left != 0 && line_elements[i].left != 0
+            && line_elements[i].left != 0                       //连续4行不丢线，并且这4行都小于70 178改成70
+            && line_elements[i].left < 178 && line_elements[i].left < 178 && line_elements[i].left < 178
+            && line_elements[i].left < 178)
+        {
+            if ((line_elements[i].left - line_elements[i].left >= 0) && (line_elements[i].left - line_elements[i].left >= 0)
+                && (line_elements[i].left - line_elements[i].left >= 2)
+                && (line_elements[i].left - line_elements[i].left >= 0)
+                && (line_elements[i].left - line_elements[i].left >= 0)
+                && (line_elements[i].left - line_elements[i].left >= 0)) //找到拐点
+            {
+                Left_Point_Row = i;           //记录该拐点的行
+                Left_Point_Col = line_elements[i].left; //记录该拐点的列
+                Left_Point_Flag = 1;          //标记找到左拐点
+                break;                              //找到退出
+            }
+        }
+    }
+}
+
+//找右拐点
+int Right_Point_Row = 0;//右拐点行
+int Right_Point_Col = 0;//右拐点列
+int Right_Point_Flag = 0;//是否找到右拐点标志位
+//extern int rightline[60];//左右边界
+void Find_Right_Point()
+{
+    int i;
+    int cutCOL = 94;
+    int  Find_Start_Line = 0;
+    int  Find_End_Line = 94;
+
+
+    for (i = Find_Start_Line; i > Find_End_Line; i++)
+    {
+        //不能扫描太远，否则会误判
+
+        if ((line_elements[i].right != (cutCOL - 1) && line_elements[i].right != (cutCOL - 1)
+            && line_elements[i].right != (cutCOL - 1)
+            && line_elements[i].right != (cutCOL - 1))
+            && (line_elements[i].right > 10 && line_elements[i].right > 10
+                && line_elements[i].right > 10 && line_elements[i].right > 10))
+            //连续四行不丢线,并未为了防止跳变，这4行必须大于10
+        {
+            if ((line_elements[i].right - line_elements[i].right <= 0)
+                && (line_elements[i].right - line_elements[i].right) <= 0
+                && (line_elements[i].right - line_elements[i].right) <= 0
+                && (line_elements[i].right - line_elements[i].right <= 0)
+                && (line_elements[i].right - line_elements[i].right <= 0)
+                && (line_elements[i].right - line_elements[i].right <= -2))
+            {
+                Right_Point_Row = i;           //记录该拐点的行
+                Right_Point_Col = line_elements[i].right; //记录该拐点的列
+                Right_Point_Flag = 1;          //标记找到右拐点
+                break;                              //找到退出
+            }
+        }
+    }
+
+}
+
+
+/*
+函数名称：Sancha_judge
+函数功能: 判断三岔
+*/
+int point_flag;
+int distance;
+int Sancha_Num = 0; //记载进入三岔次数，滤掉偶然情况
+int Sancha_Start_Row = 0;
+int Sancha_Start_Col = 0;
+int Sancha_Button_Row = 0;//三岔中间底部那个拐点
+int Sancha_Button_Flag = 0;
+int Sancha_In_Flag = 0;//进三岔标志
+
+void Sancha_judge()
+{
+    int i;
+    //  San.Sancha_In_Flag=0;
+
+    Find_Left_Point();
+    Find_Right_Point();
+
+    if (Right_Point_Flag && Left_Point_Flag /* && sum_lost_line < 40 */) //左右下方拐点存在
+    {
+        point_flag = 1;
+        Sancha_Start_Row = ((Right_Point_Row + Left_Point_Row) / 2);
+        Sancha_Start_Col = ((Right_Point_Col + Left_Point_Col) / 2);
+    }
+    if (point_flag == 1 /*&& sum_lost_line > 70*/)
+    {
+        for (i = Sancha_Start_Row; i > 50; i--)
+        {
+            if ((Bin_image[i][Sancha_Start_Col] == 1)
+                && (Bin_image[i - 1][Sancha_Start_Col] == 0))
+            {
+                Sancha_Button_Row = i;
+                distance = Sancha_Start_Row - Sancha_Button_Row;
+                if (distance > 0 && distance <= 40 && Sancha_Start_Row > 55)
+                {
+                    Sancha_Button_Flag = 1;
+                    Sancha_In_Flag = 1;
+                    //special_LOCK = 1;
+                    Sancha_Num++;
+                    break;
+                }
+                if (Sancha_In_Flag == 1)
+                {
+                    //令之前所有的三岔相关的flag置为0
+                    Sancha_In_Flag = 0;
+                    Bin_Image[Left_Point_Row][Left_Point_Col] = 2;
+                    Bin_Image[Right_Point_Row][Right_Point_Col] = 2;
+
+
+                }
+            }
+        }
+    }
+}
