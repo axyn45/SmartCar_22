@@ -64,7 +64,8 @@ unsigned char Image_Data[IMAGEH][IMAGEW];
 /** Ñ¹ËõºóÖ®ºóÓÃÓÚ´æ·ÅÆÁÄ»ÏÔÊ¾Êý¾Ý  */
 unsigned char Image_Use[LCDH][LCDW];
 
-struct line_element{
+struct line_element
+{
     char left;
     char right;
     char mid;
@@ -76,23 +77,15 @@ unsigned char Road_Mid[LCDH];
 unsigned char Road_Left[LCDH];
 unsigned char Road_Right[LCDH];
 
-unsigned char Road_Left_Top[2]={0,0};
-unsigned char Road_Right_Top[2]={0,0};
+unsigned char Road_Left_Top[2] = {0, 0};
+unsigned char Road_Right_Top[2] = {0, 0};
 
-struct line_element line_element[LCDH]={{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},
-{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},
-{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},
-{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},
-{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},
-{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},
-{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},
-{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1},{-1,-1,-1}};
+struct line_element line_element[LCDH] = {{-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}, {-1, -1, -1}};
 
-
-sint16 OFFSET0 = 0;      //×îÔ¶´¦£¬ÈüµÀÖÐÐÄÖµ×ÛºÏÆ«ÒÆÁ¿
-sint16 OFFSET1 = 0;      //µÚ¶þ¸ñ
-sint16 OFFSET2 = 0;      //×î½ü£¬µÚÈý¸ñ
-sint16 TXV = 0;          //ÌÝÐÎµÄ×ó¸ß¶È£¬ÓÒ¸ß¶È
+sint16 OFFSET0 = 0; //×îÔ¶´¦£¬ÈüµÀÖÐÐÄÖµ×ÛºÏÆ«ÒÆÁ¿
+sint16 OFFSET1 = 0; //µÚ¶þ¸ñ
+sint16 OFFSET2 = 0; //×î½ü£¬µÚÈý¸ñ
+sint16 TXV = 0;     //ÌÝÐÎµÄ×ó¸ß¶È£¬ÓÒ¸ß¶È
 
 /*!
  * @brief    ÉãÏñÍ·²âÊÔÀý³Ì
@@ -107,15 +100,15 @@ sint16 TXV = 0;          //ÌÝÐÎµÄ×ó¸ß¶È£¬ÓÒ¸ß¶È
  *
  * @date     2019/10/22 ÐÇÆÚ¶þ
  */
-void Test_CAMERA (void)
+void Test_CAMERA(void)
 {
 
 #ifdef USEOLED
     OLED_Init();
-    OLED_CLS();                   //LCDÇåÆÁ
+    OLED_CLS(); // LCDÇåÆÁ
 #else
-    TFTSPI_Init(0);               //TFT1.8³õÊ¼»¯0:ºáÆÁ  1£ºÊúÆÁ
-    TFTSPI_CLS(u16BLUE);          //ÇåÆÁ
+    TFTSPI_Init(0);      // TFT1.8³õÊ¼»¯0:ºáÆÁ  1£ºÊúÆÁ
+    TFTSPI_CLS(u16BLUE); //ÇåÆÁ
 #endif
 
     /* ÉãÏñÍ·³õÊ¼»¯ */
@@ -127,7 +120,7 @@ void Test_CAMERA (void)
         {
 
             //ÉÏ±¨Êý¾Ý¸øÉÏÎ»»ú ´®¿ÚËÙ¶È±È½ÏÂý ×¢ÒâÉÏÎ»»úÍ¼Ïñ¿í¸ßÉèÖÃÎª120*188
-            //CAMERA_Reprot();
+            // CAMERA_Reprot();
 
             /* ÌáÈ¡²¿·ÖÊ¹ÓÃµÄÊý¾Ý */
             Get_Use_Image();
@@ -140,27 +133,25 @@ void Test_CAMERA (void)
             /* ¶þÖµ»¯ */
             Get_Bin_Image(2);
 
-
             // OLED¶¯Ì¬ÏÔÊ¾ÉãÏñÍ·Í¼Ïñ
             OLED_Road(LCDH, LCDW, (unsigned char *)Bin_Image);
 #else
 
-#if 0       //ÏÔÊ¾Ô­Ê¼Í¼Ïñ
-            //TFT1.8¶¯Ì¬ÏÔÊ¾ÉãÏñÍ·Í¼Ïñ
+#if 0 //ÏÔÊ¾Ô­Ê¼Í¼Ïñ
+      // TFT1.8¶¯Ì¬ÏÔÊ¾ÉãÏñÍ·Í¼Ïñ
             TFTSPI_Road(0, 0, LCDH, LCDW, (unsigned char *)Image_Use);
 
-#else       //ÏÔÊ¾¶þÖµ»¯Í¼Ïñ
+#else //ÏÔÊ¾¶þÖµ»¯Í¼Ïñ
 
             /* ¶þÖµ»¯ */
             Get_Bin_Image(1);
             FindEdge();
             Paint();
             // ÏÔÊ¾ÉãÏñÍ·Í¼Ïñ
-            TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *) Bin_Image);
+            TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
 #endif
 #endif
             LED_Ctrl(LED0, RVS);
-
         }
     }
 }
@@ -178,28 +169,26 @@ void Test_CAMERA (void)
  *
  * @date     2019/9/24 ÐÇÆÚ¶þ
  */
-void CAMERA_Reprot (void)
+void CAMERA_Reprot(void)
 {
     short j, i;
 
-    UART_PutChar(UART0, 0xfe);  //Ö¡Í·
-    UART_PutChar(UART0, 0xef);  //Ö¡Í·
+    UART_PutChar(UART0, 0xfe); //Ö¡Í·
+    UART_PutChar(UART0, 0xef); //Ö¡Í·
 
     for (i = 0; i < IMAGEH; i++)
     {
         for (j = 0; j < IMAGEW; j++)
         {
-            if (Image_Data[i][j] == 0xfe)  //·ÀÖ¹´íÎó·¢ËÍÖ¡Î²
+            if (Image_Data[i][j] == 0xfe) //·ÀÖ¹´íÎó·¢ËÍÖ¡Î²
             {
                 Image_Data[i][j] = 0xff;
             }
             UART_PutChar(UART0, Image_Data[i][j]); //·¢ËÍÊý¾Ý
-
         }
     }
-    UART_PutChar(UART0, 0xef);  //Ö¡Î²
-    UART_PutChar(UART0, 0xfe);  //Ö¡Î²
-
+    UART_PutChar(UART0, 0xef); //Ö¡Î²
+    UART_PutChar(UART0, 0xfe); //Ö¡Î²
 }
 
 /*!
@@ -215,11 +204,11 @@ void CAMERA_Reprot (void)
  *
  * @date     2019/10/22 ÐÇÆÚ¶þ
  */
-void CAMERA_Init (unsigned char fps)
+void CAMERA_Init(unsigned char fps)
 {
     //¹Ø±ÕCPU×ÜÖÐ¶Ï
     IfxCpu_disableInterrupts();
-    
+
     /* ³õÊ¼»¯ÉãÏñÍ· Êý¾ÝIO */
     PIN_InitConfig(P02_0, PIN_MODE_INPUT_PULLDOWN, 0);
     PIN_InitConfig(P02_1, PIN_MODE_INPUT_PULLDOWN, 0);
@@ -236,14 +225,13 @@ void CAMERA_Init (unsigned char fps)
     PIN_Exti(P00_4, PIN_IRQ_MODE_FALLING);
 
     /* DMA ³õÊ¼»¯ */
-    DMA_CameraInitConfig((unsigned long) (&MODULE_P02.IN.U), (unsigned long) Image_Data, PIN_INT2_PRIORITY);
-    
+    DMA_CameraInitConfig((unsigned long)(&MODULE_P02.IN.U), (unsigned long)Image_Data, PIN_INT2_PRIORITY);
+
     /* Ê¹ÄÜ³¡ÖÐ¶Ï */
     PIN_Exti(P15_1, PIN_IRQ_MODE_RISING);
 
     /* ³õÊ¼»¯Íê³É ´ò¿ªÖÐ¶Ï */
     IfxCpu_enableInterrupts();
-
 }
 
 /*************************************************************************
@@ -259,10 +247,10 @@ void Get_Use_Image(void)
 {
     short i = 0, j = 0, row = 0, line = 0;
 
-    for (i = 0; i < IMAGEH; i += 2)          //ÉñÑÛ¸ß 120 / 2  = 60£¬
+    for (i = 0; i < IMAGEH; i += 2) //ÉñÑÛ¸ß 120 / 2  = 60£¬
     // for (i = 0; i < IMAGEH; i += 3)       //OV7725¸ß 240 / 3  = 80£¬
     {
-        for (j = 0; j <= IMAGEW; j += 2)     //ÉñÑÛ¿í188 / 2  = 94£¬
+        for (j = 0; j <= IMAGEW; j += 2) //ÉñÑÛ¿í188 / 2  = 94£¬
         // for (j = 0; j <= IMAGEW; j += 3)  //OV7725¿í320 / 3  = 106£¬
         {
             Image_Use[row][line] = Image_Data[i][j];
@@ -285,16 +273,16 @@ void Get_Use_Image(void)
  *  ÐÞ¸ÄÊ±¼ä£º2020Äê10ÔÂ28ÈÕ
  *  ±¸    ×¢£º  Get_Bin_Image(0); //Ê¹ÓÃ´ó½ò·¨¶þÖµ»¯
  *************************************************************************/
-void Get_Bin_Image (unsigned char mode)
+void Get_Bin_Image(unsigned char mode)
 {
     unsigned short i = 0, j = 0;
     unsigned short Threshold = 0;
     unsigned long tv = 0;
-    //char txt[16];
+    // char txt[16];
 
     if (mode == 0)
     {
-        Threshold = GetOSTU(Image_Use);  //´ó½ò·¨ãÐÖµ
+        Threshold = GetOSTU(Image_Use); //´ó½ò·¨ãÐÖµ
     }
     if (mode == 1)
     {
@@ -303,34 +291,33 @@ void Get_Bin_Image (unsigned char mode)
         {
             for (j = 0; j < LCDW; j++)
             {
-                tv += Image_Use[i][j];   //ÀÛ¼Ó
+                tv += Image_Use[i][j]; //ÀÛ¼Ó
             }
         }
-        Threshold =(unsigned short)(tv / LCDH / LCDW);   //ÇóÆ½¾ùÖµ,¹âÏßÔ½°µÔ½Ð¡£¬È«ºÚÔ¼35£¬¶Ô×ÅÆÁÄ»Ô¼160£¬Ò»°ãÇé¿öÏÂ´óÔ¼100
-        Threshold = Threshold + 20;      //´Ë´¦ãÐÖµÉèÖÃ£¬¸ù¾Ý»·¾³µÄ¹âÏßÀ´Éè¶¨
+        Threshold = (unsigned short)(tv / LCDH / LCDW); //ÇóÆ½¾ùÖµ,¹âÏßÔ½°µÔ½Ð¡£¬È«ºÚÔ¼35£¬¶Ô×ÅÆÁÄ»Ô¼160£¬Ò»°ãÇé¿öÏÂ´óÔ¼100
+        Threshold = Threshold + 20;                     //´Ë´¦ãÐÖµÉèÖÃ£¬¸ù¾Ý»·¾³µÄ¹âÏßÀ´Éè¶¨
     }
     else if (mode == 2)
     {
-        Threshold = 80;                          //ÊÖ¶¯µ÷½ÚãÐÖµ
-        lq_sobel(Image_Use, Bin_Image, (unsigned char) Threshold);
+        Threshold = 80; //ÊÖ¶¯µ÷½ÚãÐÖµ
+        lq_sobel(Image_Use, Bin_Image, (unsigned char)Threshold);
 
         return;
-
     }
     else if (mode == 3)
     {
-        lq_sobelAutoThreshold(Image_Use, Bin_Image);  //¶¯Ì¬µ÷½ÚãÐÖµ
+        lq_sobelAutoThreshold(Image_Use, Bin_Image); //¶¯Ì¬µ÷½ÚãÐÖµ
         return;
     }
-/*
-#ifdef USEOLED
-    sprintf(txt,"%03d",Threshold);//ÏÔÊ¾ãÐÖµ
-	OLED_P6x8Str(80,0,txt);
-#else
-    sprintf(txt, "%03d", Threshold);  //ÏÔÊ¾ãÐÖµ
-    TFTSPI_P6X8Str(0,7, txt, u16RED, u16BLUE);
-#endif
-*/
+    /*
+    #ifdef USEOLED
+        sprintf(txt,"%03d",Threshold);//ÏÔÊ¾ãÐÖµ
+        OLED_P6x8Str(80,0,txt);
+    #else
+        sprintf(txt, "%03d", Threshold);  //ÏÔÊ¾ãÐÖµ
+        TFTSPI_P6X8Str(0,7, txt, u16RED, u16BLUE);
+    #endif
+    */
     /* ¶þÖµ»¯ */
     for (i = 0; i < LCDH; i++)
     {
@@ -362,7 +349,7 @@ Ostu·½·¨ÓÖÃû×î´óÀà¼ä²î·½·¨£¬Í¨¹ýÍ³¼ÆÕû¸öÍ¼ÏñµÄÖ±·½Í¼ÌØÐÔÀ´ÊµÏÖÈ«¾ÖãÐÖµTµÄ×Ô¶¯Ñ¡È
 7) ½«×î´ógÏàÓ¦µÄiÖµ×÷ÎªÍ¼ÏñµÄÈ«¾ÖãÐÖµ
 È±ÏÝ:OSTUËã·¨ÔÚ´¦Àí¹âÕÕ²»¾ùÔÈµÄÍ¼ÏñµÄÊ±ºò£¬Ð§¹û»áÃ÷ÏÔ²»ºÃ£¬ÒòÎªÀûÓÃµÄÊÇÈ«¾ÖÏñËØÐÅÏ¢¡£
 *************************************************************************/
-short GetOSTU (unsigned char tmImage[LCDH][LCDW])
+short GetOSTU(unsigned char tmImage[LCDH][LCDW])
 {
     signed short i, j;
     unsigned long Amount = 0;
@@ -374,7 +361,7 @@ short GetOSTU (unsigned char tmImage[LCDH][LCDW])
     float OmegaBack, OmegaFore, MicroBack, MicroFore, SigmaB, Sigma; // Àà¼ä·½²î;
     signed short MinValue, MaxValue;
     signed short Threshold = 0;
-    unsigned char HistoGram[256];              //
+    unsigned char HistoGram[256]; //
 
     for (j = 0; j < 256; j++)
         HistoGram[j] = 0; //³õÊ¼»¯»Ò¶ÈÖ±·½Í¼
@@ -387,41 +374,43 @@ short GetOSTU (unsigned char tmImage[LCDH][LCDW])
         }
     }
 
-    for (MinValue = 0; MinValue < 256 && HistoGram[MinValue] == 0; MinValue++);        //»ñÈ¡×îÐ¡»Ò¶ÈµÄÖµ
-    for (MaxValue = 255; MaxValue > MinValue && HistoGram[MinValue] == 0; MaxValue--); //»ñÈ¡×î´ó»Ò¶ÈµÄÖµ
+    for (MinValue = 0; MinValue < 256 && HistoGram[MinValue] == 0; MinValue++)
+        ; //»ñÈ¡×îÐ¡»Ò¶ÈµÄÖµ
+    for (MaxValue = 255; MaxValue > MinValue && HistoGram[MinValue] == 0; MaxValue--)
+        ; //»ñÈ¡×î´ó»Ò¶ÈµÄÖµ
 
     if (MaxValue == MinValue)
-        return MaxValue;         // Í¼ÏñÖÐÖ»ÓÐÒ»¸öÑÕÉ«
+        return MaxValue; // Í¼ÏñÖÐÖ»ÓÐÒ»¸öÑÕÉ«
     if (MinValue + 1 == MaxValue)
-        return MinValue;        // Í¼ÏñÖÐÖ»ÓÐ¶þ¸öÑÕÉ«
+        return MinValue; // Í¼ÏñÖÐÖ»ÓÐ¶þ¸öÑÕÉ«
 
     for (j = MinValue; j <= MaxValue; j++)
-        Amount += HistoGram[j];        //  ÏñËØ×ÜÊý
+        Amount += HistoGram[j]; //  ÏñËØ×ÜÊý
 
     Pixelshortegral = 0;
     for (j = MinValue; j <= MaxValue; j++)
     {
-        Pixelshortegral += HistoGram[j] * j;        //»Ò¶ÈÖµ×ÜÊý
+        Pixelshortegral += HistoGram[j] * j; //»Ò¶ÈÖµ×ÜÊý
     }
     SigmaB = -1;
     for (j = MinValue; j < MaxValue; j++)
     {
-        PixelBack = PixelBack + HistoGram[j];     //Ç°¾°ÏñËØµãÊý
-        PixelFore = Amount - PixelBack;           //±³¾°ÏñËØµãÊý
-        OmegaBack = (float) PixelBack / Amount;   //Ç°¾°ÏñËØ°Ù·Ö±È
-        OmegaFore = (float) PixelFore / Amount;   //±³¾°ÏñËØ°Ù·Ö±È
-        PixelshortegralBack += HistoGram[j] * j;  //Ç°¾°»Ò¶ÈÖµ
-        PixelshortegralFore = Pixelshortegral - PixelshortegralBack;  //±³¾°»Ò¶ÈÖµ
-        MicroBack = (float) PixelshortegralBack / PixelBack;   //Ç°¾°»Ò¶È°Ù·Ö±È
-        MicroFore = (float) PixelshortegralFore / PixelFore;   //±³¾°»Ò¶È°Ù·Ö±È
-        Sigma = OmegaBack * OmegaFore * (MicroBack - MicroFore) * (MicroBack - MicroFore);   //¼ÆËãÀà¼ä·½²î
-        if (Sigma > SigmaB)                    //±éÀú×î´óµÄÀà¼ä·½²îg //ÕÒ³ö×î´óÀà¼ä·½²îÒÔ¼°¶ÔÓ¦µÄãÐÖµ
+        PixelBack = PixelBack + HistoGram[j];                                              //Ç°¾°ÏñËØµãÊý
+        PixelFore = Amount - PixelBack;                                                    //±³¾°ÏñËØµãÊý
+        OmegaBack = (float)PixelBack / Amount;                                             //Ç°¾°ÏñËØ°Ù·Ö±È
+        OmegaFore = (float)PixelFore / Amount;                                             //±³¾°ÏñËØ°Ù·Ö±È
+        PixelshortegralBack += HistoGram[j] * j;                                           //Ç°¾°»Ò¶ÈÖµ
+        PixelshortegralFore = Pixelshortegral - PixelshortegralBack;                       //±³¾°»Ò¶ÈÖµ
+        MicroBack = (float)PixelshortegralBack / PixelBack;                                //Ç°¾°»Ò¶È°Ù·Ö±È
+        MicroFore = (float)PixelshortegralFore / PixelFore;                                //±³¾°»Ò¶È°Ù·Ö±È
+        Sigma = OmegaBack * OmegaFore * (MicroBack - MicroFore) * (MicroBack - MicroFore); //¼ÆËãÀà¼ä·½²î
+        if (Sigma > SigmaB)                                                                //±éÀú×î´óµÄÀà¼ä·½²îg //ÕÒ³ö×î´óÀà¼ä·½²îÒÔ¼°¶ÔÓ¦µÄãÐÖµ
         {
             SigmaB = Sigma;
             Threshold = j;
         }
     }
-    return Threshold;                        //·µ»Ø×î¼ÑãÐÖµ;
+    return Threshold; //·µ»Ø×î¼ÑãÐÖµ;
 }
 
 /*!
@@ -439,7 +428,7 @@ short GetOSTU (unsigned char tmImage[LCDH][LCDW])
  *
  * @date     2020/5/15
  */
-void lq_sobel (unsigned char imageIn[LCDH][LCDW], unsigned char imageOut[LCDH][LCDW], unsigned char Threshold)
+void lq_sobel(unsigned char imageIn[LCDH][LCDW], unsigned char imageOut[LCDH][LCDW], unsigned char Threshold)
 {
     /** ¾í»ýºË´óÐ¡ */
     short KERNEL_SIZE = 3;
@@ -454,21 +443,21 @@ void lq_sobel (unsigned char imageIn[LCDH][LCDW], unsigned char imageOut[LCDH][L
         for (j = xStart; j < xEnd; j++)
         {
             /* ¼ÆËã²»Í¬·½ÏòÌÝ¶È·ùÖµ  */
-            temp[0] = -(short) imageIn[i - 1][j - 1] + (short) imageIn[i - 1][j + 1]     //{{-1, 0, 1},
-            - (short) imageIn[i][j - 1] + (short) imageIn[i][j + 1]        // {-1, 0, 1},
-            - (short) imageIn[i + 1][j - 1] + (short) imageIn[i + 1][j + 1];    // {-1, 0, 1}};
+            temp[0] = -(short)imageIn[i - 1][j - 1] + (short)imageIn[i - 1][j + 1]   //{{-1, 0, 1},
+                      - (short)imageIn[i][j - 1] + (short)imageIn[i][j + 1]          // {-1, 0, 1},
+                      - (short)imageIn[i + 1][j - 1] + (short)imageIn[i + 1][j + 1]; // {-1, 0, 1}};
 
-            temp[1] = -(short) imageIn[i - 1][j - 1] + (short) imageIn[i + 1][j - 1]     //{{-1, -1, -1},
-            - (short) imageIn[i - 1][j] + (short) imageIn[i + 1][j]       // { 0,  0,  0},
-            - (short) imageIn[i - 1][j + 1] + (short) imageIn[i + 1][j + 1];    // { 1,  1,  1}};
+            temp[1] = -(short)imageIn[i - 1][j - 1] + (short)imageIn[i + 1][j - 1]   //{{-1, -1, -1},
+                      - (short)imageIn[i - 1][j] + (short)imageIn[i + 1][j]          // { 0,  0,  0},
+                      - (short)imageIn[i - 1][j + 1] + (short)imageIn[i + 1][j + 1]; // { 1,  1,  1}};
 
-            temp[2] = -(short) imageIn[i - 1][j] + (short) imageIn[i][j - 1]       //  0, -1, -1
-            - (short) imageIn[i][j + 1] + (short) imageIn[i + 1][j]       //  1,  0, -1
-            - (short) imageIn[i - 1][j + 1] + (short) imageIn[i + 1][j - 1];    //  1,  1,  0
+            temp[2] = -(short)imageIn[i - 1][j] + (short)imageIn[i][j - 1]           //  0, -1, -1
+                      - (short)imageIn[i][j + 1] + (short)imageIn[i + 1][j]          //  1,  0, -1
+                      - (short)imageIn[i - 1][j + 1] + (short)imageIn[i + 1][j - 1]; //  1,  1,  0
 
-            temp[3] = -(short) imageIn[i - 1][j] + (short) imageIn[i][j + 1]       // -1, -1,  0
-            - (short) imageIn[i][j - 1] + (short) imageIn[i + 1][j]       // -1,  0,  1
-            - (short) imageIn[i - 1][j - 1] + (short) imageIn[i + 1][j + 1];    //  0,  1,  1
+            temp[3] = -(short)imageIn[i - 1][j] + (short)imageIn[i][j + 1]           // -1, -1,  0
+                      - (short)imageIn[i][j - 1] + (short)imageIn[i + 1][j]          // -1,  0,  1
+                      - (short)imageIn[i - 1][j - 1] + (short)imageIn[i + 1][j + 1]; //  0,  1,  1
 
             temp[0] = abs(temp[0]);
             temp[1] = abs(temp[1]);
@@ -510,7 +499,7 @@ void lq_sobel (unsigned char imageIn[LCDH][LCDW], unsigned char imageOut[LCDH][L
  *
  * @date     2020/5/15
  */
-void lq_sobelAutoThreshold (unsigned char imageIn[LCDH][LCDW], unsigned char imageOut[LCDH][LCDW])
+void lq_sobelAutoThreshold(unsigned char imageIn[LCDH][LCDW], unsigned char imageOut[LCDH][LCDW])
 {
     /** ¾í»ýºË´óÐ¡ */
     short KERNEL_SIZE = 3;
@@ -525,21 +514,21 @@ void lq_sobelAutoThreshold (unsigned char imageIn[LCDH][LCDW], unsigned char ima
         for (j = xStart; j < xEnd; j++)
         {
             /* ¼ÆËã²»Í¬·½ÏòÌÝ¶È·ùÖµ  */
-            temp[0] = -(short) imageIn[i - 1][j - 1] + (short) imageIn[i - 1][j + 1]     //{{-1, 0, 1},
-            - (short) imageIn[i][j - 1] + (short) imageIn[i][j + 1]       // {-1, 0, 1},
-            - (short) imageIn[i + 1][j - 1] + (short) imageIn[i + 1][j + 1];    // {-1, 0, 1}};
+            temp[0] = -(short)imageIn[i - 1][j - 1] + (short)imageIn[i - 1][j + 1]   //{{-1, 0, 1},
+                      - (short)imageIn[i][j - 1] + (short)imageIn[i][j + 1]          // {-1, 0, 1},
+                      - (short)imageIn[i + 1][j - 1] + (short)imageIn[i + 1][j + 1]; // {-1, 0, 1}};
 
-            temp[1] = -(short) imageIn[i - 1][j - 1] + (short) imageIn[i + 1][j - 1]     //{{-1, -1, -1},
-            - (short) imageIn[i - 1][j] + (short) imageIn[i + 1][j]       // { 0,  0,  0},
-            - (short) imageIn[i - 1][j + 1] + (short) imageIn[i + 1][j + 1];    // { 1,  1,  1}};
+            temp[1] = -(short)imageIn[i - 1][j - 1] + (short)imageIn[i + 1][j - 1]   //{{-1, -1, -1},
+                      - (short)imageIn[i - 1][j] + (short)imageIn[i + 1][j]          // { 0,  0,  0},
+                      - (short)imageIn[i - 1][j + 1] + (short)imageIn[i + 1][j + 1]; // { 1,  1,  1}};
 
-            temp[2] = -(short) imageIn[i - 1][j] + (short) imageIn[i][j - 1]       //  0, -1, -1
-            - (short) imageIn[i][j + 1] + (short) imageIn[i + 1][j]       //  1,  0, -1
-            - (short) imageIn[i - 1][j + 1] + (short) imageIn[i + 1][j - 1];    //  1,  1,  0
+            temp[2] = -(short)imageIn[i - 1][j] + (short)imageIn[i][j - 1]           //  0, -1, -1
+                      - (short)imageIn[i][j + 1] + (short)imageIn[i + 1][j]          //  1,  0, -1
+                      - (short)imageIn[i - 1][j + 1] + (short)imageIn[i + 1][j - 1]; //  1,  1,  0
 
-            temp[3] = -(short) imageIn[i - 1][j] + (short) imageIn[i][j + 1]       // -1, -1,  0
-            - (short) imageIn[i][j - 1] + (short) imageIn[i + 1][j]       // -1,  0,  1
-            - (short) imageIn[i - 1][j - 1] + (short) imageIn[i + 1][j + 1];    //  0,  1,  1
+            temp[3] = -(short)imageIn[i - 1][j] + (short)imageIn[i][j + 1]           // -1, -1,  0
+                      - (short)imageIn[i][j - 1] + (short)imageIn[i + 1][j]          // -1,  0,  1
+                      - (short)imageIn[i - 1][j - 1] + (short)imageIn[i + 1][j + 1]; //  0,  1,  1
 
             temp[0] = abs(temp[0]);
             temp[1] = abs(temp[1]);
@@ -556,9 +545,7 @@ void lq_sobelAutoThreshold (unsigned char imageIn[LCDH][LCDW], unsigned char ima
             }
 
             /* Ê¹ÓÃÏñËØµãÁÚÓòÄÚÏñËØµãÖ®ºÍµÄÒ»¶¨±ÈÀý    ×÷ÎªãÐÖµ  */
-            temp[3] = (short) imageIn[i - 1][j - 1] + (short) imageIn[i - 1][j] + (short) imageIn[i - 1][j + 1]
-                    + (short) imageIn[i][j - 1] + (short) imageIn[i][j] + (short) imageIn[i][j + 1]
-                    + (short) imageIn[i + 1][j - 1] + (short) imageIn[i + 1][j] + (short) imageIn[i + 1][j + 1];
+            temp[3] = (short)imageIn[i - 1][j - 1] + (short)imageIn[i - 1][j] + (short)imageIn[i - 1][j + 1] + (short)imageIn[i][j - 1] + (short)imageIn[i][j] + (short)imageIn[i][j + 1] + (short)imageIn[i + 1][j - 1] + (short)imageIn[i + 1][j] + (short)imageIn[i + 1][j + 1];
 
             if (temp[0] > temp[3] / 12.0f)
             {
@@ -568,7 +555,6 @@ void lq_sobelAutoThreshold (unsigned char imageIn[LCDH][LCDW], unsigned char ima
             {
                 imageOut[i][j] = 0;
             }
-
         }
     }
 }
@@ -580,7 +566,7 @@ void lq_sobelAutoThreshold (unsigned char imageIn[LCDH][LCDW], unsigned char ima
  ¡¾·µ »Ø Öµ¡¿ÎÞ
  ¡¾×¢ÒâÊÂÏî¡¿
  ----------------------------------------------------------------*/
-void Bin_Image_Filter (void)
+void Bin_Image_Filter(void)
 {
     sint16 nr; //ÐÐ
     sint16 nc; //ÁÐ
@@ -589,13 +575,11 @@ void Bin_Image_Filter (void)
     {
         for (nc = 1; nc < LCDW - 1; nc = nc + 1)
         {
-            if ((Bin_Image[nr][nc] == 0)
-                    && (Bin_Image[nr - 1][nc] + Bin_Image[nr + 1][nc] + Bin_Image[nr][nc + 1] + Bin_Image[nr][nc - 1] > 2))
+            if ((Bin_Image[nr][nc] == 0) && (Bin_Image[nr - 1][nc] + Bin_Image[nr + 1][nc] + Bin_Image[nr][nc + 1] + Bin_Image[nr][nc - 1] > 2))
             {
                 Bin_Image[nr][nc] = 1;
             }
-            else if ((Bin_Image[nr][nc] == 1)
-                    && (Bin_Image[nr - 1][nc] + Bin_Image[nr + 1][nc] + Bin_Image[nr][nc + 1] + Bin_Image[nr][nc - 1] < 2))
+            else if ((Bin_Image[nr][nc] == 1) && (Bin_Image[nr - 1][nc] + Bin_Image[nr + 1][nc] + Bin_Image[nr][nc + 1] + Bin_Image[nr][nc - 1] < 2))
             {
                 Bin_Image[nr][nc] = 0;
             }
@@ -603,193 +587,197 @@ void Bin_Image_Filter (void)
     }
 }
 
-
-
 sint16 d_plus_ioffset(sint16 d, sint16 ioffset)
 {
-    if(d>0){
-        return d+ioffset;
+    if (d > 0)
+    {
+        return d + ioffset;
     }
-    else{
-        return d-ioffset;
+    else
+    {
+        return d - ioffset;
     }
 }
 
 void Seek_Road_Edge(void)
 {
-    unsigned char is_left_right=0; //-1:×ó×ª  1:ÓÒ×ª  0:Ö±ÐÐ
-    sint16 nr; //ÐÐ
-    sint16 nc; //ÁÐ
-    int mid=MAX_COL/2;
-    int left=0,right=MAX_COL;
-    int flag_r=1;
-    int flag_l=1;
-    char left_count=0,right_count=0;
+    unsigned char is_left_right = 0; //-1:×ó×ª  1:ÓÒ×ª  0:Ö±ÐÐ
+    sint16 nr;                       //ÐÐ
+    sint16 nc;                       //ÁÐ
+    int mid = MAX_COL / 2;
+    int left = 0, right = MAX_COL;
+    int flag_r = 1;
+    int flag_l = 1;
+    char left_count = 0, right_count = 0;
 
-    for(nr=59;nr>=0;nr--)
+
+
+    for (nr = 59; nr >= 0; nr--)
     {
-        flag_r=0;
-        flag_l=0;
-
-        if((is_left_right==1&&line_element[nr-1].left==MAX_COL)||(is_left_right==-1&&line_element[nr-1].rignt==0))
-            break;
-        if(nr==30){
-            if(line_element[nr].mid>MAX_COL/2){
+        flag_r = 0;
+        flag_l = 0;
+        if(nr==25){
+            if(line_element[nr-1].mid>MAX_COL/2){
                 is_left_right=1;
             }
-            else{
+            else if(line_element[nr-1].mid<MAX_COL/2){
                 is_left_right=-1;
             }
         }
-        for (nc = mid; nc < MAX_COL&&!flag_r; nc = nc + 1)//ÓÒÉ¨Ïß
+        if ((is_left_right == 1 && line_element[nr - 1].left == MAX_COL) || (is_left_right == -1 && line_element[nr - 1].right == 0))
+            break;
+
+        for (nc = mid; nc < MAX_COL && !flag_r; nc = nc + 1) //ÓÒÉ¨Ïß
         {
-            if (nc==0||nc==MAX_COL||(Bin_Image[nr][nc-1]==1&&Bin_Image[nr][nc]==1&&Bin_Image[nr][nc+1]==0&&Bin_Image[nr][nc+2]==0&&flag_r==0))
+            if (nc == 0 || nc == MAX_COL || (Bin_Image[nr][nc - 1] == 1 && Bin_Image[nr][nc] == 1 && Bin_Image[nr][nc + 1] == 0 && Bin_Image[nr][nc + 2] == 0 && flag_r == 0))
             {
-                Bin_Image[nr][nc]=2;
-                flag_r=1;
-                if(line_element[nr-1].right!=0&&line_element[nr].right!=MAX_COL)
+                Bin_Image[nr][nc] = 2;
+                flag_r = 1;
+                if (line_element[nr - 1].right != 0 && line_element[nr].right != MAX_COL)
                     right_count++;
-                right=nc;
-                
+                right = nc;
+                break;
             }
         }
-        for (nc = mid; nc > 0&&!flag_l ; nc = nc - 1)//×óÉ¨Ïß
+        for (nc = mid; nc > 0 && !flag_l; nc = nc - 1) //×óÉ¨Ïß
         {
-            if (nc==0||nc==MAX_COL||(Bin_Image[nr][nc+1]==1&&Bin_Image[nr][nc]==1&&Bin_Image[nr][nc-1]==0&&Bin_Image[nr][nc-2]==0&&flag_l==0))
+            if (nc == 0 || nc == MAX_COL || (Bin_Image[nr][nc + 1] == 1 && Bin_Image[nr][nc] == 1 && Bin_Image[nr][nc - 1] == 0 && Bin_Image[nr][nc - 2] == 0 && flag_l == 0))
             {
-                Bin_Image[nr][nc]=2;
-                flag_l=1;
-                left=nc;
-                if(left!=0&&left!=MAX_COL)
+                Bin_Image[nr][nc] = 2;
+                flag_l = 1;
+                left = nc;
+                if (left != 0 && left != MAX_COL)
                     left_count++;
-                if(Road_Left[nr-1]!=MAX_COL-1&&left==MAX_COL-1){
-                    Road_Left_Top[0]=nr;Road_Left_Top[1]=left;
-                    Road_Left[nr+1]=-1;
+                if (Road_Left[nr - 1] != MAX_COL - 1 && left == MAX_COL - 1)
+                {
+                    Road_Left_Top[0] = nr;
+                    Road_Left_Top[1] = left;
+                    Road_Left[nr + 1] = -1;
                 }
                 break;
             }
         }
-        mid=(left+right)/2;
-        line_element[nr].left=left;
-        line_element[nr].right=right;
-        // road_element[nr].mid=(left+right)/2;
-        // Bin_Image[nr][Road_Mid[nr]]=3;
+        mid = (left + right) / 2;
+        line_element[nr].left = left;
+        line_element[nr].right = right;
+        line_element[nr].mid = (left + right) / 2;
+        Bin_Image[nr][line_element[nr].mid] = 3;
     }
 
-    if(is_left_right==1){
-        char seg=10.0*(left_count/right_count);
-        char seg_offset=seg%10;
-        char loop_size=0;
-        char sign=seg_offset>5?-1:1;
-        seg=seg/10;
-        
-        if(seg_offset==1) loop_size=10;
-        else if(seg_offset==2) loop_size=5;
-        else if(seg_offset==3) loop_size=3;
-        else if(seg_offset==4||seg_offset==5) loop_size=2;
-        char left_i=59;
-        for(int i=59;i>=right_count;i--){
-            line_element[(left_i+i)/2].mid=(line_element[left_i].left+line_element[i].right)/2;
-            left_i-=seg;
-        }
-        
-    }
-    
-    //OFFSET0=0;OFFSET1=0;OFFSET2=0;
-//    sint16 q,n1,n2;
-//    sint16 d=1000*(2/(MAX_COL-2));//¹«²î£¬¼´1±»Æ½·ÖÎªMAX_COL·Ý
-//    sint16 d1=d,d2=-d,s1,s2;
-//    sint16 ioffset=1.5*1000;
-//    sint16 temp=0;
-//    for(nr=55;nr>=40;nr--){
-//        n1=Road_Right[nr]-MAX_COL/2;
-//        n2=Road_Left[nr]-MAX_COL/2+1;
-//        if(n1<0) {n1++;d1=-d1;}
-//        if(n2>0) {n2--;d2=-d2;}
-//        s1=n1*d_plus_ioffset(d1,ioffset)+(n1*(n1-1))/2*d1;
-//        s2=n2*d_plus_ioffset(d1,ioffset)+(n2*(n2-1))/2*d2;
-//        temp=s1+s2;
-//        // if(Road_Left[nr]>=MAX_COL/2){
-//        //     n1=Road_Right[nr]-MAX_COL/2+20;
-//        //     n2=Road_Left[nr]-MAX_COL/2+20;
-//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-//        // }
-//        // else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
-//        //     n1=Road_Right[nr]-MAX_COL/2+20;
-//        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-//        //     if(n2<0) n2=0;
-//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-//        // }
-//        // else{
-//        //     n1=MAX_COL/2-1-Road_Right[nr]+20;
-//        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-//        //     if(n1<0) n1=0;
-//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-//        // }
-//    }
-//    OFFSET2=temp*0.001;
-//    // OFFSET2=Road_Right[47];
-//    temp=0;
-//    for(nr=39;nr>=24;nr--){
-//        n1=Road_Right[nr]-MAX_COL/2;
-//        n2=Road_Left[nr]-MAX_COL/2+1;
-//        if(n1<0) {n1++;d1=-d1;}
-//        if(n2>0) {n2--;d2=-d2;}
-//        s1=n1*d_plus_ioffset(d1,ioffset)+(n1*(n1-1))/2*d1;
-//        s2=n2*d_plus_ioffset(d1,ioffset)+(n2*(n2-1))/2*d2;
-//        temp=s1+s2;
-//        // if(Road_Left[nr]>=MAX_COL/2){
-//        //     n1=Road_Right[nr]-MAX_COL/2+20;
-//        //     n2=Road_Left[nr]-MAX_COL/2+20;
-//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-//        // }
-//        // else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
-//        //     n1=Road_Right[nr]-MAX_COL/2+20;
-//        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-//        //     if(n2<0) n2=0;
-//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-//        // }
-//        // else{
-//        //     n1=MAX_COL/2-1-Road_Right[nr]+20;
-//        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-//        //     if(n1<0) n1=0;
-//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-//        // }
-//    }
-//    OFFSET1=temp*0.001;
-//    // OFFSET1=Road_Left[47];
-//    temp=0;
-//    for(nr=23;nr>=8;nr--){
-//        n1=Road_Right[nr]-MAX_COL/2;
-//        n2=Road_Left[nr]-MAX_COL/2+1;
-//        if(n1<0) {n1++;d1=-d1;}
-//        if(n2>0) {n2--;d2=-d2;}
-//        s1=n1*d_plus_ioffset(d1,ioffset)+(n1*(n1-1))/2*d1;
-//        s2=n2*d_plus_ioffset(d1,ioffset)+(n2*(n2-1))/2*d2;
-//        temp=s1+s2;
-//        // if(Road_Left[nr]>=MAX_COL/2){
-//        //     n1=Road_Right[nr]-MAX_COL/2+20;
-//        //     n2=Road_Left[nr]-MAX_COL/2+20;
-//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-//        // }
-//        // else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
-//        //     n1=Road_Right[nr]-MAX_COL/2+20;
-//        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-//        //     if(n2<0) n2=0;
-//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-//        // }
-//        // else{
-//        //     n1=MAX_COL/2-1-Road_Right[nr]+20;
-//        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-//        //     if(n1<0) n1=0;
-//        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-//        // }
-//    }
-//    OFFSET0=temp*0.001;
-//    // OFFSET0=Road_Mid[47];
-//    // OFFSET0*=0.2;OFFSET1*=0.14;OFFSET2*=0.1;
-//    return;
+    // if(is_left_right==1){
+    //     char seg=10.0*(left_count/right_count);
+    //     char seg_offset=seg%10;
+    //     char loop_size=0;
+    //     char sign=seg_offset>5?-1:1;
+    //     seg=seg/10;
 
+    //     if(seg_offset==1) loop_size=10;
+    //     else if(seg_offset==2) loop_size=5;
+    //     else if(seg_offset==3) loop_size=3;
+    //     else if(seg_offset==4||seg_offset==5) loop_size=2;
+    //     char left_i=59;
+    //     for(int i=59;i>=60-right_count;i--){
+    //         line_element[(left_i+i)/2].mid=(line_element[left_i].left+line_element[i].right)/2;
+    //         Bin_Image[(left_i+i)/2][line_element[(left_i+i)/2].mid]=3;
+    //         left_i-=seg;
+    //     }
+
+    // }
+
+    // OFFSET0=0;OFFSET1=0;OFFSET2=0;
+    //    sint16 q,n1,n2;
+    //    sint16 d=1000*(2/(MAX_COL-2));//¹«²î£¬¼´1±»Æ½·ÖÎªMAX_COL·Ý
+    //    sint16 d1=d,d2=-d,s1,s2;
+    //    sint16 ioffset=1.5*1000;
+    //    sint16 temp=0;
+    //    for(nr=55;nr>=40;nr--){
+    //        n1=Road_Right[nr]-MAX_COL/2;
+    //        n2=Road_Left[nr]-MAX_COL/2+1;
+    //        if(n1<0) {n1++;d1=-d1;}
+    //        if(n2>0) {n2--;d2=-d2;}
+    //        s1=n1*d_plus_ioffset(d1,ioffset)+(n1*(n1-1))/2*d1;
+    //        s2=n2*d_plus_ioffset(d1,ioffset)+(n2*(n2-1))/2*d2;
+    //        temp=s1+s2;
+    //        // if(Road_Left[nr]>=MAX_COL/2){
+    //        //     n1=Road_Right[nr]-MAX_COL/2+20;
+    //        //     n2=Road_Left[nr]-MAX_COL/2+20;
+    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+    //        // }
+    //        // else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
+    //        //     n1=Road_Right[nr]-MAX_COL/2+20;
+    //        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
+    //        //     if(n2<0) n2=0;
+    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+    //        // }
+    //        // else{
+    //        //     n1=MAX_COL/2-1-Road_Right[nr]+20;
+    //        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
+    //        //     if(n1<0) n1=0;
+    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+    //        // }
+    //    }
+    //    OFFSET2=temp*0.001;
+    //    // OFFSET2=Road_Right[47];
+    //    temp=0;
+    //    for(nr=39;nr>=24;nr--){
+    //        n1=Road_Right[nr]-MAX_COL/2;
+    //        n2=Road_Left[nr]-MAX_COL/2+1;
+    //        if(n1<0) {n1++;d1=-d1;}
+    //        if(n2>0) {n2--;d2=-d2;}
+    //        s1=n1*d_plus_ioffset(d1,ioffset)+(n1*(n1-1))/2*d1;
+    //        s2=n2*d_plus_ioffset(d1,ioffset)+(n2*(n2-1))/2*d2;
+    //        temp=s1+s2;
+    //        // if(Road_Left[nr]>=MAX_COL/2){
+    //        //     n1=Road_Right[nr]-MAX_COL/2+20;
+    //        //     n2=Road_Left[nr]-MAX_COL/2+20;
+    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+    //        // }
+    //        // else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
+    //        //     n1=Road_Right[nr]-MAX_COL/2+20;
+    //        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
+    //        //     if(n2<0) n2=0;
+    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+    //        // }
+    //        // else{
+    //        //     n1=MAX_COL/2-1-Road_Right[nr]+20;
+    //        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
+    //        //     if(n1<0) n1=0;
+    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+    //        // }
+    //    }
+    //    OFFSET1=temp*0.001;
+    //    // OFFSET1=Road_Left[47];
+    //    temp=0;
+    //    for(nr=23;nr>=8;nr--){
+    //        n1=Road_Right[nr]-MAX_COL/2;
+    //        n2=Road_Left[nr]-MAX_COL/2+1;
+    //        if(n1<0) {n1++;d1=-d1;}
+    //        if(n2>0) {n2--;d2=-d2;}
+    //        s1=n1*d_plus_ioffset(d1,ioffset)+(n1*(n1-1))/2*d1;
+    //        s2=n2*d_plus_ioffset(d1,ioffset)+(n2*(n2-1))/2*d2;
+    //        temp=s1+s2;
+    //        // if(Road_Left[nr]>=MAX_COL/2){
+    //        //     n1=Road_Right[nr]-MAX_COL/2+20;
+    //        //     n2=Road_Left[nr]-MAX_COL/2+20;
+    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+    //        // }
+    //        // else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
+    //        //     n1=Road_Right[nr]-MAX_COL/2+20;
+    //        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
+    //        //     if(n2<0) n2=0;
+    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+    //        // }
+    //        // else{
+    //        //     n1=MAX_COL/2-1-Road_Right[nr]+20;
+    //        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
+    //        //     if(n1<0) n1=0;
+    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
+    //        // }
+    //    }
+    //    OFFSET0=temp*0.001;
+    //    // OFFSET0=Road_Mid[47];
+    //    // OFFSET0*=0.2;OFFSET1*=0.14;OFFSET2*=0.1;
+    //    return;
 }
 
 /***************************************************************************
@@ -804,10 +792,10 @@ void Seek_Road_Edge(void)
  *            Èç¹ûÃæ»ýÎª¸ºÊý£¬ÊýÖµÔ½´óËµÃ÷Ô½Æ«×ó±ß£»                        *
  *            Èç¹ûÃæ»ýÎªÕýÊý£¬ÊýÖµÔ½´óËµÃ÷Ô½Æ«ÓÒ±ß¡£                        *
  ***************************************************************************/
-void Seek_Road (void)
+void Seek_Road(void)
 {
-    sint16 nr; //ÐÐ
-    sint16 nc; //ÁÐ
+    sint16 nr;       //ÐÐ
+    sint16 nc;       //ÁÐ
     sint16 temp = 0; //ÁÙÊ±ÊýÖµ
     temp = 0;
     for (nr = 8; nr < 24; nr++)
@@ -816,18 +804,18 @@ void Seek_Road (void)
         {
             if (Bin_Image[nr][nc])
             {
-                temp+=(100*2.0*(nc-MAX_COL/2)/(MAX_COL/2-1));
+                temp += (100 * 2.0 * (nc - MAX_COL / 2) / (MAX_COL / 2 - 1));
             }
         }
-        for (nc = MAX_COL/2-1; nc >=0; nc = nc - 1)
+        for (nc = MAX_COL / 2 - 1; nc >= 0; nc = nc - 1)
         {
             if (Bin_Image[nr][nc])
             {
-                temp-=(100*2.0*(MAX_COL/2-1-nc)/(MAX_COL/2-1));
+                temp -= (100 * 2.0 * (MAX_COL / 2 - 1 - nc) / (MAX_COL / 2 - 1));
             }
         }
     }
-    OFFSET0 = temp/100;
+    OFFSET0 = temp / 100;
     temp = 0;
     for (nr = 24; nr < 40; nr++)
     {
@@ -835,18 +823,18 @@ void Seek_Road (void)
         {
             if (Bin_Image[nr][nc])
             {
-                temp+=(100*1.4*(nc-MAX_COL/2)/(MAX_COL/2-1));
+                temp += (100 * 1.4 * (nc - MAX_COL / 2) / (MAX_COL / 2 - 1));
             }
         }
-        for (nc = MAX_COL / 2-1; nc >=0; nc = nc - 1)
+        for (nc = MAX_COL / 2 - 1; nc >= 0; nc = nc - 1)
         {
             if (Bin_Image[nr][nc])
             {
-                temp-=(100*1.4*(MAX_COL/2-1-nc)/(MAX_COL/2-1));
+                temp -= (100 * 1.4 * (MAX_COL / 2 - 1 - nc) / (MAX_COL / 2 - 1));
             }
         }
     }
-    OFFSET1 = temp/100;
+    OFFSET1 = temp / 100;
     temp = 0;
     for (nr = 40; nr < 56; nr++)
     {
@@ -854,20 +842,17 @@ void Seek_Road (void)
         {
             if (Bin_Image[nr][nc])
             {
-                temp+=(100*1.0*(nc-MAX_COL/2)/(MAX_COL/2-1));
+                temp += (100 * 1.0 * (nc - MAX_COL / 2) / (MAX_COL / 2 - 1));
             }
         }
-        for (nc = MAX_COL / 2-1; nc >=0; nc = nc - 1)
+        for (nc = MAX_COL / 2 - 1; nc >= 0; nc = nc - 1)
         {
             if (Bin_Image[nr][nc])
             {
-                temp-=(100*1.0*(MAX_COL/2-1-nc)/(MAX_COL/2-1));
+                temp -= (100 * 1.0 * (MAX_COL / 2 - 1 - nc) / (MAX_COL / 2 - 1));
             }
         }
     }
-    OFFSET2 = temp/100;
+    OFFSET2 = temp / 100;
     return;
 }
-
-
-
