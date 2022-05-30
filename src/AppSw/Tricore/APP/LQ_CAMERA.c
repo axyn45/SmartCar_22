@@ -617,12 +617,15 @@ void Seek_Road_Edge(void)
     {
         flag_r = 0;
         flag_l = 0;
-        if(nr==25){
-            if(line_elements[nr-1].mid>MAX_COL/2){
-                is_left_right=1;
+        if (nr == 25)
+        {
+            if (line_elements[nr - 1].mid > MAX_COL / 2)
+            {
+                is_left_right = 1;
             }
-            else if(line_elements[nr-1].mid<MAX_COL/2){
-                is_left_right=-1;
+            else if (line_elements[nr - 1].mid < MAX_COL / 2)
+            {
+                is_left_right = -1;
             }
         }
         if ((is_left_right == 1 && line_elements[nr - 1].left == MAX_COL) || (is_left_right == -1 && line_elements[nr - 1].right == 0))
@@ -630,43 +633,52 @@ void Seek_Road_Edge(void)
 
         for (nc = mid; nc < MAX_COL && !flag_r; nc = nc + 1) //ÓÒÉ¨Ïß
         {
-            if (nc == 0 || nc == MAX_COL || (Bin_Image[nr][nc - 1] == 1 && Bin_Image[nr][nc] == 1 && Bin_Image[nr][nc + 1] == 0 && Bin_Image[nr][nc + 2] == 0 && flag_r == 0))
+            if (Bin_Image[nr][nc] == 1)
             {
-                Bin_Image[nr][nc] = 2;
-                flag_r = 1;
-                if (line_elements[nr - 1].right != 0 && line_elements[nr].right != MAX_COL)
-                    right_count++;
-                right = nc;
-                break;
+                if (nc == 0 || nc == MAX_COL - 1 || (Bin_Image[nr][nc - 1] == 1 && Bin_Image[nr][nc + 1] == 0 && Bin_Image[nr][nc + 2] == 0 && flag_r == 0))
+                {
+                    Bin_Image[nr][nc] = 2;
+                    flag_r = 1;
+                    if (line_elements[nr - 1].right != 0 && line_elements[nr].right != MAX_COL)
+                        right_count++;
+                    right = nc;
+                    break;
+                }
             }
-            if(nc==MAX_COL-1){
-                flag_right_no_edge=1;
+            if (nc == MAX_COL - 1)
+            {
+                flag_right_no_edge = 1;
                 break;
             }
         }
         for (nc = mid; nc >= 0 && !flag_l; nc = nc - 1) //×óÉ¨Ïß
         {
-            if (nc == 0 || nc == MAX_COL || (Bin_Image[nr][nc + 1] == 1 && Bin_Image[nr][nc] == 1 && Bin_Image[nr][nc - 1] == 0 && Bin_Image[nr][nc - 2] == 0 && flag_l == 0))
+            if (Bin_Image[nr][nc] == 1)
             {
-                Bin_Image[nr][nc] = 2;
-                flag_l = 1;
-                left = nc;
-                if (left != 0 && left != MAX_COL)
-                    left_count++;
-                if (Road_Left[nr - 1] != MAX_COL - 1 && left == MAX_COL - 1)
+                if (nc == 0 || nc == MAX_COL || (Bin_Image[nr][nc + 1] == 1 && Bin_Image[nr][nc - 1] == 0 && Bin_Image[nr][nc - 2] == 0 && flag_l == 0))
                 {
-                    Road_Left_Top[0] = nr;
-                    Road_Left_Top[1] = left;
-                    Road_Left[nr + 1] = -1;
+                    Bin_Image[nr][nc] = 2;
+                    flag_l = 1;
+                    left = nc;
+                    if (left != 0 && left != MAX_COL)
+                        left_count++;
+                    if (Road_Left[nr - 1] != MAX_COL - 1 && left == MAX_COL - 1)
+                    {
+                        Road_Left_Top[0] = nr;
+                        Road_Left_Top[1] = left;
+                        Road_Left[nr + 1] = -1;
+                    }
+                    break;
                 }
-                break;
             }
-            if(nc==0){
-                flag_left_no_edge=1;
+            if (nc == 0)
+            {
+                flag_left_no_edge = 1;
                 break;
             }
         }
-        if(flag_left_no_edge&&flag_right_no_edge){
+        if (flag_left_no_edge && flag_right_no_edge)
+        {
             break;
         }
         mid = (left + right) / 2;

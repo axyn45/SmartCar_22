@@ -2,6 +2,10 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
 IfxScuRcu.o :	../Libraries/iLLD/TC37A/Tricore/Scu/Std/IfxScuRcu.c
 ../Libraries/iLLD/TC37A/Tricore/Scu/Std/IfxScuRcu.c :
 IfxScuRcu.o :	../src/AppSw/Ifx_Cfg.h
