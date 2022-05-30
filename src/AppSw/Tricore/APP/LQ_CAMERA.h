@@ -34,11 +34,11 @@ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 
 /* 使用数组宽高 修改这里即可 */
 #ifdef USEOLED
-	#define LCDH    60  /*!< OLED显示高度（用户使用）高度 */
-	#define LCDW    80  /*!< OLED显示宽度（用户使用）宽度 */
+    #define LCDH    60  /*!< OLED显示高度（用户使用）高度 */
+    #define LCDW    80  /*!< OLED显示宽度（用户使用）宽度 */
 #else
-	#define LCDH    60  /*!< TFT显示高度（用户使用）高度 */
-	#define LCDW    94  /*!< TFT显示宽度（用户使用）宽度 */
+    #define LCDH    60  /*!< TFT显示高度（用户使用）高度 */
+    #define LCDW    94  /*!< TFT显示宽度（用户使用）宽度 */
 #endif
 
 #define MAX_ROW   LCDH
@@ -51,13 +51,19 @@ extern unsigned char Image_Data[IMAGEH][IMAGEW];
 extern unsigned char Image_Use[LCDH][LCDW];
 
 /** 二值化后用于OLED显示的数据 */
+struct element
+{
+    sint16 left;
+    sint16 right;
+    sint16 mid;
+};
 extern unsigned char Bin_Image[LCDH][LCDW];
 extern unsigned char Road_Mid[LCDH];
 extern unsigned char Road_Left[LCDH];
 extern unsigned char Road_Right[LCDH];
 extern unsigned char Road_Left_Top[2];
 extern unsigned char Road_Right_Top[2];
-
+extern struct element line_elements[LCDH];
 
 /*!
   * @brief    串口上报上位机
@@ -138,7 +144,7 @@ void Get_Bin_Image(unsigned char mode);
   * @note     Ostu方法又名最大类间差方法，通过统计整个图像的直方图特性来实现全局阈值T的自动选取，其算法步骤为：
   * @note     1) 先计算图像的直方图，即将图像所有的像素点按照0~255共256个bin，统计落在每个bin的像素点数量
   * @note     2) 归一化直方图，也即将每个bin中像素点数量除以总的像素点
-  * @note     3) i表示分类的阈值，也即一个灰度级，从0开始迭代	1
+  * @note     3) i表示分类的阈值，也即一个灰度级，从0开始迭代    1
   * @note     4) 通过归一化的直方图，统计0~i 灰度级的像素(假设像素值在此范围的像素叫做前景像素) 所占整幅图像的比例w0，并统计前景像素的平均灰度u0；统计i~255灰度级的像素(假设像素值在此范围的像素叫做背景像素) 所占整幅图像的比例w1，并统计背景像素的平均灰度u1；
   * @note     5) 计算前景像素和背景像素的方差 g = w0*w1*(u0-u1) (u0-u1)
   * @note     6) i++；转到4)，直到i为256时结束迭代
@@ -206,6 +212,8 @@ void lq_sobel(unsigned char imageIn[LCDH][LCDW], unsigned char imageOut[LCDH][LC
 void lq_sobelAutoThreshold(unsigned char imageIn[LCDH][LCDW], unsigned char imageOut[LCDH][LCDW]);
 void Seek_Road(void);
 void Bin_Image_Filter(void);
+void Seek_Road_Edge();
+void roundabout();
 #endif
 
 
