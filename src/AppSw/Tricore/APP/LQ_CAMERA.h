@@ -67,6 +67,11 @@ extern sint16 Road_Right_Top[2];
 extern sint16 Road_Left_Bottom[2];
 extern sint16 Road_Right_Bottom[2];
 
+extern sint16 Road_Left_Top[2];
+extern sint16 Road_Right_Top[2];
+extern sint16 Road_Left_Bottom[2];
+extern sint16 Road_Right_Bottom[2];
+
 /*!
   * @brief    串口上报上位机
   *

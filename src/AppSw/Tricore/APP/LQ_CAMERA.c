@@ -70,6 +70,8 @@ unsigned char Road_Mid[LCDH];
 unsigned char Road_Left[LCDH];
 unsigned char Road_Right[LCDH];
 
+
+//分别是左上、右上、左下、右下的边界点坐标（行，列）
 sint16 Road_Left_Top[2] = {0, 0};
 sint16 Road_Right_Top[2] = {0, 0};
 sint16 Road_Left_Bottom[2] = {0, 0};
@@ -594,6 +596,14 @@ sint16 d_plus_ioffset(sint16 d, sint16 ioffset)
     }
 }
 
+void init_line_elements(struct element lm[]){
+    for(int i=0;i<60;i++){
+        lm[i].left=-1;
+        lm[i].mid=-1;
+        lm[i].right=-1;
+    }
+}
+
 void Seek_Road_Edge(void)
 {
     unsigned char is_left_right = 0; //-1:左转  1:右转  0:直行
@@ -608,22 +618,24 @@ void Seek_Road_Edge(void)
     int flag_left_no_edge = 0;
     int flag_right_no_edge = 0;
 
+    init_line_elements(line_elements);
+
     for (nr = 59; nr >= 0; nr--)
     {
         flag_r = 0;
         flag_l = 0;
         if (nr == 25)
         {
-            if (line_elements[nr - 1].mid > MAX_COL / 2)
+            if (line_elements[nr + 1].mid > MAX_COL / 2)
             {
                 is_left_right = 1;
             }
-            else if (line_elements[nr - 1].mid < MAX_COL / 2)
+            else if (line_elements[nr + 1].mid < MAX_COL / 2)
             {
                 is_left_right = -1;
             }
         }
-        if ((is_left_right == 1 && line_elements[nr - 1].left == MAX_COL) || (is_left_right == -1 && line_elements[nr - 1].right == 0))
+        if ((is_left_right == 1 && line_elements[nr + 1].left == MAX_COL) || (is_left_right == -1 && line_elements[nr + 1].right == 0))
             break;
 
         for (nc = mid; nc < MAX_COL && !flag_r; nc = nc + 1) //右扫线
@@ -646,6 +658,8 @@ void Seek_Road_Edge(void)
                 break;
             }
         }
+
+
         for (nc = mid; nc >= 0 && !flag_l; nc = nc - 1) //左扫线
         {
             if (Bin_Image[nr][nc] == 1)
@@ -657,12 +671,12 @@ void Seek_Road_Edge(void)
                     left = nc;
                     if (left != 0 && left != MAX_COL)
                         left_count++;
-                    if (Road_Left[nr - 1] != MAX_COL - 1 && left == MAX_COL - 1)
-                    {
-                        Road_Left_Top[0] = nr;
-                        Road_Left_Top[1] = left;
-                        Road_Left[nr + 1] = -1;
-                    }
+                    // if (Road_Left[nr - 1] != MAX_COL - 1 && left == MAX_COL - 1)
+                    // {
+                    //     Road_Left_Top[0] = nr;
+                    //     Road_Left_Top[1] = left;
+                    //     Road_Left[nr + 1] = -1;
+                    // }
                     break;
                 }
             }
@@ -681,139 +695,40 @@ void Seek_Road_Edge(void)
             break;
         }
         mid = (left + right) / 2;
+
+        //如果左边界不为画面最左/右则记录为有效值，放入数组中
         if(left!=0&&left!=MAX_COL-1)
             line_elements[nr].left = left;
-        // line_elements[nr].left = left;
+        else
+            line_elements[nr].left=-1;
+
+        //同理
         if(right!=0&&right!=MAX_COL-1)
             line_elements[nr].right = right;
-        // line_elements[nr].right = right;
-        if(line_elements[nr-1].left==-1&&line_elements[nr].left!=-1){
+        else
+            line_elements[nr].right=-1;
+        if(nr!=59){
+        if(line_elements[nr+1].left==-1&&line_elements[nr].left!=-1){
             Road_Left_Bottom[0] = nr;
             Road_Left_Bottom[1] = line_elements[nr].left;
         }
-        if(line_elements[nr-1].right==-1&&line_elements[nr].right!=-1){
+        if(line_elements[nr+1].right==-1&&line_elements[nr].right!=-1){
             Road_Right_Bottom[0] = nr;
             Road_Right_Bottom[1] = line_elements[nr].right;
+        }
+        }else{//nr=59
+            Road_Left_Bottom[0] = nr;
+            Road_Left_Bottom[1] = left;
+
+            Road_Right_Bottom[0] = nr;
+            Road_Right_Bottom[1] = right;
         }
         line_elements[nr].mid = (left + right) / 2;
         Bin_Image[nr][line_elements[nr].mid] = 3;
     }
-
-    // if(is_left_right==1){
-    //     char seg=10.0*(left_count/right_count);
-    //     char seg_offset=seg%10;
-    //     char loop_size=0;
-    //     char sign=seg_offset>5?-1:1;
-    //     seg=seg/10;
-
-    //     if(seg_offset==1) loop_size=10;
-    //     else if(seg_offset==2) loop_size=5;
-    //     else if(seg_offset==3) loop_size=3;
-    //     else if(seg_offset==4||seg_offset==5) loop_size=2;
-    //     char left_i=59;
-    //     for(int i=59;i>=60-right_count;i--){
-    //         line_elements[(left_i+i)/2].mid=(line_elements[left_i].left+line_elements[i].right)/2;
-    //         Bin_Image[(left_i+i)/2][line_elements[(left_i+i)/2].mid]=3;
-    //         left_i-=seg;
-    //     }
-
-    // }
-
-    // OFFSET0=0;OFFSET1=0;OFFSET2=0;
-    //    sint16 q,n1,n2;
-    //    sint16 d=1000*(2/(MAX_COL-2));//公差，即1被平分为MAX_COL份
-    //    sint16 d1=d,d2=-d,s1,s2;
-    //    sint16 ioffset=1.5*1000;
-    //    sint16 temp=0;
-    //    for(nr=55;nr>=40;nr--){
-    //        n1=Road_Right[nr]-MAX_COL/2;
-    //        n2=Road_Left[nr]-MAX_COL/2+1;
-    //        if(n1<0) {n1++;d1=-d1;}
-    //        if(n2>0) {n2--;d2=-d2;}
-    //        s1=n1*d_plus_ioffset(d1,ioffset)+(n1*(n1-1))/2*d1;
-    //        s2=n2*d_plus_ioffset(d1,ioffset)+(n2*(n2-1))/2*d2;
-    //        temp=s1+s2;
-    //        // if(Road_Left[nr]>=MAX_COL/2){
-    //        //     n1=Road_Right[nr]-MAX_COL/2+20;
-    //        //     n2=Road_Left[nr]-MAX_COL/2+20;
-    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-    //        // }
-    //        // else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
-    //        //     n1=Road_Right[nr]-MAX_COL/2+20;
-    //        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-    //        //     if(n2<0) n2=0;
-    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-    //        // }
-    //        // else{
-    //        //     n1=MAX_COL/2-1-Road_Right[nr]+20;
-    //        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-    //        //     if(n1<0) n1=0;
-    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-    //        // }
-    //    }
-    //    OFFSET2=temp*0.001;
-    //    // OFFSET2=Road_Right[47];
-    //    temp=0;
-    //    for(nr=39;nr>=24;nr--){
-    //        n1=Road_Right[nr]-MAX_COL/2;
-    //        n2=Road_Left[nr]-MAX_COL/2+1;
-    //        if(n1<0) {n1++;d1=-d1;}
-    //        if(n2>0) {n2--;d2=-d2;}
-    //        s1=n1*d_plus_ioffset(d1,ioffset)+(n1*(n1-1))/2*d1;
-    //        s2=n2*d_plus_ioffset(d1,ioffset)+(n2*(n2-1))/2*d2;
-    //        temp=s1+s2;
-    //        // if(Road_Left[nr]>=MAX_COL/2){
-    //        //     n1=Road_Right[nr]-MAX_COL/2+20;
-    //        //     n2=Road_Left[nr]-MAX_COL/2+20;
-    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-    //        // }
-    //        // else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
-    //        //     n1=Road_Right[nr]-MAX_COL/2+20;
-    //        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-    //        //     if(n2<0) n2=0;
-    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-    //        // }
-    //        // else{
-    //        //     n1=MAX_COL/2-1-Road_Right[nr]+20;
-    //        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-    //        //     if(n1<0) n1=0;
-    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-    //        // }
-    //    }
-    //    OFFSET1=temp*0.001;
-    //    // OFFSET1=Road_Left[47];
-    //    temp=0;
-    //    for(nr=23;nr>=8;nr--){
-    //        n1=Road_Right[nr]-MAX_COL/2;
-    //        n2=Road_Left[nr]-MAX_COL/2+1;
-    //        if(n1<0) {n1++;d1=-d1;}
-    //        if(n2>0) {n2--;d2=-d2;}
-    //        s1=n1*d_plus_ioffset(d1,ioffset)+(n1*(n1-1))/2*d1;
-    //        s2=n2*d_plus_ioffset(d1,ioffset)+(n2*(n2-1))/2*d2;
-    //        temp=s1+s2;
-    //        // if(Road_Left[nr]>=MAX_COL/2){
-    //        //     n1=Road_Right[nr]-MAX_COL/2+20;
-    //        //     n2=Road_Left[nr]-MAX_COL/2+20;
-    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-    //        // }
-    //        // else if(Road_Left[nr]<MAX_COL/2&&Road_Right[nr]>=MAX_COL/2){
-    //        //     n1=Road_Right[nr]-MAX_COL/2+20;
-    //        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-    //        //     if(n2<0) n2=0;
-    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-    //        // }
-    //        // else{
-    //        //     n1=MAX_COL/2-1-Road_Right[nr]+20;
-    //        //     n2=MAX_COL/2-1-Road_Left[nr]+20;
-    //        //     if(n1<0) n1=0;
-    //        //     temp+=(d/2*(n1*n1-n2*n2+n1-n2));
-    //        // }
-    //    }
-    //    OFFSET0=temp*0.001;
-    //    // OFFSET0=Road_Mid[47];
-    //    // OFFSET0*=0.2;OFFSET1*=0.14;OFFSET2*=0.1;
-    //    return;
 }
+
+
 
 /***************************************************************************
  *                                                                          *

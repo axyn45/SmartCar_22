@@ -152,12 +152,17 @@ void CameraCar(void)
             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
             sprintf(tstr,"left_t: %d %d",Road_Left_Top[0],Road_Left_Top[1]);
             TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
+
             sprintf(tstr,"right_t: %d %d",Road_Right_Top[0],Road_Right_Top[1]);
             TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
+
+
             sprintf(tstr,"left_b: %d %d",Road_Left_Bottom[0],Road_Left_Bottom[1]);
             TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
-            sprintf(tstr,"right_b: %d %d",Road_Right_Bottom[0],Road_Right_Bottom[1]);
-            TFTSPI_P8X16Str(1, 7, tstr, u16RED, u16GREEN);
+
+//            sprintf(tstr,"right_b: %d %d",Road_Right_Bottom[0],Road_Right_Bottom[1]);
+            sprintf(tstr,"l:%d %d %d %d %d",line_elements[59].left,line_elements[49].left,line_elements[39].left,line_elements[29].left,line_elements[9].left);
+            TFTSPI_P8X16Str(0, 7, tstr, u16RED, u16GREEN);
             // 通过黑白区域面积差计算赛道偏差值
 
 
