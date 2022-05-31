@@ -56,7 +56,7 @@ ________________________________________________________________
 #include <string.h>
 #include <stdlib.h>
 #include <include.h>
-// #include <math.h>
+#include <math.h>
 
 /** 图像原始数据存放 */
 unsigned char Image_Data[IMAGEH][IMAGEW];
@@ -69,7 +69,6 @@ unsigned char Bin_Image[LCDH][LCDW];
 unsigned char Road_Mid[LCDH];
 unsigned char Road_Left[LCDH];
 unsigned char Road_Right[LCDH];
-
 
 //分别是左上、右上、左下、右下的边界点坐标（行，列）
 sint16 Road_Left_Top[2] = {0, 0};
@@ -596,11 +595,13 @@ sint16 d_plus_ioffset(sint16 d, sint16 ioffset)
     }
 }
 
-void init_line_elements(struct element lm[]){
-    for(int i=0;i<60;i++){
-        lm[i].left=-1;
-        lm[i].mid=-1;
-        lm[i].right=-1;
+void init_line_elements(struct element lm[])
+{
+    for (int i = 0; i < 60; i++)
+    {
+        lm[i].left = -1;
+        lm[i].mid = -1;
+        lm[i].right = -1;
     }
 }
 
@@ -659,7 +660,6 @@ void Seek_Road_Edge(void)
             }
         }
 
-
         for (nc = mid; nc >= 0 && !flag_l; nc = nc - 1) //左扫线
         {
             if (Bin_Image[nr][nc] == 1)
@@ -688,35 +688,40 @@ void Seek_Road_Edge(void)
         }
         if (flag_left_no_edge && flag_right_no_edge)
         {
-            Road_Left_Top[0] = nr-1;
+            Road_Left_Top[0] = nr - 1;
             Road_Left_Top[1] = line_elements[nr - 1].left;
-            Road_Right_Top[0] = nr-1;
+            Road_Right_Top[0] = nr - 1;
             Road_Right_Top[1] = line_elements[nr - 1].right;
             break;
         }
         mid = (left + right) / 2;
 
         //如果左边界不为画面最左/右则记录为有效值，放入数组中
-        if(left!=0&&left!=MAX_COL-1)
+        if (left != 0 && left != MAX_COL - 1)
             line_elements[nr].left = left;
         else
-            line_elements[nr].left=-1;
+            line_elements[nr].left = -1;
 
         //同理
-        if(right!=0&&right!=MAX_COL-1)
+        if (right != 0 && right != MAX_COL - 1)
             line_elements[nr].right = right;
         else
-            line_elements[nr].right=-1;
-        if(nr!=59){
-        if(line_elements[nr+1].left==-1&&line_elements[nr].left!=-1){
-            Road_Left_Bottom[0] = nr;
-            Road_Left_Bottom[1] = line_elements[nr].left;
+            line_elements[nr].right = -1;
+        if (nr != 59)
+        {
+            if (line_elements[nr + 1].left == -1 && line_elements[nr].left != -1)
+            {
+                Road_Left_Bottom[0] = nr;
+                Road_Left_Bottom[1] = line_elements[nr].left;
+            }
+            if (line_elements[nr + 1].right == -1 && line_elements[nr].right != -1)
+            {
+                Road_Right_Bottom[0] = nr;
+                Road_Right_Bottom[1] = line_elements[nr].right;
+            }
         }
-        if(line_elements[nr+1].right==-1&&line_elements[nr].right!=-1){
-            Road_Right_Bottom[0] = nr;
-            Road_Right_Bottom[1] = line_elements[nr].right;
-        }
-        }else{//nr=59
+        else
+        { // nr=59
             Road_Left_Bottom[0] = nr;
             Road_Left_Bottom[1] = left;
 
@@ -727,8 +732,6 @@ void Seek_Road_Edge(void)
         Bin_Image[nr][line_elements[nr].mid] = 3;
     }
 }
-
-
 
 /***************************************************************************
  *                                                                          *
@@ -805,4 +808,43 @@ void Seek_Road(void)
     }
     OFFSET2 = temp / 100;
     return;
+}
+
+sint16 servo_control()
+{
+    sint16 nr;       //行
+    sint16 nc;       //列
+
+    sint16 vacancy_line_compensation = 8;
+    // for(nr=1; nr<MAX_ROW-1; nr++)
+    OFFSET0 = 0;
+    OFFSET1 = 0;
+    OFFSET2 = 0;
+
+    for (nr = 59; nr >= 40; nr--)
+    {
+        OFFSET2 += (line_elements[nr].mid - (MAX_COL / 2 - 1));
+    }
+
+    for (nr = 39; nr >= 24; nr--)
+    {
+        if (nr <= (Road_Left_Top[0] < Road_Right_Top[0] ? Road_Left_Top[0] : Road_Right_Top[0]))
+        {
+            OFFSET1 += pow((line_elements[nr + 1].mid >= MAX_COL / 2 ? -vacancy_line_compensation * nr : vacancy_line_compensation * nr),1.1);
+            return nr;
+        }
+        OFFSET1 += (line_elements[nr].mid - (MAX_COL / 2 - 1));
+    }
+
+    for (nr = 23; nr >= 0; nr--)
+    {
+        if (nr <= (Road_Left_Top[0] < Road_Right_Top[0] ? Road_Left_Top[0] : Road_Right_Top[0]))
+        {
+            OFFSET0 += pow((line_elements[nr + 1].mid >= MAX_COL / 2 ? -vacancy_line_compensation * nr : vacancy_line_compensation * nr),1.1);
+            return nr;
+        }
+        OFFSET0 += (line_elements[nr].mid - (MAX_COL / 2 - 1));
+    }
+
+    return 59;
 }
