@@ -193,24 +193,6 @@ void CameraCar(void)
         }
     }
 }
-int Bisa_variance(unsigned char a[])//算偏差值
-{
-    int i;
-    int avg=0;
-    int result=0;
-    for(i=0;i<60;i++)
-    {
-      avg=avg+a[i];
-    }
-    avg=avg/60;
-    for(i=0;i<60;i++)
-    {
-        result=(a[i]-avg)*(a[i]-avg);
-    }
-    result=sqrt(result/60);
-    return result;
-}
-//
 int My_Abs(int a, int b)//求绝对值
 {
 
@@ -235,6 +217,20 @@ void continuepanduan()//判断左右是否连续
         }
 
 }
+int Right_con;//右边连续的标志
+void right_continue()//右边界连续判断
+{
+     int i=0;
+     Right_con=1;
+     for(i=0;i<60;i++)
+     {
+         if(My_Abs(line_elements[i].left, line_elements[i + 1].left) > 5)
+         {
+
+         }
+     }
+
+}
 int flag1_line=0;
 void first_stage()//圆环得第一阶段
 {
@@ -243,15 +239,12 @@ void first_stage()//圆环得第一阶段
     {
         if(My_Abs(line_elements[i].left, line_elements[i + 1].left)>10)
         {
-           if(My_Abs(line_elements[i].left, line_elements[i + 10].left)>10)//防止误判
-           {
                flag1_line=i;
                break;
-           }
         }
     }
     continuepanduan();
-    if(flag1_line!=0&&continueleftrukou2==0)//并且有边界得偏差值小于10
+    if((flag1_line>35&&flag1_line<60)&&continueleftrukou2==0)//并且有边界得偏差值小于10
     {
         yuanhuan_flag1=1;
     }
@@ -260,14 +253,14 @@ bool lose_left_line()//左边的边界线丢掉了
 {
     bool ok=false;
     int flag=0;
-    for(int i=60;i>0;i--)
+    for(int i=60;i>30;i--)
     {
-        if(line_elements[i].left==-1)
+        if(line_elements[i].left==0)
         {
             flag++;
         }
     }
-    if(flag>30)
+    if(flag>25)
     {
         ok=true;
     }
@@ -277,7 +270,7 @@ bool have_black_area()//判断有没有圆环那一块的黑色区域
 {
     //遍历Bin_Image数组判读
     int flag=0;
-    for(int i=15;i<50;i++)
+    for(int i=10;i<40;i++)
     {
         for(int j=0;j<45;j++)
         {
@@ -287,7 +280,7 @@ bool have_black_area()//判断有没有圆环那一块的黑色区域
             }
         }
     }
-    if(flag>100)
+    if(flag>200)
     {
         return true;
     }
@@ -305,7 +298,7 @@ void second_stage()//第二阶段判断函数
 bool no_black()//第三阶段 下方没有黑色区域
 {
     int flag=0;
-   for(int i=60;i>40;i--)
+   for(int i=60;i>10;i--)
    {
        for(int j=0;j<40;j++)
        {
@@ -315,7 +308,7 @@ bool no_black()//第三阶段 下方没有黑色区域
            }
        }
    }
-   if(flag<20)
+   if(flag<30)
    {
        return true;
    }
@@ -333,7 +326,7 @@ void find_inflection_point()//入圆环时候的拐点 就是找左边界的最小值
     p1.y=line_elements[0].left;
     for(int i=0;i<40;i++)
     {
-      if(line_elements[i].left<p1.y)
+      if(line_elements[i].left<p1.y&&line_elements[i].left!=0)
       {
           p1.x=i;
           p1.y=line_elements[i].left;//找到最低的点
@@ -347,11 +340,10 @@ void find_point()
    p2.y=line_elements[0].right;
    for(int i=0;i<60;i++)
    {
-     if(line_elements[i].right>p2.y)
+     if(line_elements[i].right>p2.y&&line_elements[i].right!=94)
      {
          p2.x=i;
          p2.y=line_elements[i].right;//找到最的点
-
      }
    }
 
@@ -368,7 +360,7 @@ void buxian(struct point po1,struct point po2)//补线 入环
   for(int i=x1;i<x2;i++)
   {
       line_elements[i].right=k*i;//边界函数也更改
-      Bin_Image[i][k*i]=2;
+      Bin_Image[i][k*i]=4;
    }
 }
 
@@ -449,11 +441,11 @@ void roundabout()
     third_stage();//第三阶段
     char tstr[10];
     sprintf(tstr,"flag1: %d",yuanhuan_flag1);
-    TFTSPI_P8X16Str(1, 4, tstr, u16RED, yuanhuan_flag1);
+    TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
     sprintf(tstr,"flag2: %d",yuanhuan_flag2);
-    TFTSPI_P8X16Str(1, 5, tstr, u16RED, yuanhuan_flag2);
+    TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
     sprintf(tstr,"flag3: %d",yuanhuan_flag3);
-    TFTSPI_P8X16Str(1, 6, tstr, u16RED, yuanhuan_flag3);
+    TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
     all_clear();
 //    success_in();
 //    forth_stage();

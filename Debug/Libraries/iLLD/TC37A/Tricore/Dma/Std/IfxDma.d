@@ -2,10 +2,6 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-################################################################################
-# Automatically-generated file. Do not edit!
-################################################################################
-
 IfxDma.o :	../Libraries/iLLD/TC37A/Tricore/Dma/Std/IfxDma.c
 ../Libraries/iLLD/TC37A/Tricore/Dma/Std/IfxDma.c :
 IfxDma.o :	../src/AppSw/Ifx_Cfg.h

@@ -64,13 +64,6 @@ unsigned char Image_Data[IMAGEH][IMAGEW];
 /** 压缩后之后用于存放屏幕显示数据  */
 unsigned char Image_Use[LCDH][LCDW];
 
-struct element
-{
-    sint16 left;
-    sint16 right;
-    sint16 mid;
-};
-
 /** 二值化后用于OLED显示的数据 */
 unsigned char Bin_Image[LCDH][LCDW];
 unsigned char Road_Mid[LCDH];

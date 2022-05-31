@@ -2,10 +2,6 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-################################################################################
-# Automatically-generated file. Do not edit!
-################################################################################
-
 IfxGtm_Cmu.o :	../Libraries/iLLD/TC37A/Tricore/Gtm/Std/IfxGtm_Cmu.c
 ../Libraries/iLLD/TC37A/Tricore/Gtm/Std/IfxGtm_Cmu.c :
 IfxGtm_Cmu.o :	../src/AppSw/Ifx_Cfg.h

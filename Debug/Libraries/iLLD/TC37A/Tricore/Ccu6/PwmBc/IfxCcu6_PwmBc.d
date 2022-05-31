@@ -2,10 +2,6 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-################################################################################
-# Automatically-generated file. Do not edit!
-################################################################################
-
 IfxCcu6_PwmBc.o :	../Libraries/iLLD/TC37A/Tricore/Ccu6/PwmBc/IfxCcu6_PwmBc.c
 ../Libraries/iLLD/TC37A/Tricore/Ccu6/PwmBc/IfxCcu6_PwmBc.c :
 IfxCcu6_PwmBc.o :	../src/AppSw/Ifx_Cfg.h
