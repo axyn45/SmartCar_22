@@ -148,22 +148,18 @@ void CameraCar(void)
             Get_Bin_Image(0);   // 转换为01格式数据，0、1原图；2、3边沿提取
             Bin_Image_Filter(); // 滤波，三面被围的数据将被修改为同一数值
             Seek_Road_Edge();
+
             roundabout();
 
             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
-//            sprintf(tstr,"left_t: %d %d",Road_Left_Top[0],Road_Left_Top[1]);
-//            TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
-//
-//            sprintf(tstr,"right_t: %d %d",Road_Right_Top[0],Road_Right_Top[1]);
-//            TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
-//
-//
-//            sprintf(tstr,"left_b: %d %d",Road_Left_Bottom[0],Road_Left_Bottom[1]);
-//            TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
-//
-////            sprintf(tstr,"right_b: %d %d",Road_Right_Bottom[0],Road_Right_Bottom[1]);
-//            sprintf(tstr,"l:%d %d %d %d %d",line_elements[59].left,line_elements[49].left,line_elements[39].left,line_elements[29].left,line_elements[9].left);
-//            TFTSPI_P8X16Str(0, 7, tstr, u16RED, u16GREEN);
+
+
+//             sprintf(tstr,"left_b: %d %d",Road_Left_Bottom[0],Road_Left_Bottom[1]);
+//             TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
+
+// //            sprintf(tstr,"right_b: %d %d",Road_Right_Bottom[0],Road_Right_Bottom[1]);
+//             sprintf(tstr,"l:%d %d %d %d %d",line_elements[59].left,line_elements[49].left,line_elements[39].left,line_elements[29].left,line_elements[9].left);
+//             TFTSPI_P8X16Str(0, 7, tstr, u16RED, u16GREEN);
             // 通过黑白区域面积差计算赛道偏差值
 
 
@@ -260,19 +256,20 @@ bool no_black()//第三阶段 下方没有黑色区域
 }
 
 int flag1_line=0;
-void first_stage()//圆环得第一阶段
+void first_stage()//圆环得第一阶段根据宽度判断
 {
-    for(int i=60;i>0;i--)//从底部开始遍历 看左边得道路是否变宽
+    for(int i=60;i>30;i--)//从底部开始遍历 看左边得道路是否变宽
     {
         if(My_Abs(line_elements[i].left, line_elements[i + 1].left)>5)//
         {
-            if(My_Abs(line_elements[i].left, line_elements[i + 10].left)>5)
+            if(My_Abs(line_elements[i].left, line_elements[i + 5].left)>5)
                {
                 flag1_line=i;//防止误判
                break;}
         }
     }
     continuepanduan();
+    //右边界是直线这种情况下是1
     if((flag1_line>35&&flag1_line<60)&&continueleftrukou2==0)
     {
         yuanhuan_flag1=1;
@@ -458,8 +455,8 @@ void roundabout()
     //调用第一阶段判断函
     first_stage();
     second_stage();//第二阶段
-//    third_stage1();
-//    third_stage2();//第三阶段 没有黑色区域
+    //third_stage1();
+    third_stage2();//第三阶段 没有黑色区域
     char tstr[10];
     sprintf(tstr,"flag1: %d",yuanhuan_flag1);
     TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
@@ -467,7 +464,7 @@ void roundabout()
     TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
     sprintf(tstr,"flag3: %d",yuanhuan_flag3);
     TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
-//    all_clear();
+    all_clear();
 //    success_in();
 //    forth_stage();
 //    fifth_stage();
