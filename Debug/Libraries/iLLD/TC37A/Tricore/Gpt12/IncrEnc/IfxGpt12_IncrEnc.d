@@ -2,14 +2,20 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
+=======
 ################################################################################
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
 ################################################################################
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+=======
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
+>>>>>>> 51e00ceeb7f14829ec00fb4e7f4af8b2b03b317f
 IfxGpt12_IncrEnc.o :	../Libraries/iLLD/TC37A/Tricore/Gpt12/IncrEnc/IfxGpt12_IncrEnc.c
 ../Libraries/iLLD/TC37A/Tricore/Gpt12/IncrEnc/IfxGpt12_IncrEnc.c :
 IfxGpt12_IncrEnc.o :	../Libraries/Service/CpuGeneric/StdIf/IfxStdIf_Pos.h
