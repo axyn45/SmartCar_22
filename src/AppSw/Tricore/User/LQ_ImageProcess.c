@@ -149,6 +149,7 @@ void CameraCar(void)
             Bin_Image_Filter(); // 滤波，三面被围的数据将被修改为同一数值
             Seek_Road_Edge();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
             roundabout();
 =======
@@ -195,6 +196,22 @@ void CameraCar(void)
 =======
 >>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
 >>>>>>> f15054ee2ed4353ce99744ad72b12f400ad272dd
+=======
+            roundabout();
+
+            TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
+//             dots2line(3,3,60,25,1);
+//              TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
+// //             sint16 break_line=servo_control();
+//              sprintf(tstr,"%d",servo_control());
+//              TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
+
+//              sprintf(tstr,"left_t: %d %d",Road_Left_Top[0],Road_Left_Top[1]);
+//              TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
+
+//              sprintf(tstr,"right_t: %d %d",Road_Right_Top[0],Road_Right_Top[1]);
+//              TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
+>>>>>>> 08bde1ca0729e29598201ddc079135157deb83dc
             // 通过黑白区域面积差计算赛道偏差值
 
 
