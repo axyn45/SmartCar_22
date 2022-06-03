@@ -2,5 +2,12 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
+=======
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
 sync_on_halt.o :	../Configurations/Debug/sync_on_halt.c
 ../Configurations/Debug/sync_on_halt.c :

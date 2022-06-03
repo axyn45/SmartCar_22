@@ -2,6 +2,13 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
+=======
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
 LQ_GPIO_LED.o :	../src/AppSw/Tricore/APP/LQ_GPIO_LED.c
 ../src/AppSw/Tricore/APP/LQ_GPIO_LED.c :
 LQ_GPIO_LED.o :	../src/AppSw/Tricore/Driver/LQ_GPIO.h

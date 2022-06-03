@@ -2,6 +2,13 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
+=======
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
 LQ_EEPROM_TEST.o :	../src/AppSw/Tricore/APP/LQ_EEPROM_TEST.c
 ../src/AppSw/Tricore/APP/LQ_EEPROM_TEST.c :
 LQ_EEPROM_TEST.o :	../src/AppSw/Tricore/App/LQ_OLED096.h

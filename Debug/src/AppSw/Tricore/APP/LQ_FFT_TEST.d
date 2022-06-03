@@ -2,6 +2,13 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
+=======
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
 LQ_FFT_TEST.o :	../src/AppSw/Tricore/APP/LQ_FFT_TEST.c
 ../src/AppSw/Tricore/APP/LQ_FFT_TEST.c :
 LQ_FFT_TEST.o :	../Libraries/Service/CpuGeneric/SysSe/Math/Ifx_FftF32.h

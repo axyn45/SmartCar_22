@@ -2,6 +2,13 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
+=======
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
 Ifx_FftF32_BitReverseTable.o :	../Libraries/Service/CpuGeneric/SysSe/Math/Ifx_FftF32_BitReverseTable.c
 ../Libraries/Service/CpuGeneric/SysSe/Math/Ifx_FftF32_BitReverseTable.c :
 Ifx_FftF32_BitReverseTable.o :	../Libraries/Service/CpuGeneric/SysSe/Math/Ifx_FftF32.h

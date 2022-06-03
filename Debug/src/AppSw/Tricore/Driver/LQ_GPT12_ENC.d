@@ -2,6 +2,13 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
+=======
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
 LQ_GPT12_ENC.o :	../src/AppSw/Tricore/Driver/LQ_GPT12_ENC.c
 ../src/AppSw/Tricore/Driver/LQ_GPT12_ENC.c :
 LQ_GPT12_ENC.o :	../src/AppSw/Tricore/Driver/LQ_GPT12_ENC.h

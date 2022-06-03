@@ -2,6 +2,13 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
+=======
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
 IfxPsi5_PinMap.o :	../Libraries/iLLD/TC37A/Tricore/_PinMap/IfxPsi5_PinMap.c
 ../Libraries/iLLD/TC37A/Tricore/_PinMap/IfxPsi5_PinMap.c :
 IfxPsi5_PinMap.o :	../src/AppSw/Ifx_Cfg.h

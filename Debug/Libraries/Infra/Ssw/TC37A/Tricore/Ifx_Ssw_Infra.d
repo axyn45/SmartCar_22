@@ -2,6 +2,13 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
+=======
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
 Ifx_Ssw_Infra.o :	../Libraries/Infra/Ssw/TC37A/Tricore/Ifx_Ssw_Infra.c
 ../Libraries/Infra/Ssw/TC37A/Tricore/Ifx_Ssw_Infra.c :
 Ifx_Ssw_Infra.o :	../src/AppSw/Ifx_Cfg.h

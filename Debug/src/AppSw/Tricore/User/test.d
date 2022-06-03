@@ -2,6 +2,13 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
+=======
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
 test.o :	../src/AppSw/Tricore/User/test.c
 ../src/AppSw/Tricore/User/test.c :
 test.o :	../src/AppSw/Tricore/User/ANO_DT.h

@@ -2,6 +2,13 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
+=======
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
 LQ_ICM20602.o :	../src/AppSw/Tricore/APP/LQ_ICM20602.c
 ../src/AppSw/Tricore/APP/LQ_ICM20602.c :
 LQ_ICM20602.o :	../src/AppSw/Tricore/App/LQ_ICM20602.h

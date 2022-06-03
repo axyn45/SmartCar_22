@@ -2,6 +2,13 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
+=======
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
 LQ_ADC.o :	../src/AppSw/Tricore/Driver/LQ_ADC.c
 ../src/AppSw/Tricore/Driver/LQ_ADC.c :
 LQ_ADC.o :	../src/AppSw/Tricore/Driver/LQ_ADC.h

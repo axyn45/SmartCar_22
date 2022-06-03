@@ -2,6 +2,13 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
+=======
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
 IfxGtm_Tom_PwmHl.o :	../Libraries/iLLD/TC37A/Tricore/Gtm/Tom/PwmHl/IfxGtm_Tom_PwmHl.c
 ../Libraries/iLLD/TC37A/Tricore/Gtm/Tom/PwmHl/IfxGtm_Tom_PwmHl.c :
 IfxGtm_Tom_PwmHl.o :	../Libraries/Service/CpuGeneric/StdIf/IfxStdIf_PwmHl.h

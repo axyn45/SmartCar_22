@@ -2,6 +2,13 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
+=======
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
 IfxGtm_Atom.o :	../Libraries/iLLD/TC37A/Tricore/Gtm/Std/IfxGtm_Atom.c
 ../Libraries/iLLD/TC37A/Tricore/Gtm/Std/IfxGtm_Atom.c :
 IfxGtm_Atom.o :	../src/AppSw/Ifx_Cfg.h

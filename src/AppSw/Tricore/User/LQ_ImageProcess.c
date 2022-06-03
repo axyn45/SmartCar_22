@@ -148,6 +148,7 @@ void CameraCar(void)
             Get_Bin_Image(0);   // 转换为01格式数据，0、1原图；2、3边沿提取
             Bin_Image_Filter(); // 滤波，三面被围的数据将被修改为同一数值
             Seek_Road_Edge();
+<<<<<<< HEAD
             roundabout();
 
             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
@@ -164,6 +165,29 @@ void CameraCar(void)
 ////            sprintf(tstr,"right_b: %d %d",Road_Right_Bottom[0],Road_Right_Bottom[1]);
 //            sprintf(tstr,"l:%d %d %d %d %d",line_elements[59].left,line_elements[49].left,line_elements[39].left,line_elements[29].left,line_elements[9].left);
 //            TFTSPI_P8X16Str(0, 7, tstr, u16RED, u16GREEN);
+=======
+
+//            roundabout();
+
+             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
+//             sint16 break_line=servo_control();
+             sprintf(tstr,"%d",servo_control());
+             TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
+
+             sprintf(tstr,"left_t: %d %d",Road_Left_Top[0],Road_Left_Top[1]);
+             TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
+
+             sprintf(tstr,"right_t: %d %d",Road_Right_Top[0],Road_Right_Top[1]);
+             TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
+
+
+//             sprintf(tstr,"left_b: %d %d",Road_Left_Bottom[0],Road_Left_Bottom[1]);
+//             TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
+
+// //            sprintf(tstr,"right_b: %d %d",Road_Right_Bottom[0],Road_Right_Bottom[1]);
+//             sprintf(tstr,"l:%d %d %d %d %d",line_elements[59].left,line_elements[49].left,line_elements[39].left,line_elements[29].left,line_elements[9].left);
+//             TFTSPI_P8X16Str(0, 7, tstr, u16RED, u16GREEN);
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
             // 通过黑白区域面积差计算赛道偏差值
 
 

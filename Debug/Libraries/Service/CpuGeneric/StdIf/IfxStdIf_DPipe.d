@@ -2,6 +2,13 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+<<<<<<< HEAD
+=======
+################################################################################
+# Automatically-generated file. Do not edit!
+################################################################################
+
+>>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
 IfxStdIf_DPipe.o :	../Libraries/Service/CpuGeneric/StdIf/IfxStdIf_DPipe.c
 ../Libraries/Service/CpuGeneric/StdIf/IfxStdIf_DPipe.c :
 IfxStdIf_DPipe.o :	../Libraries/Service/CpuGeneric/StdIf/IfxStdIf_DPipe.h
