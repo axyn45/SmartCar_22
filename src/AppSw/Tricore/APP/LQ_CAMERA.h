@@ -56,6 +56,7 @@ struct element
     sint16 left;
     sint16 right;
     sint16 mid;
+    sint16 width;
 };
 extern unsigned char Bin_Image[LCDH][LCDW];
 extern unsigned char Road_Mid[LCDH];
@@ -221,6 +222,7 @@ void Seek_Road(void);
 void Bin_Image_Filter(void);
 void Seek_Road_Edge();
 sint16 servo_control();
+void dots2line(sint16 x1,sint16 y1,sint16 x2,sint16 y2,sint16 line_type);
 void roundabout();
 #endif
 

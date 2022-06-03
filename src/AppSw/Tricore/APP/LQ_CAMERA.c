@@ -730,6 +730,7 @@ void Seek_Road_Edge(void)
         }
         line_elements[nr].mid = (left + right) / 2;
         Bin_Image[nr][line_elements[nr].mid] = 3;
+        line_elements[nr].width = line_elements[nr].right - line_elements[nr].left;
     }
 }
 
@@ -812,8 +813,8 @@ void Seek_Road(void)
 
 sint16 servo_control()
 {
-    sint16 nr;       //行
-    sint16 nc;       //列
+    sint16 nr; //行
+    sint16 nc; //列
 
     sint16 vacancy_line_compensation = 8;
     // for(nr=1; nr<MAX_ROW-1; nr++)
@@ -830,7 +831,7 @@ sint16 servo_control()
     {
         if (nr <= (Road_Left_Top[0] < Road_Right_Top[0] ? Road_Left_Top[0] : Road_Right_Top[0]))
         {
-            OFFSET1 += pow((line_elements[nr + 1].mid >= MAX_COL / 2 ? -vacancy_line_compensation * nr : vacancy_line_compensation * nr),1.1);
+            OFFSET1 += pow((line_elements[nr + 1].mid >= MAX_COL / 2 ? -vacancy_line_compensation * nr : vacancy_line_compensation * nr), 1.1);
             return nr;
         }
         OFFSET1 += (line_elements[nr].mid - (MAX_COL / 2 - 1));
@@ -840,11 +841,53 @@ sint16 servo_control()
     {
         if (nr <= (Road_Left_Top[0] < Road_Right_Top[0] ? Road_Left_Top[0] : Road_Right_Top[0]))
         {
-            OFFSET0 += pow((line_elements[nr + 1].mid >= MAX_COL / 2 ? -vacancy_line_compensation * nr : vacancy_line_compensation * nr),1.1);
+            OFFSET0 += pow((line_elements[nr + 1].mid >= MAX_COL / 2 ? -vacancy_line_compensation * nr : vacancy_line_compensation * nr), 1.1);
             return nr;
         }
         OFFSET0 += (line_elements[nr].mid - (MAX_COL / 2 - 1));
     }
 
     return 59;
+}
+
+void dots2line(sint16 x1, sint16 y1, sint16 x2, sint16 y2, sint16 line_type)//1为左边界，2为右边界，3为中线
+{
+    float delta = (x2 - x1) / (y2 - y1) + 0.1 - 0.1;
+
+    sint16 loop_time = y2 - y1 - 1;
+    float *col_coord = (float *)malloc(sizeof(float) * loop_time);
+    int fit;
+    for (int i = 0; i < loop_time; i++)
+    {
+        col_coord[i] = x1 + delta * (i + 1);
+        fit = (col_coord[i] - (int)col_coord[i]) > 0.5 ? (int)col_coord[i] + 1 : (int)col_coord[i];
+        Bin_Image[y1 + i][fit] = line_type <= 2 ? 2 : 3;
+        if (line_type == 1)
+        {
+            line_elements[y1 + i].left = fit;
+        }
+        else if (line_type == 2)
+        {
+            line_elements[y1 + i].right = fit;
+        }
+        else if (line_type == 3)
+        {
+            line_elements[y1 + i].mid = fit;
+        }
+    }
+    free(col_coord);
+
+// for(int i=0;i<loop_time;i++){
+//     fit=(col_coord[i]-(int)col_coord[i])>0.5?(int)col_coord[i]+1:(int)col_coord[i];
+//     Bin_Image[y1+i][fit]=line_type<=2?2:3;
+//     if(line_type==1){
+//         line_elements[y1+i].left=fit;
+//     }
+//     else if(line_type==2){
+//         line_elements[y1+i].right=fit;
+//     }
+//     else if(line_type==3){
+//         line_elements[y1+i].mid=fit;
+//     }
+// }
 }

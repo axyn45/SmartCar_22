@@ -149,7 +149,7 @@ void CameraCar(void)
             Seek_Road_Edge();
 
 //            roundabout();
-
+            dots2line(3,3,60,25,1);
              TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
 //             sint16 break_line=servo_control();
              sprintf(tstr,"%d",servo_control());
