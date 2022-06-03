@@ -539,7 +539,7 @@ void roundabout()
 
 */
 
-extern int Bin_image[60][94];
+//extern int Bin_image[60][94];
 
 //找左拐点
 int Left_Point_Row = 0;//左拐点行
@@ -553,18 +553,18 @@ void Find_Left_Point()
     int  Find_Start_Line = 0;
     int  Find_End_Line = 94;
 
-    for (i = Find_Start_Line; i > Find_End_Line; i++)
+    for (i = Find_End_Line-1; i >= Find_Start_Line; i--)
     {
-        if (line_elements[i].left != 0 && line_elements[i].left != 0 && line_elements[i].left != 0
-            && line_elements[i].left != 0                       //连续4行不丢线，并且这4行都小于70 178改成70
-            && line_elements[i].left < 178 && line_elements[i].left < 178 && line_elements[i].left < 178
-            && line_elements[i].left < 178)
+        if (line_elements[i].left != 0 && line_elements[i-1].left != 0 && line_elements[i+1].left != 0
+            && line_elements[i-2].left != 0                       //连续4行不丢线，并且这4行都小于70 178改成70
+            && line_elements[i].left < 178 && line_elements[i-1].left < 178 && line_elements[i+1].left < 178
+            && line_elements[i-2].left < 178)
         {
-            if ((line_elements[i].left - line_elements[i].left >= 0) && (line_elements[i].left - line_elements[i].left >= 0)
-                && (line_elements[i].left - line_elements[i].left >= 2)
-                && (line_elements[i].left - line_elements[i].left >= 0)
-                && (line_elements[i].left - line_elements[i].left >= 0)
-                && (line_elements[i].left - line_elements[i].left >= 0)) //找到拐点
+            if ((line_elements[i].left - line_elements[i-1].left >= 0) && (line_elements[i].left - line_elements[i-2].left >= 0)
+                && (line_elements[i].left - line_elements[i-3].left >= 2)
+                && (line_elements[i].left - line_elements[i+1].left >= 0)
+                && (line_elements[i].left - line_elements[i+2].left >= 0)
+                && (line_elements[i].left - line_elements[i+3].left >= 0)) //找到拐点
             {
                 Left_Point_Row = i;           //记录该拐点的行
                 Left_Point_Col = line_elements[i].left; //记录该拐点的列
@@ -588,23 +588,23 @@ void Find_Right_Point()
     int  Find_End_Line = 94;
 
 
-    for (i = Find_Start_Line; i > Find_End_Line; i++)
+    for (i = Find_End_Line-1; i >= Find_Start_Line; i--)
     {
         //不能扫描太远，否则会误判
 
-        if ((line_elements[i].right != (cutCOL - 1) && line_elements[i].right != (cutCOL - 1)
-            && line_elements[i].right != (cutCOL - 1)
-            && line_elements[i].right != (cutCOL - 1))
-            && (line_elements[i].right > 10 && line_elements[i].right > 10
-                && line_elements[i].right > 10 && line_elements[i].right > 10))
+        if ((line_elements[i].right != (cutCOL - 1) && line_elements[i-1].right != (cutCOL - 1)
+            && line_elements[i-2].right != (cutCOL - 1)
+            && line_elements[i-3].right != (cutCOL - 1))
+            && (line_elements[i].right > 10 && line_elements[i-1].right > 10
+                && line_elements[i+1].right > 10 && line_elements[i-2].right > 10))
             //连续四行不丢线,并未为了防止跳变，这4行必须大于10
         {
-            if ((line_elements[i].right - line_elements[i].right <= 0)
-                && (line_elements[i].right - line_elements[i].right) <= 0
-                && (line_elements[i].right - line_elements[i].right) <= 0
-                && (line_elements[i].right - line_elements[i].right <= 0)
-                && (line_elements[i].right - line_elements[i].right <= 0)
-                && (line_elements[i].right - line_elements[i].right <= -2))
+            if ((line_elements[i].right - line_elements[i+1].right <= 0)
+                && (line_elements[i].right - line_elements[i+2].right) <= 0
+                && (line_elements[i].right - line_elements[i+3].right) <= 0
+                && (line_elements[i].right - line_elements[i-1].right <= 0)
+                && (line_elements[i].right - line_elements[i-2].right <= 0)
+                && (line_elements[i].right - line_elements[i-3].right <= -2))
             {
                 Right_Point_Row = i;           //记录该拐点的行
                 Right_Point_Col = line_elements[i].right; //记录该拐点的列
@@ -627,8 +627,14 @@ int Sancha_Num = 0; //记载进入三岔次数，滤掉偶然情况
 int Sancha_Start_Row = 0;
 int Sancha_Start_Col = 0;
 int Sancha_Button_Row = 0;//三岔中间底部那个拐点
+int Sancha_Button_Col = 0;
 int Sancha_Button_Flag = 0;
 int Sancha_In_Flag = 0;//进三岔标志
+
+
+int Sancha_Go_Right = 0;
+int Sancha_Go_Left = 0;
+
 
 void Sancha_judge()
 {
@@ -637,22 +643,30 @@ void Sancha_judge()
 
     Find_Left_Point();
     Find_Right_Point();
-
+    char tstr[10];
+    sprintf(tstr,"Right: %d,%d,%d",Right_Point_Row,Right_Point_Col,Right_Point_Flag);
+    TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
+    sprintf(tstr,"Left: %d,%d,%d",Left_Point_Row,Left_Point_Col,Left_Point_Flag);
+    TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
     if (Right_Point_Flag && Left_Point_Flag /* && sum_lost_line < 40 */) //左右下方拐点存在
     {
         point_flag = 1;
         Sancha_Start_Row = ((Right_Point_Row + Left_Point_Row) / 2);
         Sancha_Start_Col = ((Right_Point_Col + Left_Point_Col) / 2);
+        Sancha_Button_Col = Sancha_Start_Col;
     }
     if (point_flag == 1 /*&& sum_lost_line > 70*/)
     {
-        for (i = Sancha_Start_Row; i > 50; i--)
+      //  Sancha_In_Flag = 1;
+
+        for (i = Sancha_Start_Row; i > 0; i--)//找mid
         {
-            if ((Bin_image[i][Sancha_Start_Col] == 1)
-                && (Bin_image[i - 1][Sancha_Start_Col] == 0))
+            if ((Bin_image[i][Sancha_Start_Col] == 1)&& (Bin_image[i - 1][Sancha_Start_Col] == 0))
             {
                 Sancha_Button_Row = i;
                 distance = Sancha_Start_Row - Sancha_Button_Row;
+                Sancha_In_Flag = 1;
+
                 if (distance > 0 && distance <= 40 && Sancha_Start_Row > 55)
                 {
                     Sancha_Button_Flag = 1;
@@ -661,16 +675,68 @@ void Sancha_judge()
                     Sancha_Num++;
                     break;
                 }
-                if (Sancha_In_Flag == 1)
-                {
-                    //令之前所有的三岔相关的flag置为0
-                    Sancha_In_Flag = 0;
-                    Bin_Image[Left_Point_Row][Left_Point_Col] = 2;
-                    Bin_Image[Right_Point_Row][Right_Point_Col] = 2;
-
-
-                }
             }
         }
+        if (Sancha_In_Flag == 1)
+        {
+          // sprintf(tstr,"Mid：%d,%d",Sancha_Button_Row,Sancha_Button_Col);
+        //   TFTSPI_P8X16Str(1, 5, tstr, u16RED,u16GREEN);
+           float k = 0;
+           Sancha_Go_Right = 1;
+           if (Sancha_Go_Right)//走三岔右路  中上拐点连左拐点
+           {
+              k = (Sancha_Button_Col - Left_Point_Col) / (Sancha_Button_Row - Left_Point_Row);
+              for (int i = Sancha_Start_Row; i >= Sancha_Button_Row; i++)
+              {
+                  Bin_Image[i][line_elements[i].left] = 0;
+                  line_elements[i].left = i * k + Sancha_Start_Row;
+                  Bin_Image[i][line_elements[i].left] = 2;
+               }
+
+            }
+                           //令之前所有的三岔相关的flag置为0
+             Sancha_In_Flag = 0;
+             Bin_Image[Left_Point_Row][Left_Point_Col] = 2;
+             Bin_Image[Right_Point_Row][Right_Point_Col] = 2;
+
+
+         }
     }
 }
+
+
+/*
+int Sancha_Go_Right = 0;
+int Sancha_Go_Left = 0;
+void Sancha_buxian()
+{
+    float k = 0;
+    Sancha_Go_Right = 1;
+    if (Sancha_Go_Right)//走三岔右路  中上拐点连左拐点
+    {
+        k = (Sancha_Button_Col - Left_Point_Col) / (Sancha_Button_Row - Left_Point_Row);
+        for (int i = Sancha_Start_Row; i >= Sancha_Button_Row; i++)
+        {
+            Bin_Image[i][line_elements[i].left] = 0;
+            line_elements[i].left = i * k + Sancha_Start_Row;
+            Bin_Image[i][line_elements[i].left] = 2;
+        }
+
+    }
+
+    else
+    {
+
+    }
+
+}*/
+
+/* xxxxxxxxzzzzzzzz
+int Sancha_Find_Flag = 0;
+void Road_Type_Judge()
+{
+    //三岔
+
+
+}
+*/
