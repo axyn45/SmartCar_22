@@ -54,6 +54,7 @@ void roundabout();
 int ruhuan_flag=0;//进入环岛的标记
 int yuanhuan_flag1=0;//圆环第一阶段的标志 看到一个出口和入口
 int yuanhuan_flag2=0;//圆环第二阶段的标志 只看到入口
+int yuanhuan_flag3_1=0;
 int yuanhuan_flag3=0;//圆环第三阶段的标志 看不到入口只有直线和弯道 开始补线
 int yuanhuan_flag4=0;//圆环第四阶段的标志 看到出口
 int yuanhuan_flag5=0;//圆环第五阶段的标志 走完了 完成
@@ -147,22 +148,22 @@ void CameraCar(void)
             Get_Bin_Image(0);   // 转换为01格式数据，0、1原图；2、3边沿提取
             Bin_Image_Filter(); // 滤波，三面被围的数据将被修改为同一数值
             Seek_Road_Edge();
-//            roundabout();
+            roundabout();
 
             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
-            sprintf(tstr,"left_t: %d %d",Road_Left_Top[0],Road_Left_Top[1]);
-            TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
-
-            sprintf(tstr,"right_t: %d %d",Road_Right_Top[0],Road_Right_Top[1]);
-            TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
-
-
-            sprintf(tstr,"left_b: %d %d",Road_Left_Bottom[0],Road_Left_Bottom[1]);
-            TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
-
-//            sprintf(tstr,"right_b: %d %d",Road_Right_Bottom[0],Road_Right_Bottom[1]);
-            sprintf(tstr,"l:%d %d %d %d %d",line_elements[59].left,line_elements[49].left,line_elements[39].left,line_elements[29].left,line_elements[9].left);
-            TFTSPI_P8X16Str(0, 7, tstr, u16RED, u16GREEN);
+//            sprintf(tstr,"left_t: %d %d",Road_Left_Top[0],Road_Left_Top[1]);
+//            TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
+//
+//            sprintf(tstr,"right_t: %d %d",Road_Right_Top[0],Road_Right_Top[1]);
+//            TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
+//
+//
+//            sprintf(tstr,"left_b: %d %d",Road_Left_Bottom[0],Road_Left_Bottom[1]);
+//            TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
+//
+////            sprintf(tstr,"right_b: %d %d",Road_Right_Bottom[0],Road_Right_Bottom[1]);
+//            sprintf(tstr,"l:%d %d %d %d %d",line_elements[59].left,line_elements[49].left,line_elements[39].left,line_elements[29].left,line_elements[9].left);
+//            TFTSPI_P8X16Str(0, 7, tstr, u16RED, u16GREEN);
             // 通过黑白区域面积差计算赛道偏差值
 
 
@@ -214,7 +215,7 @@ void continuepanduan()//判断左右是否连续
     continueleftrukou2 = 1;
      //如果所有行中出现大于5的跳变，认为不连续
      //如果第15行边线仍不在1-185范围内，认为不连续
-        for(i=0;i<30;i++)
+        for(i=10;i<40;i++)
         {
             if (My_Abs(line_elements[i].left, line_elements[i + 1].left) > 5)
             {
@@ -238,20 +239,41 @@ void right_continue()//右边界连续判断
      }
 
 }
+bool no_black()//第三阶段 下方没有黑色区域
+{
+   int flag=0;
+   for(int i=60;i>30;i--)
+   {
+       for(int j=0;j<40;j++)
+       {
+           if(Bin_Image[i][j]==0)
+           {
+               flag++;
+           }
+       }
+   }
+   if(flag<100)
+   {
+       return true;
+   }
+   return false;
+}
+
 int flag1_line=0;
 void first_stage()//圆环得第一阶段
 {
-   // int result=Bisa_variance(Road_Right);
     for(int i=60;i>0;i--)//从底部开始遍历 看左边得道路是否变宽
     {
-        if(My_Abs(line_elements[i].left, line_elements[i + 1].left)>10)
+        if(My_Abs(line_elements[i].left, line_elements[i + 1].left)>5)//
         {
-               flag1_line=i;
-               break;
+            if(My_Abs(line_elements[i].left, line_elements[i + 10].left)>5)
+               {
+                flag1_line=i;//防止误判
+               break;}
         }
     }
     continuepanduan();
-    if((flag1_line>35&&flag1_line<60)&&continueleftrukou2==0)//并且有边界得偏差值小于10
+    if((flag1_line>35&&flag1_line<60)&&continueleftrukou2==0)
     {
         yuanhuan_flag1=1;
     }
@@ -262,12 +284,12 @@ bool lose_left_line()//左边的边界线丢掉了
     int flag=0;
     for(int i=60;i>30;i--)
     {
-        if(line_elements[i].left==0)
+        if(line_elements[i].left==-1)
         {
             flag++;
         }
     }
-    if(flag>25)
+    if(flag>15)
     {
         ok=true;
     }
@@ -277,9 +299,9 @@ bool have_black_area()//判断有没有圆环那一块的黑色区域
 {
     //遍历Bin_Image数组判读
     int flag=0;
-    for(int i=10;i<40;i++)
+    for(int i=10;i<60;i++)
     {
-        for(int j=0;j<45;j++)
+        for(int j=0;j<50;j++)
         {
             if(Bin_Image[i][j]==0)
             {
@@ -287,39 +309,22 @@ bool have_black_area()//判断有没有圆环那一块的黑色区域
             }
         }
     }
-    if(flag>200)
+    if(flag>100)
     {
         return true;
     }
     return false;
 }
+
+
 void second_stage()//第二阶段判断函数
 {
   //  int result=Bisa_variance(Road_Right);
-     if(lose_left_line()&&have_black_area()&&yuanhuan_flag1==1)//丢线了并且有黑色区域
+     if(lose_left_line()&&have_black_area()&&yuanhuan_flag1)//丢线了并且有黑色区域
      {
          yuanhuan_flag2=1;
          yuanhuan_flag1=0;
      }
-}
-bool no_black()//第三阶段 下方没有黑色区域
-{
-    int flag=0;
-   for(int i=60;i>10;i--)
-   {
-       for(int j=0;j<40;j++)
-       {
-           if(Bin_Image[i][j]==0)
-           {
-               flag++;
-           }
-       }
-   }
-   if(flag<30)
-   {
-       return true;
-   }
-   return false;
 }
 struct point
 {
@@ -370,13 +375,21 @@ void buxian(struct point po1,struct point po2)//补线 入环
       Bin_Image[i][k*i]=4;
    }
 }
-
-void third_stage()
+void third_stage1()
 {
-    if(lose_left_line()&&yuanhuan_flag2&&no_black())//丢线且经过了第二阶段 且下方没有黑色区域了
+// 左下角是黑色区域
+    if(!no_black()&&yuanhuan_flag2)
+    {
+        yuanhuan_flag3_1=1;
+        yuanhuan_flag2=0;
+    }
+}
+void third_stage2()
+{
+    if(lose_left_line()&&yuanhuan_flag2&&no_black()&&yuanhuan_flag3_1)//丢线且经过了第二阶段 且下方没有黑色区域了
     {
        yuanhuan_flag3=1;
-       yuanhuan_flag2=0;
+       yuanhuan_flag3_1=0;
        buxian(p1,p2);//进行补线打角度
     }
 
@@ -445,7 +458,8 @@ void roundabout()
     //调用第一阶段判断函
     first_stage();
     second_stage();//第二阶段
-    third_stage();//第三阶段
+//    third_stage1();
+//    third_stage2();//第三阶段 没有黑色区域
     char tstr[10];
     sprintf(tstr,"flag1: %d",yuanhuan_flag1);
     TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
@@ -453,7 +467,7 @@ void roundabout()
     TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
     sprintf(tstr,"flag3: %d",yuanhuan_flag3);
     TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
-    all_clear();
+//    all_clear();
 //    success_in();
 //    forth_stage();
 //    fifth_stage();
