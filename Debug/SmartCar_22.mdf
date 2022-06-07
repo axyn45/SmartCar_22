@@ -1,100 +1,34 @@
 # space <name> <id> <mau size>
-<<<<<<< HEAD
-space	mpe:vtc:abs18	3	8
-space	mpe:vtc:abs24	2	8
-space	mpe:tc2:csa	304	8
-space	mpe:vtc:linear	1	8
-space	mpe:tc0:abs24	102	8
-space	mpe:tc2:linear	301	8
-space	mpe:tc2:abs24	302	8
-space	mpe:tc2:abs18	303	8
-space	mpe:tc0:abs18	103	8
-=======
-<<<<<<< HEAD
-space	mpe:tc1:linear	201	8
-=======
-space	mpe:tc0:abs24	102	8
-<<<<<<< HEAD
-space	mpe:tc2:linear	301	8
-=======
->>>>>>> 51e00ceeb7f14829ec00fb4e7f4af8b2b03b317f
-space	mpe:tc1:abs24	202	8
-space	mpe:vtc:abs18	3	8
-space	mpe:vtc:abs24	2	8
-space	mpe:tc0:linear	101	8
-space	mpe:tc1:abs18	203	8
-space	mpe:tc1:csa	204	8
-space	mpe:tc2:linear	301	8
-<<<<<<< HEAD
-=======
-space	mpe:tc0:linear	101	8
->>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
->>>>>>> 51e00ceeb7f14829ec00fb4e7f4af8b2b03b317f
-space	mpe:tc2:abs24	302	8
-space	mpe:tc2:abs18	303	8
-space	mpe:tc2:csa	304	8
 space	mpe:tc0:csa	104	8
 space	mpe:tc0:linear	101	8
 space	mpe:vtc:linear	1	8
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 space	mpe:vtc:abs24	2	8
 space	mpe:vtc:abs18	3	8
->>>>>>> f15054ee2ed4353ce99744ad72b12f400ad272dd
 space	mpe:tc1:linear	201	8
 space	mpe:tc1:abs24	202	8
 space	mpe:tc1:abs18	203	8
 space	mpe:tc1:csa	204	8
-space	mpe:tc0:csa	104	8
-space	mpe:tc0:linear	101	8
-# chip <name> <id> <mau size> <size> <type>
-chip	mpe:dsram1	2	8	245760	ram
-chip	mpe:psram1	3	8	65536	ram
-<<<<<<< HEAD
-=======
-=======
-space	mpe:tc1:linear	201	8
-space	mpe:tc0:csa	104	8
->>>>>>> 51e00ceeb7f14829ec00fb4e7f4af8b2b03b317f
 space	mpe:tc0:abs18	103	8
 space	mpe:tc0:abs24	102	8
-space	mpe:tc0:csa	104	8
+space	mpe:tc2:linear	301	8
+space	mpe:tc2:abs24	302	8
+space	mpe:tc2:abs18	303	8
+space	mpe:tc2:csa	304	8
 # chip <name> <id> <mau size> <size> <type>
-<<<<<<< HEAD
-chip	mpe:dsram1	2	8	245760	ram
 chip	mpe:psram1	3	8	65536	ram
-=======
-chip	mpe:dsram2	0	8	98304	ram
->>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
->>>>>>> 51e00ceeb7f14829ec00fb4e7f4af8b2b03b317f
->>>>>>> f15054ee2ed4353ce99744ad72b12f400ad272dd
 chip	mpe:dsram0	4	8	245760	ram
 chip	mpe:psram0	5	8	65536	ram
 chip	mpe:pfls0	6	8	3145728	rom
-chip	mpe:dsram2	0	8	98304	ram
-<<<<<<< HEAD
-=======
-chip	mpe:psram2	1	8	65536	ram
->>>>>>> f15054ee2ed4353ce99744ad72b12f400ad272dd
 chip	mpe:pfls1	7	8	3145728	rom
 chip	mpe:dfls0	8	8	262144	nvram
 chip	mpe:ucb	9	8	24576	rom
+chip	mpe:dsram1	2	8	245760	ram
 chip	mpe:cpu0_dlmu	10	8	65536	ram
 chip	mpe:cpu1_dlmu	11	8	65536	ram
 chip	mpe:cpu2_dlmu	12	8	65536	ram
 chip	mpe:edmem	13	8	3145728	ram
-<<<<<<< HEAD
 chip	mpe:psram2	1	8	65536	ram
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-chip	mpe:psram2	1	8	65536	ram
->>>>>>> 1e6339c38d09dbd40029d77746eb471bf32526e2
->>>>>>> 51e00ceeb7f14829ec00fb4e7f4af8b2b03b317f
->>>>>>> f15054ee2ed4353ce99744ad72b12f400ad272dd
+chip	mpe:dsram2	0	8	98304	ram
 # map <space id> <start in space> <size in space> <chip id> <start on chip>
 map	301	3489660928	98304	0	0
 map	302	3489660928	98304	0	0

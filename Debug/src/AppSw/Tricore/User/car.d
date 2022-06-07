@@ -2,10 +2,6 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-################################################################################
-# Automatically-generated file. Do not edit!
-################################################################################
-
 car.o :	../src/AppSw/Tricore/User/car.c
 ../src/AppSw/Tricore/User/car.c :
 car.o :	../src/AppSw/Tricore/App/LQ_TFT18.h
