@@ -595,13 +595,31 @@ sint16 d_plus_ioffset(sint16 d, sint16 ioffset)
     }
 }
 
-void init_line_elements(struct element lm[])
+void init_line_elements()
 {
     for (int i = 0; i < 60; i++)
     {
-        lm[i].left = -1;
-        lm[i].mid = -1;
-        lm[i].right = -1;
+        line_elements[i].left = -1;
+        line_elements[i].mid = -1;
+        line_elements[i].right = -1;
+    }
+}
+
+void setLTop(sint16 x, sint16 y)
+{
+    Road_Left_Top[0] = x;
+    Road_Left_Top[1] = y;
+}
+
+void setRTop(sint16 x, sint16 y)
+{
+    Road_Right_Top[0] = x;
+    Road_Right_Top[1] = y;
+}
+
+void setMid(int terminiate_line){
+    for(int i=59;i>=terminiate_line;i--){
+        line_elements[i].mid=(line_elements[i].left==-1?0:line_elements[i].left+line_elements[i].right)/2;
     }
 }
 
@@ -824,6 +842,11 @@ sint16 servo_control()
 
     for (nr = 59; nr >= 40; nr--)
     {
+        if (nr <= (Road_Left_Top[0] < Road_Right_Top[0] ? Road_Left_Top[0] : Road_Right_Top[0]))
+        {
+            OFFSET0 += pow((line_elements[nr + 1].mid >= MAX_COL / 2 ? -vacancy_line_compensation * nr : vacancy_line_compensation * nr), 1.1);
+            return nr;
+        }
         OFFSET2 += (line_elements[nr].mid - (MAX_COL / 2 - 1));
     }
 
@@ -856,11 +879,13 @@ void dots2line(sint16 x1, sint16 y1, sint16 x2, sint16 y2, sint16 line_type)//1Î
 
     sint16 loop_time = y2 - y1 - 1;
     float *col_coord = (float *)malloc(sizeof(float) * loop_time);
+    // int *col_coord_fit=(int*)malloc(sizeof(int)*loop_time);
     int fit;
     for (int i = 0; i < loop_time; i++)
     {
         col_coord[i] = x1 + delta * (i + 1);
         fit = (col_coord[i] - (int)col_coord[i]) > 0.5 ? (int)col_coord[i] + 1 : (int)col_coord[i];
+        // col_coord_fit[i] = fit;
         Bin_Image[y1 + i][fit] = line_type <= 2 ? 2 : 3;
         if (line_type == 1)
         {
@@ -875,19 +900,14 @@ void dots2line(sint16 x1, sint16 y1, sint16 x2, sint16 y2, sint16 line_type)//1Î
             line_elements[y1 + i].mid = fit;
         }
     }
+    // if(line_type==2){
+    //     for(int i=x1;i<=x2;i++){
+    //         for(int j=0;j<col_coord_fit[i-x1];j++){
+    //             Bin_Image[j][i]=0;
+    //         }
+    //     }
+    // }
+    // free(col_coord_fit);
     free(col_coord);
 
-// for(int i=0;i<loop_time;i++){
-//     fit=(col_coord[i]-(int)col_coord[i])>0.5?(int)col_coord[i]+1:(int)col_coord[i];
-//     Bin_Image[y1+i][fit]=line_type<=2?2:3;
-//     if(line_type==1){
-//         line_elements[y1+i].left=fit;
-//     }
-//     else if(line_type==2){
-//         line_elements[y1+i].right=fit;
-//     }
-//     else if(line_type==3){
-//         line_elements[y1+i].mid=fit;
-//     }
-// }
 }

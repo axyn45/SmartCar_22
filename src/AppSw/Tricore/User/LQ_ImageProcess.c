@@ -159,7 +159,10 @@ void CameraCar(void)
             {
                 find_inflection_point();
                 find_point();
-                dots2line(p1.x,p1.y,p2.x,p2.y,2);
+                dots2line(p1.y,p1.x,p2.y,p2.x,2);
+                setLTop(0,p1.x);
+                setRTop(p1.y,p1.x);
+                setMid(p1.x);
             }
             servo_control();
             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
