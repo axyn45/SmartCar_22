@@ -516,7 +516,7 @@ void forth_stage()//锟斤拷锟叫筹拷圆锟斤�?
             turn_wid=1;
         }
     }
-    if(yuanhuan_flag3&&ruhuan_flag&&turn_wid&&turn_nar)
+    if(yuanhuan_flag3&&ruhuan_flag&&turn_wid&&turn_nar&&lose_left_line())
     {
         yuanhuan_flag4=1;
         ruhuan_flag=0;
@@ -552,13 +552,13 @@ void roundabout()
 //    TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
 //    sprintf(tstr,"flag2: %d",yuanhuan_flag2);
 //    TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
-    sprintf(tstr,"flag3: %d",yuanhuan_flag3);
-    TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
     success_in();
     sprintf(tstr,"ruhuan_flag: %d",ruhuan_flag);
     TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
-//    forth_stage();
-//    fifth_stage();
+    forth_stage();
+    fifth_stage();
+    sprintf(tstr,"flag4: %d",yuanhuan_flag4);
+    TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
 
 }
 
