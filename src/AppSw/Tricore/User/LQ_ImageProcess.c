@@ -456,11 +456,7 @@ void third_stage2()
     {
        yuanhuan_flag3=1;
        yuanhuan_flag2=0;
-       find_inflection_point();
-       find_point();
-       dots2line(p1.x,p1.y,p2.x,p2.y,2);//锟斤拷锟叫诧拷锟竭达拷嵌锟�
     }
-
 }
 //锟揭憋拷锟角伙拷锟斤�? 直锟斤拷
 void success_in()//锟缴癸拷锟诫环锟侥憋拷志  未锟斤拷锟斤�?
@@ -553,6 +549,13 @@ void roundabout()
 //    sprintf(tstr,"flag2: %d",yuanhuan_flag2);
 //    TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
     success_in();
+    while(yuanhuan_flag3)
+    {
+        find_inflection_point();
+        find_point();
+        dots2line(p1.x,p1.y,p2.x,p2.y,2);
+
+    }
     sprintf(tstr,"ruhuan_flag: %d",ruhuan_flag);
     TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
     forth_stage();
