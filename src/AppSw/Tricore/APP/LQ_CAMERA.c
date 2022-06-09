@@ -852,7 +852,7 @@ sint16 servo_control()
 
 void dots2line(sint16 x1, sint16 y1, sint16 x2, sint16 y2, sint16 line_type)//1为左边界，2为右边界，3为中线
 {
-    float delta = (x2 - x1) / (y2 - y1) + 0.1 - 0.1;
+    float delta = ((float)x2 - (float)x1) / ((float)y2 - (float)y1);
 
     sint16 loop_time = y2 - y1 - 1;
     float *col_coord = (float *)malloc(sizeof(float) * loop_time);
