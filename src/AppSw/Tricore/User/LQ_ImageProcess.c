@@ -62,8 +62,14 @@ int Bin_image[60][94];//图锟斤拷亩锟轿拷锟斤拷锟�
 int huandao_flag = 0;  //锟斤拷锟斤拷锟侥憋拷�? 锟斤拷锟斤拷锟斤拷之锟斤拷疟锟斤�?0
 int continueleftrukou1;//锟斤拷呓锟斤拷锟斤拷锟� 锟叫断筹拷锟斤拷一锟斤拷锟斤拷锟�
 int continueleftrukou2;//锟叫断筹拷锟斤拷
-
-
+void find_inflection_point();
+void find_point();
+struct point
+{
+        int x;
+        int y;
+};
+struct point p1,p2,p3,p4;//锟斤拷锟斤拷锟揭拐碉�?
 void TFT_Show_Camera_Info (void)
 {
     char txt[16] = "X:";
@@ -149,6 +155,12 @@ void CameraCar(void)
             Bin_Image_Filter(); // 锟剿诧拷锟斤拷锟斤拷锟芥被围锟斤拷锟斤拷锟捷斤拷锟斤拷锟睫革拷为同一锟斤拷�?
             Seek_Road_Edge();
             roundabout();
+            if(yuanhuan_flag3)
+            {
+                find_inflection_point();
+                find_point();
+                dots2line(p1.x,p1.y,p2.x,p2.y,2);
+            }
             servo_control();
             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
 //            sprintf(tstr,"left_t: %d %d",Road_Left_Top[0],Road_Left_Top[1]);
@@ -376,12 +388,6 @@ void second_stage()//锟节讹拷锟阶讹拷锟叫断猴拷锟斤拷
          yuanhuan_flag1=0;
      }
 }
-struct point
-{
-        int x;
-        int y;
-};
-struct point p1,p2,p3,p4;//锟斤拷锟斤拷锟揭拐碉�?
 void find_inflection_point()//锟斤拷圆锟斤拷时锟斤拷墓盏锟�? 锟斤拷锟斤拷锟斤拷锟斤拷呓锟斤拷锟斤拷小�?
 {
     p1.x=0;
@@ -549,13 +555,6 @@ void roundabout()
 //    sprintf(tstr,"flag2: %d",yuanhuan_flag2);
 //    TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
     success_in();
-    while(yuanhuan_flag3)
-    {
-        find_inflection_point();
-        find_point();
-        dots2line(p1.x,p1.y,p2.x,p2.y,2);
-
-    }
     sprintf(tstr,"ruhuan_flag: %d",ruhuan_flag);
     TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
     forth_stage();
