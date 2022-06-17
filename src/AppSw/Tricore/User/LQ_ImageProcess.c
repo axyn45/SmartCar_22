@@ -1,22 +1,22 @@
 /*LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
-锟斤拷平    台锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟杰科硷拷TC2/3xx锟斤拷锟侥帮�??
-锟斤拷锟斤拷    写锟斤拷chiusir
-锟斤拷E-mail锟斤拷chiusir@163.com
-锟斤拷锟斤拷锟斤拷锟芥本锟斤拷V1.1 锟斤拷权锟斤拷锟叫ｏ拷锟斤拷位使锟斤拷锟斤拷锟斤拷锟斤拷系锟斤拷�??
-锟斤拷锟斤拷锟斤拷锟铰★�??2020锟斤�??10锟斤�??28锟斤�??
-锟斤拷锟斤拷锟斤拷锟较拷慰锟斤拷锟斤拷械锟街凤拷锟�??
-锟斤拷锟斤拷    站锟斤拷http://www.lqist.cn
-锟斤拷锟皆憋拷锟斤拷锟教★拷http://longqiu.taobao.com
+【平    台】北京龙邱智能科技TC2/3xx核心板
+【编    写】chiusir
+【E-mail】chiusir@163.com
+【软件版本】V1.1 版权所有，单位使用请先联系授权
+【最后更新】2020年10月28日
+【相关信息参考下列地址】
+【网    站】http://www.lqist.cn
+【淘宝店铺】http://longqiu.taobao.com
 ------------------------------------------------
-锟斤拷dev.env.锟斤拷AURIX Development Studio1.2.2锟斤拷锟斤拷锟较版本
-锟斤拷Target 锟斤�?? TC2/3xx
-锟斤拷Crystal锟斤�?? 20.000Mhz
-锟斤拷SYS PLL锟斤�?? 200/300MHz
+【dev.env.】AURIX Development Studio1.2.2及以上版本
+【Target 】 TC2/3xx
+【Crystal】 20.000Mhz
+【SYS PLL】 200/300MHz
 ________________________________________________________________
-锟斤拷锟斤拷iLLD_1_0_1_11_0锟阶诧拷锟斤拷锟�??,
-使锟斤拷锟斤拷锟教碉拷时锟津，斤拷锟斤拷锟斤拷锟矫伙拷锌崭锟斤拷英锟斤拷路锟斤拷锟斤�??
+基于iLLD_1_0_1_11_0底层程序,
+使用例程的时候，建议采用没有空格的英文路径，
 =================================================================
-锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷频锟斤拷址锟斤拷https://space.bilibili.com/95313236
+程序配套视频地址：https://space.bilibili.com/95313236
 QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 #include <stdint.h>
 #include <stdio.h>
@@ -42,142 +42,140 @@ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 #include <stdbool.h>
 #include <math.h>
 /*************************************************************************
- *  锟斤拷锟斤拷锟斤拷锟狡ｏ拷void TFT_Show_Camera_Info(void)
- *  锟斤拷锟斤拷说锟斤拷锟斤拷锟斤拷示锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷�??
- *  锟斤拷锟斤拷说锟斤拷锟斤拷锟斤拷
- *  锟斤拷锟斤拷锟斤拷锟截ｏ拷锟斤拷
- *  锟睫革拷时锟戒：2020锟斤�??11锟斤�??18锟斤�??
- *  锟斤�??    注锟斤拷
+ *  函数名称：void TFT_Show_Camera_Info(void)
+ *  功能说明：显示各种所需信息
+ *  参数说明：无
+ *  函数返回：无
+ *  修改时间：2020年11月18日
+ *  备    注：
  *************************************************************************/
-
-void roundabout();
-int ruhuan_flag=0;//锟斤拷锟诫环锟斤拷锟侥憋拷锟�??
-int yuanhuan_flag1=0;//圆锟斤拷锟斤拷一锟阶段的憋拷�?? 锟斤拷锟斤拷一锟斤拷锟斤拷锟节猴拷锟斤拷锟�??
-int yuanhuan_flag2=0;//圆锟斤拷锟节讹拷锟阶段的憋拷�?? 只锟斤拷锟斤拷锟斤拷锟�
-int yuanhuan_flag3_1=0;
-int yuanhuan_flag3=0;//圆锟斤拷锟斤拷锟斤拷锟阶段的憋拷�?? 锟斤拷锟斤拷锟斤拷锟斤拷锟街伙拷锟街憋拷吆锟斤拷锟斤�?? 锟斤拷始锟斤拷锟斤拷
-int yuanhuan_flag4=0;//圆锟斤拷锟斤拷锟侥阶段的憋拷�?? 锟斤拷锟斤拷锟斤拷锟斤拷
-int yuanhuan_flag5=0;//圆锟斤拷锟斤拷锟斤拷锥蔚谋锟街� 锟斤拷锟斤拷锟斤�?? 锟斤拷锟�??
-int Bin_image[60][94];//图锟斤拷亩锟轿拷锟斤拷锟�
-int huandao_flag = 0;  //锟斤拷锟斤拷锟侥憋拷�?? 锟斤拷锟斤拷锟斤拷之锟斤拷疟锟斤�??0
-int continueleftrukou1;//锟斤拷呓锟斤拷锟斤拷锟� 锟叫断筹拷锟斤拷一锟斤拷锟斤拷锟�
-int continueleftrukou2;//锟叫断筹拷锟斤拷
-void find_inflection_point();
-void find_point();
 struct point
 {
         int x;
         int y;
 };
-struct point p1,p2,p3,p4;//锟斤拷锟斤拷锟揭拐碉�??
+struct point p1,p2,p3,p4;//用来找拐点
+void roundabout();
+int ruhuan_flag=0;//进入环岛的标记
+int yuanhuan_flag1=0;//圆环第一阶段的标志 看到一个出口和入口
+int yuanhuan_flag2=0;//圆环第二阶段的标志 只看到入口
+int yuanhuan_flag3_1=0;
+int yuanhuan_flag3=0;//圆环第三阶段的标志 看不到入口只有直线和弯道 开始补线
+int yuanhuan_flag4=0;//圆环第四阶段的标志 看到出口
+int yuanhuan_flag5=0;//圆环第五阶段的标志 走完了 完成
+int Bin_image[60][94];//图像的二维数组
+int huandao_flag = 0;  //环岛的标志 出环岛之后才变成0
+int continueleftrukou1;//左边界连续 判断出第一个入口
+int continueleftrukou2;//判断出口
+
+
 void TFT_Show_Camera_Info (void)
 {
     char txt[16] = "X:";
 
-    sint16 mps = 0, dmm = 0;    // 锟劫度ｏ拷m/s,锟斤拷锟斤拷锟斤拷�?
+    sint16 mps = 0, dmm = 0;    // 速度：m/s,毫米数值
     sint16 pulse100 = 0;
     uint16 bat = 0;
 
-    dmm = (sint16) (RAllPulse * 100 / 579);         // 锟斤拷锟斤拷512锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�??1锟斤�??5790锟斤拷锟斤拷锟藉，锟斤拷值太锟襟，筹拷锟斤拷100
+    dmm = (sint16) (RAllPulse * 100 / 579);         // 龙邱512带方向编码器1米5790个脉冲，数值太大，除以100
     pulse100 = (sint16) (RAllPulse / 100);
     sprintf(txt, "AP:%05d00", pulse100);           //
-    TFTSPI_P8X16Str(3, 4, txt, u16RED, u16BLUE);   // 锟斤拷示锟斤拷锟斤拷偏锟斤拷锟斤拷锟�??
+    TFTSPI_P8X16Str(3, 4, txt, u16RED, u16BLUE);   // 显示赛道偏差参数
 
-    NowTime = (STM_GetNowUs(STM0) - NowTime) / 1000;  // 锟斤拷取STM0 锟斤拷前时锟戒，锟矫碉拷锟斤拷锟斤拷
-    mps = (sint16) (dmm / (NowTime / 1000));          // 锟斤拷锟斤拷锟劫讹拷mm/s
-    // TFTSPI_Road(18, 0, LCDH, LCDW, (unsigned char *)Image_Use); // TFT1.8锟斤拷态锟斤拷示锟斤拷锟斤拷头锟揭讹拷图锟斤拷
-    TFTSPI_BinRoad(18, 0, LCDH, LCDW, (unsigned char *) Bin_Image);  // TFT1.8锟斤拷态锟斤拷示锟斤拷锟斤拷头锟斤拷锟斤拷锟斤拷图锟斤�??
+    NowTime = (STM_GetNowUs(STM0) - NowTime) / 1000;  // 获取STM0 当前时间，得到毫秒
+    mps = (sint16) (dmm / (NowTime / 1000));          // 计算速度mm/s
+    // TFTSPI_Road(18, 0, LCDH, LCDW, (unsigned char *)Image_Use); // TFT1.8动态显示摄像头灰度图像
+    TFTSPI_BinRoad(18, 0, LCDH, LCDW, (unsigned char *) Bin_Image);  // TFT1.8动态显示摄像头二进制图像
     sprintf(txt, "%04d,%04d,%04d", OFFSET0, OFFSET1, OFFSET2);
-    TFTSPI_P8X16Str(0, 5, txt, u16RED, u16BLUE);       // 锟斤拷示锟斤拷锟斤拷偏锟斤拷锟斤拷锟�??
-    BatVolt = ADC_Read(ADC7);  // 刷锟铰碉拷氐锟窖�??
+    TFTSPI_P8X16Str(0, 5, txt, u16RED, u16BLUE);       // 显示赛道偏差参数
+    BatVolt = ADC_Read(ADC7);  // 刷新电池电压
     bat = BatVolt * 11 / 25;  // x/4095*3.3*100*5.7
     sprintf(txt, "B:%d.%02dV %d.%02dm/s", bat / 100, bat % 100, mps / 1000, (mps / 10) % 100);  // *3.3/4095*3
-    TFTSPI_P8X16Str(0, 6, txt, u16WHITE, u16BLUE);   // 锟街凤拷锟斤拷锟斤拷�??
-    // 锟斤拷锟斤拷投锟斤拷锟斤拷锟斤拷锟斤拷示
+    TFTSPI_P8X16Str(0, 6, txt, u16WHITE, u16BLUE);   // 字符串显示
+    // 电机和舵机参数显示
     sprintf(txt, "Sv:%04d Rno:%d", ServoDuty, CircleNumber);
-    TFTSPI_P8X16Str(1, 7, txt, u16RED, u16BLUE);     // 锟斤拷示锟斤拷锟斤拷锟斤拷锟斤拷1锟斤拷锟斤拷锟斤拷锟斤拷1锟斤拷�?
+    TFTSPI_P8X16Str(1, 7, txt, u16RED, u16BLUE);     // 显示舵机，电机1，编码器1数值
     sprintf(txt, "M1:%04d, M2:%04d ", MotorDuty1, MotorDuty2);
-    TFTSPI_P8X16Str(0, 8, txt, u16RED, u16BLUE);     // 锟斤拷锟�??1-2锟斤拷�?
+    TFTSPI_P8X16Str(0, 8, txt, u16RED, u16BLUE);     // 电机1-2数值
     sprintf(txt, "E1:%04d, E2:%04d ", ECPULSE1, ECPULSE2);
-    TFTSPI_P8X16Str(0, 9, txt, u16RED, u16BLUE);     // 锟斤拷锟斤拷锟斤�??1-2锟斤拷�?
+    TFTSPI_P8X16Str(0, 9, txt, u16RED, u16BLUE);     // 编码器1-2数值
 }
 /*************************************************************************
- *  锟斤拷锟斤拷锟斤拷锟狡ｏ拷void CameraCar(void)
- *  锟斤拷锟斤拷说锟斤拷锟斤拷锟斤拷懦锟剿拷锟斤拷锟斤拷锟劫匡拷锟斤拷
- -->1.锟斤拷锟斤拷锟姐法锟斤拷锟津单的分段憋拷锟斤拷锟斤拷锟斤拷锟姐法锟斤拷锟斤拷学锟斤拷示锟斤拷锟斤拷锟姐法锟斤�??
- 2.锟斤拷锟斤拷锟姐法锟斤拷PID锟斤拷锟斤拷应锟矫匡拷锟斤拷锟姐法锟斤拷锟斤拷学锟斤拷示锟斤拷锟斤拷锟姐法锟斤拷
- 3.锟竭讹拷锟姐法锟斤拷锟侥斤拷锟斤拷锟斤拷群协同锟斤拷锟斤拷锟姐法锟斤�??
- *  锟斤拷锟斤拷说锟斤拷锟斤拷锟斤拷
- *  锟斤拷锟斤拷锟斤拷锟截ｏ拷锟斤拷
- *  锟睫革拷时锟戒：2020锟斤�??10锟斤�??28锟斤�??
- *  锟斤�??    注锟斤拷锟斤拷锟斤拷2锟斤拷锟斤拷锟�
+ *  函数名称：void CameraCar(void)
+ *  功能说明：电磁车双电机差速控制
+ -->1.入门算法：简单的分段比例控制算法，教学演示控制算法；
+ 2.进阶算法：PID典型应用控制算法，教学演示控制算法；
+ 3.高端算法：改进粒子群协同控制算法；
+ *  参数说明：无
+ *  函数返回：无
+ *  修改时间：2020年10月28日
+ *  备    注：驱动2个电机
  *************************************************************************/
 
 void CameraCar(void)
 {
-    // 锟斤拷锟斤拷头锟斤拷始锟斤拷
+    // 摄像头初始化
     CAMERA_Init(50);
     MotorInit();
     TFTSPI_P8X16Str(2, 0, "LQ 9V034 Car", u16RED, u16GREEN);
     TFTSPI_P8X16Str(1, 2, "K2 Show Video77", u16RED, u16GREEN);
     delayms(500);
-    short duty = 1500; // 900时锟斤拷锟劫度猴拷锟斤拷
+    short duty = 1500; // 900时的速度很慢
 
-    // 锟叫硷拷CPU0,CPU1...锟斤拷锟斤拷锟斤拷同时锟斤拷锟斤拷锟斤拷幕锟斤拷示锟斤拷锟斤拷锟斤拷锟酵伙拷锟斤拷锟绞�
-    mutexCpu0TFTIsOk = 0; // CPU1锟斤�?? 0占锟斤拷/1锟酵凤拷 TFT
-    // CircleNumber = SetCircleNum();  // 锟斤拷锟斤拷锟斤拷要锟斤拷锟斤拷圆锟斤拷锟侥革拷锟斤拷锟斤拷
+    // 切记CPU0,CPU1...不可以同时开启屏幕显示，否则冲突不显示
+    mutexCpu0TFTIsOk = 0; // CPU1： 0占用/1释放 TFT
+    // CircleNumber = SetCircleNum();  // 设置需要进入圆环的个数；
 
-    // 锟斤拷锟斤拷锟斤拷锟斤拷要锟斤拷锟矫筹拷锟斤拷猓拷锟斤拷锟斤拷枪潭锟街达拷校锟�??
-    // 锟斤拷锟斤拷锟斤拷锟揭拷苫晒芎锟斤拷獠匡拷卸锟斤拷锟斤拷实锟斤�??
-    // 锟斤拷锟斤拷锟斤拷锟斤拷锟叫ｏ拷锟缴簧癸拷锟斤拷通锟斤拷圆锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷艽锟斤拷锟斤拷目锟斤拷锟斤拷锟�
-    // OutInGarage(OUT_GARAGE, ReadOutInGarageMode()); // 锟斤拷锟皆筹拷锟解，锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷猓拷锟街拷也锟斤拷锟斤拷锟�??
-    // OutInGarage(IN_GARAGE,ReadOutInGarageMode());  // 锟斤拷锟斤拷锟斤拷锟�??
+    // 。根据需要设置出入库，出库是固定执行，
+    // 。入库需要干簧管和外部中断配合实现
+    // 。本例程中，干簧管在通过圆环后开启，不会出现起跑触发的可能性
+    // OutInGarage(OUT_GARAGE, ReadOutInGarageMode()); // 测试出库，拨码在上左侧出入库，反之右侧出入库
+    // OutInGarage(IN_GARAGE,ReadOutInGarageMode());  // 测试入库
 
-    TFTSPI_CLS(u16BLUE); // 锟斤拷锟斤拷
-    // 锟叫硷拷CPU0,CPU1...锟斤拷锟斤拷锟斤拷同时锟斤拷锟斤拷锟斤拷幕锟斤拷示锟斤拷锟斤拷锟斤拷锟酵伙拷锟斤拷锟绞�
-    mutexCpu0TFTIsOk = 1;                // CPU1锟斤�?? 0占锟斤拷/1锟酵凤拷 TFT
-    MotorCtrl4w(duty, duty, duty, duty); // 锟斤拷锟絇WM锟教讹拷锟斤拷锟斤拷锟斤拷锟�??
+    TFTSPI_CLS(u16BLUE); // 清屏
+    // 切记CPU0,CPU1...不可以同时开启屏幕显示，否则冲突不显示
+    mutexCpu0TFTIsOk = 1;                // CPU1： 0占用/1释放 TFT
+    MotorCtrl4w(duty, duty, duty, duty); // 电机PWM固定功率输出
 
-    RAllPulse = 0;                // 全锟街憋拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�
-    NowTime = STM_GetNowUs(STM0); // 锟斤拷取STM0 锟斤拷前时锟斤拷
+    RAllPulse = 0;                // 全局变量，脉冲计数总数
+    NowTime = STM_GetNowUs(STM0); // 获取STM0 当前时间
     sint16 tduty=1300;
     sint16 sduty_offset=0;
 
     char tstr[10];
     while (1)
     {
-        LED_Ctrl(LED1, RVS); // LED锟斤拷烁 指示锟斤拷锟斤拷锟斤拷锟斤拷状�?
+        LED_Ctrl(LED1, RVS); // LED闪烁 指示程序运行状态
         if (Camera_Flag == 2)
         {
-            Camera_Flag = 0;    // 锟斤拷锟斤拷锟斤拷锟酵凤拷杉锟斤拷锟缴憋拷志�??  锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟津不伙拷锟劫次采硷拷锟斤拷锟斤拷
-            Get_Use_Image();    // 取锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷示锟斤拷锟斤拷图锟斤拷锟斤拷锟斤�??
-            Get_Bin_Image(0);   // 转锟斤拷�??01锟斤拷式锟斤拷锟捷ｏ�??0锟斤�??1原图锟斤�??2锟斤�??3锟斤拷锟斤拷锟斤拷取
-            Bin_Image_Filter(); // 锟剿诧拷锟斤拷锟斤拷锟芥被围锟斤拷锟斤拷锟捷斤拷锟斤拷锟睫革拷为同一锟斤拷�?
+            Camera_Flag = 0;    // 清除摄像头采集完成标志位  如果不清除，则不会再次采集数据
+            Get_Use_Image();    // 取出赛道及显示所需图像数据
+            Get_Bin_Image(0);   // 转换为01格式数据，0、1原图；2、3边沿提取
+            Bin_Image_Filter(); // 滤波，三面被围的数据将被修改为同一数值
             Seek_Road_Edge();
+
             roundabout();
-            servo_control();
             if(yuanhuan_flag3)
             {
                 find_inflection_point();
                 find_point();
+                if(p1.x>20)
+                {
                 dots2line(p1.y,p1.x,p2.y,p2.x,2);
+                setLTop(0,p1.x);
+                setRTop(p1.y,p1.x);
+                setMid(p1.x);
+                }
             }
+            if(yuanhuan_flag4)
+            {
+                chuhuan();
+                dots2line(p3.y,p3.x,p4.y,p4.x,2);
+
+            }
+
             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
-//            sprintf(tstr,"left_t: %d %d",Road_Left_Top[0],Road_Left_Top[1]);
-//            TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
-//
-//            sprintf(tstr,"right_t: %d %d",Road_Right_Top[0],Road_Right_Top[1]);
-//            TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
-//
-//
-//            sprintf(tstr,"left_b: %d %d",Road_Left_Bottom[0],Road_Left_Bottom[1]);
-//            TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
-//
-////            sprintf(tstr,"right_b: %d %d",Road_Right_Bottom[0],Road_Right_Bottom[1]);
-//            sprintf(tstr,"l:%d %d %d %d %d",line_elements[59].left,line_elements[49].left,line_elements[39].left,line_elements[29].left,line_elements[9].left);
-//            TFTSPI_P8X16Str(0, 7, tstr, u16RED, u16GREEN);
-
-
+            servo_control();
 
 //             sprintf(tstr,"left_b: %d %d",Road_Left_Bottom[0],Road_Left_Bottom[1]);
 //             TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
@@ -185,25 +183,10 @@ void CameraCar(void)
 // //            sprintf(tstr,"right_b: %d %d",Road_Right_Bottom[0],Road_Right_Bottom[1]);
 //             sprintf(tstr,"l:%d %d %d %d %d",line_elements[59].left,line_elements[49].left,line_elements[39].left,line_elements[29].left,line_elements[9].left);
 //             TFTSPI_P8X16Str(0, 7, tstr, u16RED, u16GREEN);
+            // 通过黑白区域面积差计算赛道偏差值
 
 
-//            TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
-//             dots2line(3,3,60,25,1);
-//              TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
-// //             sint16 break_line=servo_control();
-//              sprintf(tstr,"%d",servo_control());
-//              TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
-
-//              sprintf(tstr,"left_t: %d %d",Road_Left_Top[0],Road_Left_Top[1]);
-//              TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
-
-//              sprintf(tstr,"right_t: %d %d",Road_Right_Top[0],Road_Right_Top[1]);
-//              TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
-
-            // 通锟斤拷锟节帮拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷偏锟斤拷�??
-
-
-            // 锟斤拷锟斤拷锟斤拷锟斤拷偏锟斤拷值锟斤拷系锟斤拷越锟斤拷锟斤拷越锟界，锟斤拷值锟斤拷锟斤拷锟斤拷姆锟轿э拷泄兀锟斤拷舜锟轿拷锟�160锟斤拷锟揭ｏ拷默锟斤拷为7锟斤�??
+            // 计算赛道偏差值，系数越大打角越早，数值跟舵机的范围有关，此处为±160左右，默认为7，
             sduty_offset=(OFFSET0 + OFFSET1 + OFFSET2) * 1 / 3;
 //            if((OFFSET0>0&&OFFSET1<0)&&(OFFSET0<0&&OFFSET1>0)){
 //                sduty_offset+=OFFSET0*1.2;
@@ -222,13 +205,13 @@ void CameraCar(void)
 //            }
             ServoDuty = Servo_Center_Mid - sduty_offset;
 
-            ServoCtrl(ServoDuty); // 锟斤拷锟絇WM锟斤拷锟斤拷锟阶拷锟�
+            ServoCtrl(ServoDuty); // 舵机PWM输出，转向
 
-//             SPEED锟斤拷锟斤拷锟斤拷识锟斤拷锟津，革拷锟斤拷为锟斤拷锟斤拷
-             MotorDuty1 = MtTargetDuty + ECPULSE1 * 4 - (OFFSET1 + OFFSET2 + OFFSET2) / 10;        // 锟斤拷锟絇WM
-             MotorDuty2 = MtTargetDuty - ECPULSE2 * 4 + (OFFSET1 + OFFSET2 + OFFSET2) / 10;        // 双锟斤拷锟斤拷锟街ｏ拷锟斤拷要去锟斤拷abs
+//             SPEED正负标识方向，负数为正向
+             MotorDuty1 = MtTargetDuty + ECPULSE1 * 4 - (OFFSET1 + OFFSET2 + OFFSET2) / 10;        // 电机PWM
+             MotorDuty2 = MtTargetDuty - ECPULSE2 * 4 + (OFFSET1 + OFFSET2 + OFFSET2) / 10;        // 双电机差分，需要去掉abs
 
-            MotorCtrl(tduty, tduty); // 锟斤拷锟街碉拷锟斤拷锟斤拷锟�??
+            MotorCtrl(tduty, tduty); // 四轮电机驱动
                                    // TFT_Show_Camera_Info();
         }
 //        if (Game_Over)
@@ -237,17 +220,16 @@ void CameraCar(void)
 //        }
     }
 }
-int My_Abs(int a, int b)//锟斤拷锟斤拷锟街�??
+int My_Abs(int a, int b)//求绝对值
 {
 
             if ((a - b) > 0)
                 return ((int)(a - b));
             else return ((int)(b - a));
 }
-//锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷�??
 
-int Right_con;//锟揭憋拷锟斤拷锟斤拷锟侥憋拷�??
-void right_continue()//锟揭边斤拷锟斤拷锟斤拷锟叫讹�??
+int Right_con;//右边连续的标志
+void right_continue()//右边界连续判断
 {
      int i=0;
      Right_con=1;
@@ -260,7 +242,7 @@ void right_continue()//锟揭边斤拷锟斤拷锟斤拷锟叫讹�??
      }
 
 }
-bool no_black()//锟斤拷锟斤拷锟阶讹拷 锟铰凤拷没锟叫猴拷色锟斤拷锟斤拷
+bool no_black()//第三阶段 下方没有黑色区域
 {
    int flag=0;
    for(int i=60;i>30;i--)
@@ -279,7 +261,7 @@ bool no_black()//锟斤拷锟斤拷锟阶讹拷 锟铰凤拷没锟叫猴拷色�
    }
    return false;
 }
-bool lose_left_line()//锟斤拷叩谋呓锟斤拷叨锟斤拷锟斤拷锟�
+bool lose_left_line()//左边的边界线丢掉了
 {
     bool ok=false;
     int flag=0;
@@ -296,9 +278,9 @@ bool lose_left_line()//锟斤拷叩谋呓锟斤拷叨锟斤拷锟斤拷锟�
     }
     return ok;
 }
-bool have_black_area()//锟叫讹拷锟斤拷没锟斤拷圆锟斤拷锟斤拷一锟斤拷暮锟缴拷锟斤拷锟�??
+bool have_black_area()//判断有没有圆环那一块的黑色区域
 {
-    //锟斤拷锟斤拷Bin_Image锟斤拷锟斤拷锟叫讹拷
+    //遍历Bin_Image数组判读
     int flag=0;
     for(int i=20;i<45;i++)
     {
@@ -316,22 +298,21 @@ bool have_black_area()//锟叫讹拷锟斤拷没锟斤拷圆锟斤拷锟斤拷�
     }
     return false;
 }
-
-void first_stage()//圆锟斤拷锟矫碉拷一锟阶段革拷锟捷匡拷锟斤拷锟叫讹拷
+int flag1_line=0;
+void first_stage()
 {
-    int turn_wid=0;//锟斤拷路锟戒化锟斤拷锟�
+    int turn_wid=0;
     int turn_narrow=0;
     int turn_nar1=0;
     for(int i=60;i>50;i--)
     {
-        //锟斤拷锟斤拷路锟侥变化锟斤拷锟�
+    
         if(line_elements[i].width>line_elements[i+1].width)
         {
             turn_nar1=1;
 
         }
     }
-//    int flag=0;
     for(int i=30;i>0;i--)
     {
         if(line_elements[i].width>line_elements[i+1].width)
@@ -347,7 +328,6 @@ void first_stage()//圆锟斤拷锟矫碉拷一锟阶段革拷锟捷匡拷锟斤
             turn_wid=1;
         }
     }
-    //锟揭边斤拷锟斤拷直锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�??1
     if(turn_wid&&turn_narrow&&turn_nar1&&!have_black_area()&&!lose_left_line()&&!yuanhuan_flag2)//锟斤拷锟杰碉拷锟斤拷
     {
         yuanhuan_flag1=1;
@@ -359,7 +339,7 @@ bool turn_wid_nar()
     int turn_nar=0;
     for(int i=60;i>10;i--)
     {
-        //锟斤拷锟斤拷路锟侥变化锟斤拷锟�
+       
         if(My_Abs(line_elements[i].width,line_elements[i+10].width)>20)
         {
             turn_nar1=1;
@@ -378,17 +358,16 @@ bool turn_wid_nar()
 }
 
 
-
-void second_stage()//锟节讹拷锟阶讹拷锟叫断猴拷锟斤拷
+void second_stage()//第二阶段判断函数
 {
   //  int result=Bisa_variance(Road_Right);
-     if(lose_left_line()&&have_black_area()&&yuanhuan_flag1)//锟斤拷锟斤拷锟剿诧拷锟斤拷锟叫猴拷色锟斤拷锟斤拷
+     if(lose_left_line()&&have_black_area()&&yuanhuan_flag1)//丢线了并且有黑色区域
      {
          yuanhuan_flag2=1;
          yuanhuan_flag1=0;
      }
 }
-void find_inflection_point()//锟斤拷圆锟斤拷时锟斤拷墓盏锟�?? 锟斤拷锟斤拷锟斤拷锟斤拷呓锟斤拷锟斤拷小�??
+void find_inflection_point()//入圆环时候的拐点 就是找左边界的最小值
 {
     p1.x=0;
     p1.y=50;
@@ -397,7 +376,7 @@ void find_inflection_point()//锟斤拷圆锟斤拷时锟斤拷墓盏锟�?? �
       if(line_elements[i].left<p1.y&&line_elements[i].left!=-1)
       {
           p1.x=i;
-          p1.y=line_elements[i].left;//锟揭碉拷锟斤拷偷牡锟�??
+          p1.y=line_elements[i].left;
       }
     }
 //        char tstr[10];
@@ -416,18 +395,14 @@ void find_point()
      if(line_elements[i].right>p2.y&&line_elements[i].right!=94)
      {
          p2.x=i;
-         p2.y=line_elements[i].right;//锟揭碉拷锟斤拷牡锟�
+         p2.y=line_elements[i].right;//找到最的点
      }
    }
-//   char tstr[10];
-//   sprintf(tstr,"p2 x: %d",p2.x);
-//   TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
-//   sprintf(tstr,"p2 y: %d",p2.y);
-//   TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
+
 }
-void buxian(struct point po1,struct point po2)//锟斤拷锟斤拷 锟诫�??
+void buxian(struct point po1,struct point po2)//补线 入环
 {
-  int x1,x2,y1,y2;//锟斤拷锟斤拷锟斤拷锟斤拷锟斤�??
+  int x1,x2,y1,y2;//两个点坐标
   x1=po1.x;
   y1=po1.y;
   y2=po2.y;
@@ -436,11 +411,11 @@ void buxian(struct point po1,struct point po2)//锟斤拷锟斤拷 锟诫�??
 
   for(int i=x1;i<x2;i++)
   {
-      line_elements[i].right=k*i;//锟竭界函锟斤拷也锟斤拷锟斤拷
+      line_elements[i].right=k*i;//边界函数也更改
       Bin_Image[i][k*i]=4;
    }
 }
-bool is_align()//锟叫边斤拷锟斤拷直锟斤拷
+bool is_align()//判断直线
 {
     int flag=0;
     for(int i=0;i<60;i++)
@@ -458,14 +433,14 @@ bool is_align()//锟叫边斤拷锟斤拷直锟斤拷
 }
 void third_stage2()
 {
-    if(lose_left_line()&&yuanhuan_flag2&&no_black()&&!have_black_area()&&is_align())//锟斤拷锟斤拷锟揭撅拷锟斤拷锟剿第讹拷锟阶讹拷 锟斤拷锟铰凤拷没锟叫猴拷色锟斤拷锟斤拷锟斤拷
+    if(lose_left_line()&&yuanhuan_flag2&&no_black()&&!have_black_area())
     {
        yuanhuan_flag3=1;
        yuanhuan_flag2=0;
     }
-}
-//锟揭憋拷锟角伙拷锟斤�?? 直锟斤拷
-void success_in()//锟缴癸拷锟诫环锟侥憋拷志  未锟斤拷锟斤�??
+
+ }
+void success_in()//成功入环的标志  未完善
 {
    if(yuanhuan_flag3&&lose_left_line()&&!is_align())
    {
@@ -483,7 +458,7 @@ void chuhuan()
         if(line_elements[i].left<p3.y)
          {
              p3.x=i;
-             p3.y=line_elements[i].left;//锟揭碉拷锟斤拷偷牡锟�??
+             p3.y=line_elements[i].left;//找到最低的点
          }
        }
      p4.x=0;
@@ -493,15 +468,14 @@ void chuhuan()
         if(line_elements[i].right>p4.y)
          {
              p4.x=i;
-             p4.y=line_elements[i].right;//锟揭碉拷锟斤拷偷牡锟�??
+             p4.y=line_elements[i].right;//找到最低的点
          }
        }
 
 }
-void forth_stage()//锟斤拷锟叫筹拷圆锟斤�??
+void forth_stage()//进行出圆环
 {
-    //int result=Bisa_variance(Road_Right);//锟揭边边斤拷锟狡拷锟街碉拷锟�
-    //变窄然后有变�?
+    //int result=Bisa_variance(Road_Right);//右边边界的偏差值大
     int turn_wid=0;
     int turn_nar=0;
     for(int i=60;i>25;i--)
@@ -518,7 +492,7 @@ void forth_stage()//锟斤拷锟叫筹拷圆锟斤�??
             turn_wid=1;
         }
     }
-    if(yuanhuan_flag3&&ruhuan_flag&&turn_wid&&turn_nar&&lose_left_line())
+    if(ruhuan_flag&&turn_wid&&turn_nar&&lose_left_line())
     {
         yuanhuan_flag4=1;
         ruhuan_flag=0;
@@ -526,7 +500,7 @@ void forth_stage()//锟斤拷锟叫筹拷圆锟斤�??
         // dots2line(p3.x,p3.y,p4.x,p4.y,2);
     }
 }
-void all_clear()//锟斤拷锟叫憋拷志锟斤拷锟斤拷
+void all_clear()//所有标志清零
 {
     yuanhuan_flag1=0;
     yuanhuan_flag2=0;
@@ -537,18 +511,18 @@ void all_clear()//锟斤拷锟叫憋拷志锟斤拷锟斤拷
 }
 void fifth_stage()
 {
-   if(lose_left_line()&&no_black()&&!have_black_area()&&is_align()&&yuanhuan_flag4)//锟斤拷锟斤拷
+  if(lose_left_line()&&no_black()&&!have_black_area()&&is_align()&&yuanhuan_flag4)//锟斤拷锟斤拷
     {
-        //锟截碉拷锟剿筹拷始位锟矫ｏ拷锟斤拷锟斤拷前锟斤拷
-       all_clear();//全锟斤拷锟斤拷锟斤拷
+        //回到了初始位置，继续前进
+       all_clear();//全部清零
     }
 }
 void roundabout()
 {
-    //锟斤拷锟矫碉拷一锟阶讹拷锟叫断猴�??
+    //调用第一阶段判断函
     first_stage();
-    second_stage();//锟节讹拷锟阶讹拷
-    third_stage2();//锟斤拷锟斤拷锟阶讹拷 没锟叫猴拷色锟斤拷锟斤拷
+    second_stage();
+    third_stage2();
     char tstr[10];
 //    sprintf(tstr,"flag1: %d",yuanhuan_flag1);
 //    TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
@@ -564,40 +538,39 @@ void roundabout()
 
 }
 
-
-/********************************                  锟斤拷锟斤拷                            *************************************************/
+/********************************                  三岔                            *************************************************/
 
 /*
-锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟叫讹拷锟斤拷锟斤拷要寻锟揭斤拷锟斤拷锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷锟秸碉拷锟皆硷拷锟斤拷锟斤拷锟斤拷锟阶诧拷锟斤拷锟角革拷锟斤�??
+对于三岔的判断我主要寻找进入三岔时的两个拐点以及进三岔底部的那个点
 
-1.锟揭碉拷锟斤拷锟斤拷锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷锟秸点：锟斤拷呓锟斤拷锟斤拷锟斤拷缺锟斤拷锟劫憋拷小锟斤�??
-同锟揭边斤拷锟斤拷锟斤拷锟饺憋拷小锟斤拷锟斤拷锟揭碉拷锟斤拷   锟斤拷锟斤拷小锟戒化锟斤拷锟角革拷锟姐�?
-锟斤拷锟秸碉拷锟斤拷锟斤拷锟斤拷卸锟斤拷锟斤拷锟斤拷锟斤拷呓锟侥讹拷锟斤拷锟斤拷目锟斤拷锟斤拷小锟斤拷一锟斤拷锟斤拷值锟斤拷锟斤拷为状态一锟斤�??
+1.找到进入三岔时的两个拐点：左边界列数先变大，再变小。
+同右边界列数先变小后变大，找到那   个大小变化的那个点。
+两拐点成立后判断左右两边界的丢线数目，当小于一定阈值后置为状态一。
 
- 2.锟斤拷锟斤拷锟阶诧拷锟侥点：锟揭碉拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟秸碉拷螅锟斤拷锟斤拷锟斤拷盏锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟接筹拷锟斤拷2锟斤拷锟斤拷录锟斤拷锟斤�??
- 锟斤拷锟斤拷锟皆固讹拷锟斤拷锟斤拷头锟斤拷锟叫硷拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷液诎椎锟斤拷锟斤拷锟斤拷(也锟斤拷锟斤拷锟皆刚诧拷锟斤拷锟秸碉拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤�??2)
- 锟斤拷锟揭碉拷锟阶诧拷锟侥碉拷螅锟铰硷拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟秸碉拷1/2锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟街拷锟叫★拷锟揭伙拷锟斤拷锟街碉拷锟斤拷卸锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�??
+ 2.三岔底部的点：找到进三岔的两个拐点后，计算两拐点的行数，两者两加除以2，记录下来
+ ，再以固定摄像头正中间的列数向上找黑白的跳变点(也可以以刚才两拐点的列数相减除以2)
+ ，找到底部的点后，记录所在行数，与拐点1/2所在行数相减，当两者之差小于一定阈值后，判断三岔成立。
 
 */
 
 //extern int Bin_image[60][94];
 
-//锟斤拷锟斤拷盏锟�??
-int Left_Point_Row = 0;//锟斤拷盏锟斤拷锟�??
-int Left_Point_Col = 0;//锟斤拷盏锟斤拷锟�??
-int Left_Point_Flag = 0;//锟角凤拷锟揭碉拷锟斤拷盏锟斤拷志�??
-//extern int leftline[60];//锟斤拷呓锟�
+//找左拐点
+int Left_Point_Row = 0;//左拐点行
+int Left_Point_Col = 0;//左拐点列
+int Left_Point_Flag = 0;//是否找到左拐点标志位
+//extern int leftline[60];//左边界
 void Find_Left_Point()
 {
     int i;
-
+    Left_Point_Flag = 0;
     int  Find_Start_Line = 0;
     int  Find_End_Line = 94;
 
     for (i = Find_End_Line-1; i >= Find_Start_Line; i--)
     {
         if (line_elements[i].left != 0 && line_elements[i-1].left != 0 && line_elements[i+1].left != 0
-            && line_elements[i-2].left != 0                       //锟斤拷锟斤拷4锟叫诧拷锟斤拷锟竭ｏ拷锟斤拷锟斤拷锟斤拷4锟叫讹拷小锟斤拷70 178锟侥筹拷70
+            && line_elements[i-2].left != 0                       //连续4行不丢线，并且这4行都小于70 178改成70
             && line_elements[i].left < 178 && line_elements[i-1].left < 178 && line_elements[i+1].left < 178
             && line_elements[i-2].left < 178)
         {
@@ -605,40 +578,40 @@ void Find_Left_Point()
                 && (line_elements[i].left - line_elements[i-3].left >= 2)
                 && (line_elements[i].left - line_elements[i+1].left >= 0)
                 && (line_elements[i].left - line_elements[i+2].left >= 0)
-                && (line_elements[i].left - line_elements[i+3].left >= 0)) //锟揭碉拷锟秸碉拷
+                && (line_elements[i].left - line_elements[i+3].left >= 0)) //找到拐点
             {
-                Left_Point_Row = i;           //锟斤拷录锟矫拐碉拷锟斤拷锟�
-                Left_Point_Col = line_elements[i].left; //锟斤拷录锟矫拐碉拷锟斤拷锟�
-                Left_Point_Flag = 1;          //锟斤拷锟斤拷业锟斤拷锟秸碉拷
-                break;                              //锟揭碉拷锟剿筹拷
+                Left_Point_Row = i;           //记录该拐点的行
+                Left_Point_Col = line_elements[i].left; //记录该拐点的列
+                Left_Point_Flag = 1;          //标记找到左拐点
+                break;                              //找到退出
             }
         }
     }
 }
 
-//锟斤拷锟揭拐碉拷
-int Right_Point_Row = 0;//锟揭拐碉拷锟斤拷
-int Right_Point_Col = 0;//锟揭拐碉拷锟斤拷
-int Right_Point_Flag = 0;//锟角凤拷锟揭碉拷锟揭拐碉拷锟街疚�??
-//extern int rightline[60];//锟斤拷锟揭边斤拷
+//找右拐点
+int Right_Point_Row = 0;//右拐点行
+int Right_Point_Col = 0;//右拐点列
+int Right_Point_Flag = 0;//是否找到右拐点标志位
+//extern int rightline[60];//左右边界
 void Find_Right_Point()
 {
     int i;
     int cutCOL = 94;
     int  Find_Start_Line = 0;
     int  Find_End_Line = 94;
-
+    Right_Point_Flag = 0;
 
     for (i = Find_End_Line-1; i >= Find_Start_Line; i--)
     {
-        //锟斤拷锟斤拷扫锟斤拷太远锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�??
+        //不能扫描太远，否则会误判
 
         if ((line_elements[i].right != (cutCOL - 1) && line_elements[i-1].right != (cutCOL - 1)
             && line_elements[i-2].right != (cutCOL - 1)
             && line_elements[i-3].right != (cutCOL - 1))
             && (line_elements[i].right > 10 && line_elements[i-1].right > 10
                 && line_elements[i+1].right > 10 && line_elements[i-2].right > 10))
-            //锟斤拷锟斤拷锟斤拷锟叫诧拷锟斤拷锟斤�??,锟斤拷未为锟剿凤拷止锟斤拷锟戒，锟斤�??4锟叫憋拷锟斤拷锟斤拷锟�10
+            //连续四行不丢线,并未为了防止跳变，这4行必须大于10
         {
             if ((line_elements[i].right - line_elements[i+1].right <= 0)
                 && (line_elements[i].right - line_elements[i+2].right) <= 0
@@ -647,136 +620,144 @@ void Find_Right_Point()
                 && (line_elements[i].right - line_elements[i-2].right <= 0)
                 && (line_elements[i].right - line_elements[i-3].right <= -2))
             {
-                Right_Point_Row = i;           //锟斤拷录锟矫拐碉拷锟斤拷锟�
-                Right_Point_Col = line_elements[i].right; //锟斤拷录锟矫拐碉拷锟斤拷锟�
-                Right_Point_Flag = 1;          //锟斤拷锟斤拷业锟斤拷夜盏锟�
-                break;                              //锟揭碉拷锟剿筹拷
+                Right_Point_Row = i;           //记录该拐点的行
+                Right_Point_Col = line_elements[i].right; //记录该拐点的列
+                Right_Point_Flag = 1;          //标记找到右拐点
+                break;                              //找到退出
             }
         }
     }
 
 }
 
-
-/*
-锟斤拷锟斤拷锟斤拷锟狡ｏ拷Sancha_judge
-锟斤拷锟斤拷锟斤拷锟斤拷: 锟叫讹拷锟斤拷锟斤拷
-*/
-int point_flag;
-int distance;
-int Sancha_Num = 0; //锟斤拷锟截斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟剿碉拷偶然锟斤拷锟�
 int Sancha_Start_Row = 0;
 int Sancha_Start_Col = 0;
-int Sancha_Button_Row = 0;//锟斤拷锟斤拷锟叫硷拷撞锟斤拷歉锟斤拷盏锟�??
+int Sancha_Button_Row = 0;//三岔中间底部那个拐点的行数
 int Sancha_Button_Col = 0;
 int Sancha_Button_Flag = 0;
-int Sancha_In_Flag = 0;//锟斤拷锟斤拷锟斤拷锟斤拷�??
 
 
-int Sancha_Go_Right = 0;
-int Sancha_Go_Left = 0;
+void Find_Mid_Point()
+{
+    Sancha_Button_Flag = 0;
+    if (Right_Point_Flag && Left_Point_Flag /* && sum_lost_line < 40 */) //左右下方拐点存在
+    {
+        Sancha_Start_Row = ((Right_Point_Row + Left_Point_Row) / 2);
+        Sancha_Start_Col = ((Right_Point_Col + Left_Point_Col) / 2);
+        Sancha_Button_Col = Sancha_Start_Col;//中间拐点所在的列已经确定
+        for(int i=Sancha_Start_Row;i>0;i--)
+        {
+            if ((Bin_Image[i][Sancha_Start_Col] == 1)&& (Bin_Image[i - 1][Sancha_Start_Col] == 0))
+            {
+                Sancha_Button_Row=i;//记录中间拐点所在的行
+                Sancha_Button_Flag=1;
+            }
+        }
+    }
+
+}
+int Sancha_Find_Flag = 0;
+
+void Find_Sancha()
+{
+    int CheckRow=15;//从15行开始检索
+    for(int i=CheckRow;i>0;i--)
+    {
+        if((line_elements[i].right-line_elements[i+1].right>=2)&&(line_elements[i+1].right-line_elements[i+2].right>=4)
+                &&(line_elements[i].left-line_elements[i+1].left>=2)&&(line_elements[i+1].left-line_elements[i+2].left>=4))
+        {
+            Sancha_Find_Flag=1;
+            break;
+        }
+    }
+}
+
+/*
+函数名称：Sancha_in
+函数功能:三岔进入
+*/
+int point_flag=0;
+int distance=0;
+int Sancha_Num = 0; //记载进入三岔次数，滤掉偶然情况
+
+int Sancha_In_Flag = 0;//进三岔标志
 
 
-void Sancha_judge()
+void Sancha_in()//找到三岔再执行
 {
     int i;
     //  San.Sancha_In_Flag=0;
-
+    if(Sancha_Find_Flag==0)
+        return;
     Find_Left_Point();
     Find_Right_Point();
+    Find_Mid_Point();
     char tstr[10];
     sprintf(tstr,"Right: %d,%d,%d",Right_Point_Row,Right_Point_Col,Right_Point_Flag);
     TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
     sprintf(tstr,"Left: %d,%d,%d",Left_Point_Row,Left_Point_Col,Left_Point_Flag);
     TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
-    if (Right_Point_Flag && Left_Point_Flag /* && sum_lost_line < 40 */) //锟斤拷锟斤拷锟铰凤拷锟秸碉拷锟斤拷锟�??
+    sprintf(tstr,"Mid: %d,%d,%d",Sancha_Button_Row,Sancha_Button_Col,Sancha_Button_Flag);
+    TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
+    if(Sancha_Button_Row>14||Sancha_Button_Row<5)//开始补线
     {
-        point_flag = 1;
-        Sancha_Start_Row = ((Right_Point_Row + Left_Point_Row) / 2);
-        Sancha_Start_Col = ((Right_Point_Col + Left_Point_Col) / 2);
-        Sancha_Button_Col = Sancha_Start_Col;
+        dots2line(Sancha_Button_Col,Sancha_Button_Row,Left_Point_Col,Left_Point_Row,1);
+        Sancha_In_Flag=1;
     }
-    if (point_flag == 1 /*&& sum_lost_line > 70*/)
+
+
+}
+
+int Sancha_Out_Flag=0;
+void Sancha_out()//在三岔时再执行
+{
+    if(Sancha_In_Flag==0)
+        return;
+    int i;
+    //  San.Sancha_In_Flag=0;
+    if(Sancha_Find_Flag==0)
+        return;
+    Find_Left_Point();
+    Find_Right_Point();
+    Find_Mid_Point();
+    char tstr[10];
+    sprintf(tstr,"Right: %d,%d,%d",Right_Point_Row,Right_Point_Col,Right_Point_Flag);
+    TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
+    sprintf(tstr,"Left: %d,%d,%d",Left_Point_Row,Left_Point_Col,Left_Point_Flag);
+    TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
+    sprintf(tstr,"Mid: %d,%d,%d",Sancha_Button_Row,Sancha_Button_Col,Sancha_Button_Flag);
+    TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
+    if(Sancha_Button_Row>14||Sancha_Button_Row<5)//开始补线
     {
-      //  Sancha_In_Flag = 1;
-
-        for (i = Sancha_Start_Row; i > 0; i--)//锟斤拷mid
-        {
-            if ((Bin_image[i][Sancha_Start_Col] == 1)&& (Bin_image[i - 1][Sancha_Start_Col] == 0))
-            {
-                Sancha_Button_Row = i;
-                distance = Sancha_Start_Row - Sancha_Button_Row;
-                Sancha_In_Flag = 1;
-
-                if (distance > 0 && distance <= 40 && Sancha_Start_Row > 55)
-                {
-                    Sancha_Button_Flag = 1;
-                    Sancha_In_Flag = 1;
-                    //special_LOCK = 1;
-                    Sancha_Num++;
-                    break;
-                }
-            }
-        }
-        if (Sancha_In_Flag == 1)
-        {
-          // sprintf(tstr,"Mid锟斤�??%d,%d",Sancha_Button_Row,Sancha_Button_Col);
-        //   TFTSPI_P8X16Str(1, 5, tstr, u16RED,u16GREEN);
-           float k = 0;
-           Sancha_Go_Right = 1;
-           if (Sancha_Go_Right)//锟斤拷锟斤拷锟斤拷锟斤拷�??  锟斤拷锟较拐碉拷锟斤拷锟斤拷盏锟�??
-           {
-              k = (Sancha_Button_Col - Left_Point_Col) / (Sancha_Button_Row - Left_Point_Row);
-              for (int i = Sancha_Start_Row; i >= Sancha_Button_Row; i++)
-              {
-                  Bin_Image[i][line_elements[i].left] = 0;
-                  line_elements[i].left = i * k + Sancha_Start_Row;
-                  Bin_Image[i][line_elements[i].left] = 2;
-               }
-
-            }
-                           //锟斤拷之前锟斤拷锟叫碉拷锟斤拷锟斤拷锟斤拷氐锟絝lag锟斤拷为0
-             Sancha_In_Flag = 0;
-             Bin_Image[Left_Point_Row][Left_Point_Col] = 2;
-             Bin_Image[Right_Point_Row][Right_Point_Col] = 2;
-
-
-         }
+        dots2line(Sancha_Button_Col,Sancha_Button_Row,Left_Point_Col,Left_Point_Row,1);
+        Sancha_Out_Flag=1;
     }
+    if(Sancha_Out_Flag)
+    {
+        Sancha_In_Flag=0;
+        Sancha_Find_Flag=0;
+        Sancha_Button_Flag = 0;
+        Right_Point_Flag=0;
+        Left_Point_Flag=0;
+    }
+
+
 }
 
 
-/*
-int Sancha_Go_Right = 0;
-int Sancha_Go_Left = 0;
-void Sancha_buxian()
+/*三岔主体*/
+void Sancha()
 {
-    float k = 0;
-    Sancha_Go_Right = 1;
-    if (Sancha_Go_Right)//锟斤拷锟斤拷锟斤拷锟斤拷�??  锟斤拷锟较拐碉拷锟斤拷锟斤拷盏锟�??
-    {
-        k = (Sancha_Button_Col - Left_Point_Col) / (Sancha_Button_Row - Left_Point_Row);
-        for (int i = Sancha_Start_Row; i >= Sancha_Button_Row; i++)
-        {
-            Bin_Image[i][line_elements[i].left] = 0;
-            line_elements[i].left = i * k + Sancha_Start_Row;
-            Bin_Image[i][line_elements[i].left] = 2;
-        }
+    Find_Sancha();
+    Sancha_in();
+    Sancha_out();
+}
 
-    }
+/*
 
-    else
-    {
-
-    }
-
-}*/
-
-/* xxxxxxxxzzzzzzzz
-int Sancha_Find_Flag = 0;
 void Road_Type_Judge()
 {
-    //锟斤拷锟斤拷
+    //三岔
 
 
 }
