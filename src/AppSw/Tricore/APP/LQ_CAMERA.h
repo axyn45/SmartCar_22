@@ -80,7 +80,7 @@ extern sint16 Road_Right_Bottom[2];
   *
   * @return   锟斤拷
   *
-  * @note     锟斤拷位锟斤拷锟斤拷帧头锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷 
+  * @note     锟斤拷位锟斤拷锟斤拷帧头锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
   *
   * @see      CAMERA_Reprot();
   *
@@ -93,7 +93,7 @@ void CAMERA_Reprot(void);
 /*!
   * @brief    锟斤拷锟斤拷头锟斤拷锟斤拷锟斤拷锟斤拷
   *
-  * @param    fps:  帧锟斤拷 
+  * @param    fps:  帧锟斤拷
   *
   * @return   锟斤拷
   *
@@ -140,7 +140,7 @@ void Get_Bin_Image(unsigned char mode);
 
 
 /*!
-  * @brief    锟斤拷锟斤拷锟斤拷锟街碉拷锟叫� 
+  * @brief    锟斤拷锟斤拷锟斤拷锟街碉拷锟叫�
   *
   * @param    tmImage 锟斤拷 图锟斤拷锟斤拷锟斤拷
   *
@@ -227,7 +227,7 @@ void roundabout();
 void init_line_elements();
 void setLTop(sint16 x, sint16 y);
 void setRTop(sint16 x, sint16 y);
-void setMid(int terminiate_line);
+void setMid(int start_line,int end_line);
 void reset_element(int start_line,int end_line);
 #endif
 

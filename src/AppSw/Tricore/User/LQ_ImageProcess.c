@@ -56,6 +56,7 @@ struct point
 };
 struct point p1,p2,p3,p4;//用来找拐点
 void roundabout();
+void Sancha();
 int ruhuan_flag=0;//进入环岛的标记
 int yuanhuan_flag1=0;//圆环第一阶段的标志 看到一个出口和入口
 int yuanhuan_flag2=0;//圆环第二阶段的标志 只看到入口
@@ -154,25 +155,26 @@ void CameraCar(void)
             Bin_Image_Filter(); // 滤波，三面被围的数据将被修改为同一数值
             Seek_Road_Edge();
 
-            roundabout();
-            if(yuanhuan_flag3)
-            {
-                find_inflection_point();
-                find_point();
-                if(p1.x>20)
-                {
-                dots2line(p1.y,p1.x,p2.y,p2.x,2);
-                setLTop(0,p1.x);
-                setRTop(p1.y,p1.x);
-                setMid(59,p1.x);
-                }
-            }
-            if(yuanhuan_flag4)
-            {
-                chuhuan();
-                dots2line(p3.y,p3.x,p4.y,p4.x,2);
+            // roundabout();
+            // if(yuanhuan_flag3)
+            // {
+            //     find_inflection_point();
+            //     find_point();
+            //     if(p1.x>20)
+            //     {
+            //     dots2line(p1.y,p1.x,p2.y,p2.x,2);
+            //     setLTop(0,p1.x);
+            //     setRTop(p1.y,p1.x);
+            //     setMid(59,p1.x);
+            //     }
+            // }
+            // if(yuanhuan_flag4)
+            // {
+            //     chuhuan();
+            //     dots2line(p3.y,p3.x,p4.y,p4.x,2);
 
-            }
+            // }
+            Sancha();
 
             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
             servo_control();
