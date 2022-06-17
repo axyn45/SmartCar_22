@@ -164,7 +164,7 @@ void CameraCar(void)
                 dots2line(p1.y,p1.x,p2.y,p2.x,2);
                 setLTop(0,p1.x);
                 setRTop(p1.y,p1.x);
-                setMid(p1.x);
+                setMid(59,p1.x);
                 }
             }
             if(yuanhuan_flag4)
@@ -702,6 +702,8 @@ void Sancha_in()//找到三岔再执行
     if(Sancha_Button_Row>14||Sancha_Button_Row<5)//开始补线
     {
         dots2line(Sancha_Button_Col,Sancha_Button_Row,Left_Point_Col,Left_Point_Row,1);
+        reset_element(0,Sancha_Button_Row);
+        retrack_road_element(0,Sancha_Button_Row);
         Sancha_In_Flag=1;
     }
 

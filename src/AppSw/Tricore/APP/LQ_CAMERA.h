@@ -228,6 +228,7 @@ void init_line_elements();
 void setLTop(sint16 x, sint16 y);
 void setRTop(sint16 x, sint16 y);
 void setMid(int terminiate_line);
+void reset_element(int start_line,int end_line);
 #endif
 
 
