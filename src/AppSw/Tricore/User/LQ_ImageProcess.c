@@ -1,20 +1,20 @@
 /*LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
-锟斤拷平    台锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟杰科硷拷TC2/3xx锟斤拷锟侥帮�?
+锟斤拷平    台锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟杰科硷拷TC2/3xx锟斤拷锟侥帮�??
 锟斤拷锟斤拷    写锟斤拷chiusir
 锟斤拷E-mail锟斤拷chiusir@163.com
-锟斤拷锟斤拷锟斤拷锟芥本锟斤拷V1.1 锟斤拷权锟斤拷锟叫ｏ拷锟斤拷位使锟斤拷锟斤拷锟斤拷锟斤拷系锟斤拷�?
-锟斤拷锟斤拷锟斤拷锟铰★�?2020锟斤�?10锟斤�?28锟斤�?
-锟斤拷锟斤拷锟斤拷锟较拷慰锟斤拷锟斤拷械锟街凤拷锟�?
+锟斤拷锟斤拷锟斤拷锟芥本锟斤拷V1.1 锟斤拷权锟斤拷锟叫ｏ拷锟斤拷位使锟斤拷锟斤拷锟斤拷锟斤拷系锟斤拷�??
+锟斤拷锟斤拷锟斤拷锟铰★�??2020锟斤�??10锟斤�??28锟斤�??
+锟斤拷锟斤拷锟斤拷锟较拷慰锟斤拷锟斤拷械锟街凤拷锟�??
 锟斤拷锟斤拷    站锟斤拷http://www.lqist.cn
 锟斤拷锟皆憋拷锟斤拷锟教★拷http://longqiu.taobao.com
 ------------------------------------------------
 锟斤拷dev.env.锟斤拷AURIX Development Studio1.2.2锟斤拷锟斤拷锟较版本
-锟斤拷Target 锟斤�? TC2/3xx
-锟斤拷Crystal锟斤�? 20.000Mhz
-锟斤拷SYS PLL锟斤�? 200/300MHz
+锟斤拷Target 锟斤�?? TC2/3xx
+锟斤拷Crystal锟斤�?? 20.000Mhz
+锟斤拷SYS PLL锟斤�?? 200/300MHz
 ________________________________________________________________
-锟斤拷锟斤拷iLLD_1_0_1_11_0锟阶诧拷锟斤拷锟�?,
-使锟斤拷锟斤拷锟教碉拷时锟津，斤拷锟斤拷锟斤拷锟矫伙拷锌崭锟斤拷英锟斤拷路锟斤拷锟斤�?
+锟斤拷锟斤拷iLLD_1_0_1_11_0锟阶诧拷锟斤拷锟�??,
+使锟斤拷锟斤拷锟教碉拷时锟津，斤拷锟斤拷锟斤拷锟矫伙拷锌崭锟斤拷英锟斤拷路锟斤拷锟斤�??
 =================================================================
 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷频锟斤拷址锟斤拷https://space.bilibili.com/95313236
 QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
@@ -43,23 +43,23 @@ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
 #include <math.h>
 /*************************************************************************
  *  锟斤拷锟斤拷锟斤拷锟狡ｏ拷void TFT_Show_Camera_Info(void)
- *  锟斤拷锟斤拷说锟斤拷锟斤拷锟斤拷示锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷�?
+ *  锟斤拷锟斤拷说锟斤拷锟斤拷锟斤拷示锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷�??
  *  锟斤拷锟斤拷说锟斤拷锟斤拷锟斤拷
  *  锟斤拷锟斤拷锟斤拷锟截ｏ拷锟斤拷
- *  锟睫革拷时锟戒：2020锟斤�?11锟斤�?18锟斤�?
- *  锟斤�?    注锟斤拷
+ *  锟睫革拷时锟戒：2020锟斤�??11锟斤�??18锟斤�??
+ *  锟斤�??    注锟斤拷
  *************************************************************************/
 
 void roundabout();
-int ruhuan_flag=0;//锟斤拷锟诫环锟斤拷锟侥憋拷锟�?
-int yuanhuan_flag1=0;//圆锟斤拷锟斤拷一锟阶段的憋拷�? 锟斤拷锟斤拷一锟斤拷锟斤拷锟节猴拷锟斤拷锟�?
-int yuanhuan_flag2=0;//圆锟斤拷锟节讹拷锟阶段的憋拷�? 只锟斤拷锟斤拷锟斤拷锟�
+int ruhuan_flag=0;//锟斤拷锟诫环锟斤拷锟侥憋拷锟�??
+int yuanhuan_flag1=0;//圆锟斤拷锟斤拷一锟阶段的憋拷�?? 锟斤拷锟斤拷一锟斤拷锟斤拷锟节猴拷锟斤拷锟�??
+int yuanhuan_flag2=0;//圆锟斤拷锟节讹拷锟阶段的憋拷�?? 只锟斤拷锟斤拷锟斤拷锟�
 int yuanhuan_flag3_1=0;
-int yuanhuan_flag3=0;//圆锟斤拷锟斤拷锟斤拷锟阶段的憋拷�? 锟斤拷锟斤拷锟斤拷锟斤拷锟街伙拷锟街憋拷吆锟斤拷锟斤�? 锟斤拷始锟斤拷锟斤拷
-int yuanhuan_flag4=0;//圆锟斤拷锟斤拷锟侥阶段的憋拷�? 锟斤拷锟斤拷锟斤拷锟斤拷
-int yuanhuan_flag5=0;//圆锟斤拷锟斤拷锟斤拷锥蔚谋锟街� 锟斤拷锟斤拷锟斤�? 锟斤拷锟�?
+int yuanhuan_flag3=0;//圆锟斤拷锟斤拷锟斤拷锟阶段的憋拷�?? 锟斤拷锟斤拷锟斤拷锟斤拷锟街伙拷锟街憋拷吆锟斤拷锟斤�?? 锟斤拷始锟斤拷锟斤拷
+int yuanhuan_flag4=0;//圆锟斤拷锟斤拷锟侥阶段的憋拷�?? 锟斤拷锟斤拷锟斤拷锟斤拷
+int yuanhuan_flag5=0;//圆锟斤拷锟斤拷锟斤拷锥蔚谋锟街� 锟斤拷锟斤拷锟斤�?? 锟斤拷锟�??
 int Bin_image[60][94];//图锟斤拷亩锟轿拷锟斤拷锟�
-int huandao_flag = 0;  //锟斤拷锟斤拷锟侥憋拷�? 锟斤拷锟斤拷锟斤拷之锟斤拷疟锟斤�?0
+int huandao_flag = 0;  //锟斤拷锟斤拷锟侥憋拷�?? 锟斤拷锟斤拷锟斤拷之锟斤拷疟锟斤�??0
 int continueleftrukou1;//锟斤拷呓锟斤拷锟斤拷锟� 锟叫断筹拷锟斤拷一锟斤拷锟斤拷锟�
 int continueleftrukou2;//锟叫断筹拷锟斤拷
 void find_inflection_point();
@@ -69,7 +69,7 @@ struct point
         int x;
         int y;
 };
-struct point p1,p2,p3,p4;//锟斤拷锟斤拷锟揭拐碉�?
+struct point p1,p2,p3,p4;//锟斤拷锟斤拷锟揭拐碉�??
 void TFT_Show_Camera_Info (void)
 {
     char txt[16] = "X:";
@@ -78,39 +78,39 @@ void TFT_Show_Camera_Info (void)
     sint16 pulse100 = 0;
     uint16 bat = 0;
 
-    dmm = (sint16) (RAllPulse * 100 / 579);         // 锟斤拷锟斤拷512锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�?1锟斤�?5790锟斤拷锟斤拷锟藉，锟斤拷值太锟襟，筹拷锟斤拷100
+    dmm = (sint16) (RAllPulse * 100 / 579);         // 锟斤拷锟斤拷512锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�??1锟斤�??5790锟斤拷锟斤拷锟藉，锟斤拷值太锟襟，筹拷锟斤拷100
     pulse100 = (sint16) (RAllPulse / 100);
     sprintf(txt, "AP:%05d00", pulse100);           //
-    TFTSPI_P8X16Str(3, 4, txt, u16RED, u16BLUE);   // 锟斤拷示锟斤拷锟斤拷偏锟斤拷锟斤拷锟�?
+    TFTSPI_P8X16Str(3, 4, txt, u16RED, u16BLUE);   // 锟斤拷示锟斤拷锟斤拷偏锟斤拷锟斤拷锟�??
 
     NowTime = (STM_GetNowUs(STM0) - NowTime) / 1000;  // 锟斤拷取STM0 锟斤拷前时锟戒，锟矫碉拷锟斤拷锟斤拷
     mps = (sint16) (dmm / (NowTime / 1000));          // 锟斤拷锟斤拷锟劫讹拷mm/s
     // TFTSPI_Road(18, 0, LCDH, LCDW, (unsigned char *)Image_Use); // TFT1.8锟斤拷态锟斤拷示锟斤拷锟斤拷头锟揭讹拷图锟斤拷
-    TFTSPI_BinRoad(18, 0, LCDH, LCDW, (unsigned char *) Bin_Image);  // TFT1.8锟斤拷态锟斤拷示锟斤拷锟斤拷头锟斤拷锟斤拷锟斤拷图锟斤�?
+    TFTSPI_BinRoad(18, 0, LCDH, LCDW, (unsigned char *) Bin_Image);  // TFT1.8锟斤拷态锟斤拷示锟斤拷锟斤拷头锟斤拷锟斤拷锟斤拷图锟斤�??
     sprintf(txt, "%04d,%04d,%04d", OFFSET0, OFFSET1, OFFSET2);
-    TFTSPI_P8X16Str(0, 5, txt, u16RED, u16BLUE);       // 锟斤拷示锟斤拷锟斤拷偏锟斤拷锟斤拷锟�?
-    BatVolt = ADC_Read(ADC7);  // 刷锟铰碉拷氐锟窖�?
+    TFTSPI_P8X16Str(0, 5, txt, u16RED, u16BLUE);       // 锟斤拷示锟斤拷锟斤拷偏锟斤拷锟斤拷锟�??
+    BatVolt = ADC_Read(ADC7);  // 刷锟铰碉拷氐锟窖�??
     bat = BatVolt * 11 / 25;  // x/4095*3.3*100*5.7
     sprintf(txt, "B:%d.%02dV %d.%02dm/s", bat / 100, bat % 100, mps / 1000, (mps / 10) % 100);  // *3.3/4095*3
-    TFTSPI_P8X16Str(0, 6, txt, u16WHITE, u16BLUE);   // 锟街凤拷锟斤拷锟斤拷�?
+    TFTSPI_P8X16Str(0, 6, txt, u16WHITE, u16BLUE);   // 锟街凤拷锟斤拷锟斤拷�??
     // 锟斤拷锟斤拷投锟斤拷锟斤拷锟斤拷锟斤拷示
     sprintf(txt, "Sv:%04d Rno:%d", ServoDuty, CircleNumber);
     TFTSPI_P8X16Str(1, 7, txt, u16RED, u16BLUE);     // 锟斤拷示锟斤拷锟斤拷锟斤拷锟斤拷1锟斤拷锟斤拷锟斤拷锟斤拷1锟斤拷�?
     sprintf(txt, "M1:%04d, M2:%04d ", MotorDuty1, MotorDuty2);
-    TFTSPI_P8X16Str(0, 8, txt, u16RED, u16BLUE);     // 锟斤拷锟�?1-2锟斤拷�?
+    TFTSPI_P8X16Str(0, 8, txt, u16RED, u16BLUE);     // 锟斤拷锟�??1-2锟斤拷�?
     sprintf(txt, "E1:%04d, E2:%04d ", ECPULSE1, ECPULSE2);
-    TFTSPI_P8X16Str(0, 9, txt, u16RED, u16BLUE);     // 锟斤拷锟斤拷锟斤�?1-2锟斤拷�?
+    TFTSPI_P8X16Str(0, 9, txt, u16RED, u16BLUE);     // 锟斤拷锟斤拷锟斤�??1-2锟斤拷�?
 }
 /*************************************************************************
  *  锟斤拷锟斤拷锟斤拷锟狡ｏ拷void CameraCar(void)
  *  锟斤拷锟斤拷说锟斤拷锟斤拷锟斤拷懦锟剿拷锟斤拷锟斤拷锟劫匡拷锟斤拷
- -->1.锟斤拷锟斤拷锟姐法锟斤拷锟津单的分段憋拷锟斤拷锟斤拷锟斤拷锟姐法锟斤拷锟斤拷学锟斤拷示锟斤拷锟斤拷锟姐法锟斤�?
+ -->1.锟斤拷锟斤拷锟姐法锟斤拷锟津单的分段憋拷锟斤拷锟斤拷锟斤拷锟姐法锟斤拷锟斤拷学锟斤拷示锟斤拷锟斤拷锟姐法锟斤�??
  2.锟斤拷锟斤拷锟姐法锟斤拷PID锟斤拷锟斤拷应锟矫匡拷锟斤拷锟姐法锟斤拷锟斤拷学锟斤拷示锟斤拷锟斤拷锟姐法锟斤拷
- 3.锟竭讹拷锟姐法锟斤拷锟侥斤拷锟斤拷锟斤拷群协同锟斤拷锟斤拷锟姐法锟斤�?
+ 3.锟竭讹拷锟姐法锟斤拷锟侥斤拷锟斤拷锟斤拷群协同锟斤拷锟斤拷锟姐法锟斤�??
  *  锟斤拷锟斤拷说锟斤拷锟斤拷锟斤拷
  *  锟斤拷锟斤拷锟斤拷锟截ｏ拷锟斤拷
- *  锟睫革拷时锟戒：2020锟斤�?10锟斤�?28锟斤�?
- *  锟斤�?    注锟斤拷锟斤拷锟斤拷2锟斤拷锟斤拷锟�
+ *  锟睫革拷时锟戒：2020锟斤�??10锟斤�??28锟斤�??
+ *  锟斤�??    注锟斤拷锟斤拷锟斤拷2锟斤拷锟斤拷锟�
  *************************************************************************/
 
 void CameraCar(void)
@@ -124,19 +124,19 @@ void CameraCar(void)
     short duty = 1500; // 900时锟斤拷锟劫度猴拷锟斤拷
 
     // 锟叫硷拷CPU0,CPU1...锟斤拷锟斤拷锟斤拷同时锟斤拷锟斤拷锟斤拷幕锟斤拷示锟斤拷锟斤拷锟斤拷锟酵伙拷锟斤拷锟绞�
-    mutexCpu0TFTIsOk = 0; // CPU1锟斤�? 0占锟斤拷/1锟酵凤拷 TFT
+    mutexCpu0TFTIsOk = 0; // CPU1锟斤�?? 0占锟斤拷/1锟酵凤拷 TFT
     // CircleNumber = SetCircleNum();  // 锟斤拷锟斤拷锟斤拷要锟斤拷锟斤拷圆锟斤拷锟侥革拷锟斤拷锟斤拷
 
-    // 锟斤拷锟斤拷锟斤拷锟斤拷要锟斤拷锟矫筹拷锟斤拷猓拷锟斤拷锟斤拷枪潭锟街达拷校锟�?
-    // 锟斤拷锟斤拷锟斤拷锟揭拷苫晒芎锟斤拷獠匡拷卸锟斤拷锟斤拷实锟斤�?
+    // 锟斤拷锟斤拷锟斤拷锟斤拷要锟斤拷锟矫筹拷锟斤拷猓拷锟斤拷锟斤拷枪潭锟街达拷校锟�??
+    // 锟斤拷锟斤拷锟斤拷锟揭拷苫晒芎锟斤拷獠匡拷卸锟斤拷锟斤拷实锟斤�??
     // 锟斤拷锟斤拷锟斤拷锟斤拷锟叫ｏ拷锟缴簧癸拷锟斤拷通锟斤拷圆锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷艽锟斤拷锟斤拷目锟斤拷锟斤拷锟�
-    // OutInGarage(OUT_GARAGE, ReadOutInGarageMode()); // 锟斤拷锟皆筹拷锟解，锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷猓拷锟街拷也锟斤拷锟斤拷锟�?
-    // OutInGarage(IN_GARAGE,ReadOutInGarageMode());  // 锟斤拷锟斤拷锟斤拷锟�?
+    // OutInGarage(OUT_GARAGE, ReadOutInGarageMode()); // 锟斤拷锟皆筹拷锟解，锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷猓拷锟街拷也锟斤拷锟斤拷锟�??
+    // OutInGarage(IN_GARAGE,ReadOutInGarageMode());  // 锟斤拷锟斤拷锟斤拷锟�??
 
     TFTSPI_CLS(u16BLUE); // 锟斤拷锟斤拷
     // 锟叫硷拷CPU0,CPU1...锟斤拷锟斤拷锟斤拷同时锟斤拷锟斤拷锟斤拷幕锟斤拷示锟斤拷锟斤拷锟斤拷锟酵伙拷锟斤拷锟绞�
-    mutexCpu0TFTIsOk = 1;                // CPU1锟斤�? 0占锟斤拷/1锟酵凤拷 TFT
-    MotorCtrl4w(duty, duty, duty, duty); // 锟斤拷锟絇WM锟教讹拷锟斤拷锟斤拷锟斤拷锟�?
+    mutexCpu0TFTIsOk = 1;                // CPU1锟斤�?? 0占锟斤拷/1锟酵凤拷 TFT
+    MotorCtrl4w(duty, duty, duty, duty); // 锟斤拷锟絇WM锟教讹拷锟斤拷锟斤拷锟斤拷锟�??
 
     RAllPulse = 0;                // 全锟街憋拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�
     NowTime = STM_GetNowUs(STM0); // 锟斤拷取STM0 锟斤拷前时锟斤拷
@@ -149,19 +149,19 @@ void CameraCar(void)
         LED_Ctrl(LED1, RVS); // LED锟斤拷烁 指示锟斤拷锟斤拷锟斤拷锟斤拷状�?
         if (Camera_Flag == 2)
         {
-            Camera_Flag = 0;    // 锟斤拷锟斤拷锟斤拷锟酵凤拷杉锟斤拷锟缴憋拷志�?  锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟津不伙拷锟劫次采硷拷锟斤拷锟斤拷
-            Get_Use_Image();    // 取锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷示锟斤拷锟斤拷图锟斤拷锟斤拷锟斤�?
-            Get_Bin_Image(0);   // 转锟斤拷�?01锟斤拷式锟斤拷锟捷ｏ�?0锟斤�?1原图锟斤�?2锟斤�?3锟斤拷锟斤拷锟斤拷取
+            Camera_Flag = 0;    // 锟斤拷锟斤拷锟斤拷锟酵凤拷杉锟斤拷锟缴憋拷志�??  锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟津不伙拷锟劫次采硷拷锟斤拷锟斤拷
+            Get_Use_Image();    // 取锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷示锟斤拷锟斤拷图锟斤拷锟斤拷锟斤�??
+            Get_Bin_Image(0);   // 转锟斤拷�??01锟斤拷式锟斤拷锟捷ｏ�??0锟斤�??1原图锟斤�??2锟斤�??3锟斤拷锟斤拷锟斤拷取
             Bin_Image_Filter(); // 锟剿诧拷锟斤拷锟斤拷锟芥被围锟斤拷锟斤拷锟捷斤拷锟斤拷锟睫革拷为同一锟斤拷�?
             Seek_Road_Edge();
             roundabout();
+            servo_control();
             if(yuanhuan_flag3)
             {
                 find_inflection_point();
                 find_point();
-                dots2line(p1.x,p1.y,p2.x,p2.y,2);
+                dots2line(p1.y,p1.x,p2.y,p2.x,2);
             }
-            servo_control();
             TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
 //            sprintf(tstr,"left_t: %d %d",Road_Left_Top[0],Road_Left_Top[1]);
 //            TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
@@ -187,7 +187,7 @@ void CameraCar(void)
 //             TFTSPI_P8X16Str(0, 7, tstr, u16RED, u16GREEN);
 
 
-            TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
+//            TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
 //             dots2line(3,3,60,25,1);
 //              TFTSPI_BinRoad(0, 0, LCDH, LCDW, (unsigned char *)Bin_Image);
 // //             sint16 break_line=servo_control();
@@ -200,10 +200,10 @@ void CameraCar(void)
 //              sprintf(tstr,"right_t: %d %d",Road_Right_Top[0],Road_Right_Top[1]);
 //              TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
 
-            // 通锟斤拷锟节帮拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷偏锟斤拷�?
+            // 通锟斤拷锟节帮拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷偏锟斤拷�??
 
 
-            // 锟斤拷锟斤拷锟斤拷锟斤拷偏锟斤拷值锟斤拷系锟斤拷越锟斤拷锟斤拷越锟界，锟斤拷值锟斤拷锟斤拷锟斤拷姆锟轿э拷泄兀锟斤拷舜锟轿拷锟�160锟斤拷锟揭ｏ拷默锟斤拷为7锟斤�?
+            // 锟斤拷锟斤拷锟斤拷锟斤拷偏锟斤拷值锟斤拷系锟斤拷越锟斤拷锟斤拷越锟界，锟斤拷值锟斤拷锟斤拷锟斤拷姆锟轿э拷泄兀锟斤拷舜锟轿拷锟�160锟斤拷锟揭ｏ拷默锟斤拷为7锟斤�??
             sduty_offset=(OFFSET0 + OFFSET1 + OFFSET2) * 1 / 3;
 //            if((OFFSET0>0&&OFFSET1<0)&&(OFFSET0<0&&OFFSET1>0)){
 //                sduty_offset+=OFFSET0*1.2;
@@ -228,7 +228,7 @@ void CameraCar(void)
              MotorDuty1 = MtTargetDuty + ECPULSE1 * 4 - (OFFSET1 + OFFSET2 + OFFSET2) / 10;        // 锟斤拷锟絇WM
              MotorDuty2 = MtTargetDuty - ECPULSE2 * 4 + (OFFSET1 + OFFSET2 + OFFSET2) / 10;        // 双锟斤拷锟斤拷锟街ｏ拷锟斤拷要去锟斤拷abs
 
-            MotorCtrl(tduty, tduty); // 锟斤拷锟街碉拷锟斤拷锟斤拷锟�?
+            MotorCtrl(tduty, tduty); // 锟斤拷锟街碉拷锟斤拷锟斤拷锟�??
                                    // TFT_Show_Camera_Info();
         }
 //        if (Game_Over)
@@ -237,17 +237,17 @@ void CameraCar(void)
 //        }
     }
 }
-int My_Abs(int a, int b)//锟斤拷锟斤拷锟街�?
+int My_Abs(int a, int b)//锟斤拷锟斤拷锟街�??
 {
 
             if ((a - b) > 0)
                 return ((int)(a - b));
             else return ((int)(b - a));
 }
-//锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷�?
+//锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷�??
 
-int Right_con;//锟揭憋拷锟斤拷锟斤拷锟侥憋拷�?
-void right_continue()//锟揭边斤拷锟斤拷锟斤拷锟叫讹�?
+int Right_con;//锟揭憋拷锟斤拷锟斤拷锟侥憋拷�??
+void right_continue()//锟揭边斤拷锟斤拷锟斤拷锟叫讹�??
 {
      int i=0;
      Right_con=1;
@@ -296,7 +296,7 @@ bool lose_left_line()//锟斤拷叩谋呓锟斤拷叨锟斤拷锟斤拷锟�
     }
     return ok;
 }
-bool have_black_area()//锟叫讹拷锟斤拷没锟斤拷圆锟斤拷锟斤拷一锟斤拷暮锟缴拷锟斤拷锟�?
+bool have_black_area()//锟叫讹拷锟斤拷没锟斤拷圆锟斤拷锟斤拷一锟斤拷暮锟缴拷锟斤拷锟�??
 {
     //锟斤拷锟斤拷Bin_Image锟斤拷锟斤拷锟叫讹拷
     int flag=0;
@@ -347,7 +347,7 @@ void first_stage()//圆锟斤拷锟矫碉拷一锟阶段革拷锟捷匡拷锟斤
             turn_wid=1;
         }
     }
-    //锟揭边斤拷锟斤拷直锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�?1
+    //锟揭边斤拷锟斤拷直锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�??1
     if(turn_wid&&turn_narrow&&turn_nar1&&!have_black_area()&&!lose_left_line()&&!yuanhuan_flag2)//锟斤拷锟杰碉拷锟斤拷
     {
         yuanhuan_flag1=1;
@@ -388,7 +388,7 @@ void second_stage()//锟节讹拷锟阶讹拷锟叫断猴拷锟斤拷
          yuanhuan_flag1=0;
      }
 }
-void find_inflection_point()//锟斤拷圆锟斤拷时锟斤拷墓盏锟�? 锟斤拷锟斤拷锟斤拷锟斤拷呓锟斤拷锟斤拷小�?
+void find_inflection_point()//锟斤拷圆锟斤拷时锟斤拷墓盏锟�?? 锟斤拷锟斤拷锟斤拷锟斤拷呓锟斤拷锟斤拷小�??
 {
     p1.x=0;
     p1.y=50;
@@ -397,14 +397,14 @@ void find_inflection_point()//锟斤拷圆锟斤拷时锟斤拷墓盏锟�? 锟
       if(line_elements[i].left<p1.y&&line_elements[i].left!=-1)
       {
           p1.x=i;
-          p1.y=line_elements[i].left;//锟揭碉拷锟斤拷偷牡锟�?
+          p1.y=line_elements[i].left;//锟揭碉拷锟斤拷偷牡锟�??
       }
     }
 //        char tstr[10];
 //        sprintf(tstr,"p1 x: %d",p1.x);
-//        TFTSPI_P8X16Str(1, 3, tstr, u16RED, u16GREEN);
-//        sprintf(tstr,"p1 y: %d",p1.y);
 //        TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
+//        sprintf(tstr,"p1 y: %d",p1.y);
+//        TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
 
 }
 void find_point()
@@ -425,9 +425,9 @@ void find_point()
 //   sprintf(tstr,"p2 y: %d",p2.y);
 //   TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
 }
-void buxian(struct point po1,struct point po2)//锟斤拷锟斤拷 锟诫�?
+void buxian(struct point po1,struct point po2)//锟斤拷锟斤拷 锟诫�??
 {
-  int x1,x2,y1,y2;//锟斤拷锟斤拷锟斤拷锟斤拷锟斤�?
+  int x1,x2,y1,y2;//锟斤拷锟斤拷锟斤拷锟斤拷锟斤�??
   x1=po1.x;
   y1=po1.y;
   y2=po2.y;
@@ -464,8 +464,8 @@ void third_stage2()
        yuanhuan_flag2=0;
     }
 }
-//锟揭憋拷锟角伙拷锟斤�? 直锟斤拷
-void success_in()//锟缴癸拷锟诫环锟侥憋拷志  未锟斤拷锟斤�?
+//锟揭憋拷锟角伙拷锟斤�?? 直锟斤拷
+void success_in()//锟缴癸拷锟诫环锟侥憋拷志  未锟斤拷锟斤�??
 {
    if(yuanhuan_flag3&&lose_left_line()&&!is_align())
    {
@@ -483,7 +483,7 @@ void chuhuan()
         if(line_elements[i].left<p3.y)
          {
              p3.x=i;
-             p3.y=line_elements[i].left;//锟揭碉拷锟斤拷偷牡锟�?
+             p3.y=line_elements[i].left;//锟揭碉拷锟斤拷偷牡锟�??
          }
        }
      p4.x=0;
@@ -493,15 +493,15 @@ void chuhuan()
         if(line_elements[i].right>p4.y)
          {
              p4.x=i;
-             p4.y=line_elements[i].right;//锟揭碉拷锟斤拷偷牡锟�?
+             p4.y=line_elements[i].right;//锟揭碉拷锟斤拷偷牡锟�??
          }
        }
 
 }
-void forth_stage()//锟斤拷锟叫筹拷圆锟斤�?
+void forth_stage()//锟斤拷锟叫筹拷圆锟斤�??
 {
     //int result=Bisa_variance(Road_Right);//锟揭边边斤拷锟狡拷锟街碉拷锟�
-    //变窄然后有变宽
+    //变窄然后有变�?
     int turn_wid=0;
     int turn_nar=0;
     for(int i=60;i>25;i--)
@@ -522,8 +522,8 @@ void forth_stage()//锟斤拷锟叫筹拷圆锟斤�?
     {
         yuanhuan_flag4=1;
         ruhuan_flag=0;
-        chuhuan();
-        dots2line(p3.x,p3.y,p4.x,p4.y,2);
+        // chuhuan();
+        // dots2line(p3.x,p3.y,p4.x,p4.y,2);
     }
 }
 void all_clear()//锟斤拷锟叫憋拷志锟斤拷锟斤拷
@@ -545,7 +545,7 @@ void fifth_stage()
 }
 void roundabout()
 {
-    //锟斤拷锟矫碉拷一锟阶讹拷锟叫断猴�?
+    //锟斤拷锟矫碉拷一锟阶讹拷锟叫断猴�??
     first_stage();
     second_stage();//锟节讹拷锟阶讹拷
     third_stage2();//锟斤拷锟斤拷锟阶讹拷 没锟叫猴拷色锟斤拷锟斤拷
@@ -568,24 +568,24 @@ void roundabout()
 /********************************                  锟斤拷锟斤拷                            *************************************************/
 
 /*
-锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟叫讹拷锟斤拷锟斤拷要寻锟揭斤拷锟斤拷锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷锟秸碉拷锟皆硷拷锟斤拷锟斤拷锟斤拷锟阶诧拷锟斤拷锟角革拷锟斤�?
+锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟叫讹拷锟斤拷锟斤拷要寻锟揭斤拷锟斤拷锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷锟秸碉拷锟皆硷拷锟斤拷锟斤拷锟斤拷锟阶诧拷锟斤拷锟角革拷锟斤�??
 
-1.锟揭碉拷锟斤拷锟斤拷锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷锟秸点：锟斤拷呓锟斤拷锟斤拷锟斤拷缺锟斤拷锟劫憋拷小锟斤�?
+1.锟揭碉拷锟斤拷锟斤拷锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷锟秸点：锟斤拷呓锟斤拷锟斤拷锟斤拷缺锟斤拷锟劫憋拷小锟斤�??
 同锟揭边斤拷锟斤拷锟斤拷锟饺憋拷小锟斤拷锟斤拷锟揭碉拷锟斤拷   锟斤拷锟斤拷小锟戒化锟斤拷锟角革拷锟姐�?
-锟斤拷锟秸碉拷锟斤拷锟斤拷锟斤拷卸锟斤拷锟斤拷锟斤拷锟斤拷呓锟侥讹拷锟斤拷锟斤拷目锟斤拷锟斤拷小锟斤拷一锟斤拷锟斤拷值锟斤拷锟斤拷为状态一锟斤�?
+锟斤拷锟秸碉拷锟斤拷锟斤拷锟斤拷卸锟斤拷锟斤拷锟斤拷锟斤拷呓锟侥讹拷锟斤拷锟斤拷目锟斤拷锟斤拷小锟斤拷一锟斤拷锟斤拷值锟斤拷锟斤拷为状态一锟斤�??
 
- 2.锟斤拷锟斤拷锟阶诧拷锟侥点：锟揭碉拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟秸碉拷螅锟斤拷锟斤拷锟斤拷盏锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟接筹拷锟斤拷2锟斤拷锟斤拷录锟斤拷锟斤�?
- 锟斤拷锟斤拷锟皆固讹拷锟斤拷锟斤拷头锟斤拷锟叫硷拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷液诎椎锟斤拷锟斤拷锟斤拷(也锟斤拷锟斤拷锟皆刚诧拷锟斤拷锟秸碉拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤�?2)
- 锟斤拷锟揭碉拷锟阶诧拷锟侥碉拷螅锟铰硷拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟秸碉拷1/2锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟街拷锟叫★拷锟揭伙拷锟斤拷锟街碉拷锟斤拷卸锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�?
+ 2.锟斤拷锟斤拷锟阶诧拷锟侥点：锟揭碉拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟秸碉拷螅锟斤拷锟斤拷锟斤拷盏锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟接筹拷锟斤拷2锟斤拷锟斤拷录锟斤拷锟斤�??
+ 锟斤拷锟斤拷锟皆固讹拷锟斤拷锟斤拷头锟斤拷锟叫硷拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷液诎椎锟斤拷锟斤拷锟斤拷(也锟斤拷锟斤拷锟皆刚诧拷锟斤拷锟秸碉拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤�??2)
+ 锟斤拷锟揭碉拷锟阶诧拷锟侥碉拷螅锟铰硷拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟秸碉拷1/2锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟街拷锟叫★拷锟揭伙拷锟斤拷锟街碉拷锟斤拷卸锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�??
 
 */
 
 //extern int Bin_image[60][94];
 
-//锟斤拷锟斤拷盏锟�?
-int Left_Point_Row = 0;//锟斤拷盏锟斤拷锟�?
-int Left_Point_Col = 0;//锟斤拷盏锟斤拷锟�?
-int Left_Point_Flag = 0;//锟角凤拷锟揭碉拷锟斤拷盏锟斤拷志�?
+//锟斤拷锟斤拷盏锟�??
+int Left_Point_Row = 0;//锟斤拷盏锟斤拷锟�??
+int Left_Point_Col = 0;//锟斤拷盏锟斤拷锟�??
+int Left_Point_Flag = 0;//锟角凤拷锟揭碉拷锟斤拷盏锟斤拷志�??
 //extern int leftline[60];//锟斤拷呓锟�
 void Find_Left_Point()
 {
@@ -619,7 +619,7 @@ void Find_Left_Point()
 //锟斤拷锟揭拐碉拷
 int Right_Point_Row = 0;//锟揭拐碉拷锟斤拷
 int Right_Point_Col = 0;//锟揭拐碉拷锟斤拷
-int Right_Point_Flag = 0;//锟角凤拷锟揭碉拷锟揭拐碉拷锟街疚�?
+int Right_Point_Flag = 0;//锟角凤拷锟揭碉拷锟揭拐碉拷锟街疚�??
 //extern int rightline[60];//锟斤拷锟揭边斤拷
 void Find_Right_Point()
 {
@@ -631,14 +631,14 @@ void Find_Right_Point()
 
     for (i = Find_End_Line-1; i >= Find_Start_Line; i--)
     {
-        //锟斤拷锟斤拷扫锟斤拷太远锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�?
+        //锟斤拷锟斤拷扫锟斤拷太远锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟�??
 
         if ((line_elements[i].right != (cutCOL - 1) && line_elements[i-1].right != (cutCOL - 1)
             && line_elements[i-2].right != (cutCOL - 1)
             && line_elements[i-3].right != (cutCOL - 1))
             && (line_elements[i].right > 10 && line_elements[i-1].right > 10
                 && line_elements[i+1].right > 10 && line_elements[i-2].right > 10))
-            //锟斤拷锟斤拷锟斤拷锟叫诧拷锟斤拷锟斤�?,锟斤拷未为锟剿凤拷止锟斤拷锟戒，锟斤�?4锟叫憋拷锟斤拷锟斤拷锟�10
+            //锟斤拷锟斤拷锟斤拷锟叫诧拷锟斤拷锟斤�??,锟斤拷未为锟剿凤拷止锟斤拷锟戒，锟斤�??4锟叫憋拷锟斤拷锟斤拷锟�10
         {
             if ((line_elements[i].right - line_elements[i+1].right <= 0)
                 && (line_elements[i].right - line_elements[i+2].right) <= 0
@@ -667,10 +667,10 @@ int distance;
 int Sancha_Num = 0; //锟斤拷锟截斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟剿碉拷偶然锟斤拷锟�
 int Sancha_Start_Row = 0;
 int Sancha_Start_Col = 0;
-int Sancha_Button_Row = 0;//锟斤拷锟斤拷锟叫硷拷撞锟斤拷歉锟斤拷盏锟�?
+int Sancha_Button_Row = 0;//锟斤拷锟斤拷锟叫硷拷撞锟斤拷歉锟斤拷盏锟�??
 int Sancha_Button_Col = 0;
 int Sancha_Button_Flag = 0;
-int Sancha_In_Flag = 0;//锟斤拷锟斤拷锟斤拷锟斤拷�?
+int Sancha_In_Flag = 0;//锟斤拷锟斤拷锟斤拷锟斤拷�??
 
 
 int Sancha_Go_Right = 0;
@@ -689,7 +689,7 @@ void Sancha_judge()
     TFTSPI_P8X16Str(1, 4, tstr, u16RED, u16GREEN);
     sprintf(tstr,"Left: %d,%d,%d",Left_Point_Row,Left_Point_Col,Left_Point_Flag);
     TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
-    if (Right_Point_Flag && Left_Point_Flag /* && sum_lost_line < 40 */) //锟斤拷锟斤拷锟铰凤拷锟秸碉拷锟斤拷锟�?
+    if (Right_Point_Flag && Left_Point_Flag /* && sum_lost_line < 40 */) //锟斤拷锟斤拷锟铰凤拷锟秸碉拷锟斤拷锟�??
     {
         point_flag = 1;
         Sancha_Start_Row = ((Right_Point_Row + Left_Point_Row) / 2);
@@ -720,11 +720,11 @@ void Sancha_judge()
         }
         if (Sancha_In_Flag == 1)
         {
-          // sprintf(tstr,"Mid锟斤�?%d,%d",Sancha_Button_Row,Sancha_Button_Col);
+          // sprintf(tstr,"Mid锟斤�??%d,%d",Sancha_Button_Row,Sancha_Button_Col);
         //   TFTSPI_P8X16Str(1, 5, tstr, u16RED,u16GREEN);
            float k = 0;
            Sancha_Go_Right = 1;
-           if (Sancha_Go_Right)//锟斤拷锟斤拷锟斤拷锟斤拷�?  锟斤拷锟较拐碉拷锟斤拷锟斤拷盏锟�?
+           if (Sancha_Go_Right)//锟斤拷锟斤拷锟斤拷锟斤拷�??  锟斤拷锟较拐碉拷锟斤拷锟斤拷盏锟�??
            {
               k = (Sancha_Button_Col - Left_Point_Col) / (Sancha_Button_Row - Left_Point_Row);
               for (int i = Sancha_Start_Row; i >= Sancha_Button_Row; i++)
@@ -753,7 +753,7 @@ void Sancha_buxian()
 {
     float k = 0;
     Sancha_Go_Right = 1;
-    if (Sancha_Go_Right)//锟斤拷锟斤拷锟斤拷锟斤拷�?  锟斤拷锟较拐碉拷锟斤拷锟斤拷盏锟�?
+    if (Sancha_Go_Right)//锟斤拷锟斤拷锟斤拷锟斤拷�??  锟斤拷锟较拐碉拷锟斤拷锟斤拷盏锟�??
     {
         k = (Sancha_Button_Col - Left_Point_Col) / (Sancha_Button_Row - Left_Point_Row);
         for (int i = Sancha_Start_Row; i >= Sancha_Button_Row; i++)
