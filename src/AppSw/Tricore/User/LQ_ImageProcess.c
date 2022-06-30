@@ -562,6 +562,44 @@ int Left_Point_Row = 0;//左拐点行
 int Left_Point_Col = 0;//左拐点列
 int Left_Point_Flag = 0;//是否找到左拐点标志位
 //extern int leftline[60];//左边界
+
+//找右拐点
+int Right_Point_Row = 0;//右拐点行
+int Right_Point_Col = 0;//右拐点列
+int Right_Point_Flag = 0;//是否找到右拐点标志位
+
+//extern int rightline[60];//左右边界
+
+//找三岔中心拐点
+int Sancha_Start_Row = 0;
+int Sancha_Start_Col = 0;
+int Sancha_Button_Row = 0;//三岔中间底部那个拐点的行数
+int Sancha_Button_Col = 0;
+int Sancha_Button_Flag = 0;
+
+int Sancha_Find_Flag = 0;
+
+
+//int point_flag = 0;
+//int distance = 0;
+int Sancha_Num = 0; //记载进入三岔次数，滤掉偶然情况
+
+int Sancha_In_Flag = 0;//进三岔标志
+
+
+int Sancha_Out_Flag = 0;
+
+
+
+int FirstStage = 0;//第一阶段 在远处发现左右拐点
+int SecondStage = 0;//第二阶段 近处发现左右拐点 
+int ThirdStage = 0;//第三阶段 车身距离三岔很近时补线
+int Thir_For_Stage = 0;//第三四阶段中间阶段  什么都不做随着中线在三岔行进
+int ForthStage = 0;//第四阶段  发现出口->前方有弯道  
+int FifthStage = 0;//第五阶段 寻找拐点并补线
+int SixthStage = 0;//第六阶段 已经出三岔 全部标志清0
+
+
 void Find_Left_Point()
 {
     int i;
@@ -591,11 +629,7 @@ void Find_Left_Point()
     }
 }
 
-//找右拐点
-int Right_Point_Row = 0;//右拐点行
-int Right_Point_Col = 0;//右拐点列
-int Right_Point_Flag = 0;//是否找到右拐点标志位
-//extern int rightline[60];//左右边界
+
 void Find_Right_Point()
 {
     int i;
@@ -632,12 +666,6 @@ void Find_Right_Point()
 
 }
 
-int Sancha_Start_Row = 0;
-int Sancha_Start_Col = 0;
-int Sancha_Button_Row = 0;//三岔中间底部那个拐点的行数
-int Sancha_Button_Col = 0;
-int Sancha_Button_Flag = 0;
-
 
 void Find_Mid_Point()
 {
@@ -658,9 +686,8 @@ void Find_Mid_Point()
     }
 
 }
-int Sancha_Find_Flag = 0;
 
-void Find_Sancha()
+void Find_Sancha()//第一阶段远处判断三岔
 {
     int CheckRow=15;//从15行开始检索
     for(int i=CheckRow;i>0;i--)
@@ -668,6 +695,7 @@ void Find_Sancha()
         if((line_elements[i].right-line_elements[i+1].right>=2)&&(line_elements[i+1].right-line_elements[i+2].right>=4)
                 &&(line_elements[i].left-line_elements[i+1].left>=2)&&(line_elements[i+1].left-line_elements[i+2].left>=4))
         {
+            FirstStage = 1;
             Sancha_Find_Flag=1;
             break;
         }
@@ -678,19 +706,14 @@ void Find_Sancha()
 函数名称：Sancha_in
 函数功能:三岔进入
 */
-int point_flag=0;
-int distance=0;
-int Sancha_Num = 0; //记载进入三岔次数，滤掉偶然情况
-
-int Sancha_In_Flag = 0;//进三岔标志
 
 
-void Sancha_in()//找到三岔再执行
-{
+void Sancha_in()//第二阶段 寻找三岔拐点   
     int i;
     //  San.Sancha_In_Flag=0;
     if(Sancha_Find_Flag==0)
         return;
+    SecondStage = 1;
     Find_Left_Point();
     Find_Right_Point();
     Find_Mid_Point();
@@ -701,18 +724,37 @@ void Sancha_in()//找到三岔再执行
     TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
     sprintf(tstr,"Mid: %d,%d,%d",Sancha_Button_Row,Sancha_Button_Col,Sancha_Button_Flag);
     TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
+
+    /*
     if(Sancha_Button_Row>14||Sancha_Button_Row<5)//开始补线
     {
+        ThirdStage = 1;
         dots2line(Sancha_Button_Col,Sancha_Button_Row,Left_Point_Col,Left_Point_Row,1);
         reset_element(0,Sancha_Button_Row);
         retrack_road_element(0,Sancha_Button_Row);
         Sancha_In_Flag=1;
     }
-
+    */
 
 }
 
-int Sancha_Out_Flag=0;
+void Sancha_Buxian()//第三阶段 根据三拆拐点距离车的距离进行补线
+{
+    if (Sancha_Button_Row > 14 || Sancha_Button_Row < 5)//开始补线
+    {
+        ThirdStage = 1;
+        dots2line(Sancha_Button_Col, Sancha_Button_Row, Left_Point_Col, Left_Point_Row, 1);
+        reset_element(0, Sancha_Button_Row);
+        retrack_road_element(0, Sancha_Button_Row);
+        Sancha_In_Flag = 1;
+    }
+}
+
+void Sancha_FindTurn()//第四阶段  同第二阶段第三阶段一样
+{
+
+}
+
 void Sancha_out()//在三岔时再执行
 {
     if(Sancha_In_Flag==0)
@@ -731,30 +773,72 @@ void Sancha_out()//在三岔时再执行
     TFTSPI_P8X16Str(1, 5, tstr, u16RED, u16GREEN);
     sprintf(tstr,"Mid: %d,%d,%d",Sancha_Button_Row,Sancha_Button_Col,Sancha_Button_Flag);
     TFTSPI_P8X16Str(1, 6, tstr, u16RED, u16GREEN);
-    if(Sancha_Button_Row>14||Sancha_Button_Row<5)//开始补线
+    if (Sancha_Button_Row > 14 || Sancha_Button_Row < 5)//开始补线
     {
-        dots2line(Sancha_Button_Col,Sancha_Button_Row,Left_Point_Col,Left_Point_Row,1);
-        Sancha_Out_Flag=1;
+        dots2line(Sancha_Button_Col, Sancha_Button_Row, Left_Point_Col, Left_Point_Row, 1);
+        reset_element(0, Sancha_Button_Row);
+        retrack_road_element(0, Sancha_Button_Row);
+        Sancha_In_Flag = 1;
+        FifthStage = 1;
     }
-    if(Sancha_Out_Flag)
-    {
-        Sancha_In_Flag=0;
-        Sancha_Find_Flag=0;
-        Sancha_Button_Flag = 0;
-        Right_Point_Flag=0;
-        Left_Point_Flag=0;
-    }
-
-
 }
 
+void Sancha_Clear()
+{
+    FirstStage = 0;//第一阶段 在远处发现左右拐点
+    SecondStage = 0;//第二阶段 近处发现左右拐点 
+    ThirdStage = 0;//第三阶段 车身距离三岔很近时补线
+    Thir_For_Stage = 0;//第三四阶段中间阶段  什么都不做随着中线在三岔行进
+    ForthStage = 0;//第四阶段  发现出口->前方有弯道  
+    FifthStage = 0;//第五阶段 寻找拐点并补线
+    SixthStage = 0;//第六阶段 已经出三岔 全部标志清0
+
+    Sancha_Out_Flag = 0;
+    Sancha_In_Flag = 0;//进三岔标志
+    Sancha_Button_Flag = 0;
+    Right_Point_Flag = 0;//是否找到右拐点标志位
+    Left_Point_Flag = 0;//是否找到左拐点标志位
+    Sancha_Find_Flag = 0;
+
+}
 
 /*三岔主体*/
 void Sancha()
 {
     Find_Sancha();
+    if (FirstStage)//执行第二阶段  找拐点
+    {
+        Sancha_in();
+       // FirstStage = 0;
+    }
+    if (SecondStage)//执行第三阶段 补线
+    {
+        Sancha_Buxian();
+      //  SecondStage = 0;
+    }
+    if (ThirdStage)// 执行第四阶段 
+    {
+        //随着线走
+        FirstStage = 0;//关掉前面俩个阶段防止误判
+        SecondStage = 0;
+        ForthStage = 1;
+    }
+    if (ForthStage)//执行第五阶段  找出口点  直接补线
+    {
+        Sancha_out();
+        
+    }
+/*
+    if (FifthStage)//执行第六阶段 标志位清0  三岔数+1
+    {
+        Sancha_Clear();
+    }
+   */
+    /*
+    Find_Sancha();
     Sancha_in();
     Sancha_out();
+    */
 }
 
 /*
